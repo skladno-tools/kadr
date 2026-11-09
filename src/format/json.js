@@ -3,7 +3,8 @@
 //
 // It returns the same value as JSON.parse, plus the line and column of every
 // value (and of the key of every object member), so diagnostics can point at
-// the exact place in the file. It also refuses duplicate keys, which
+// the exact place in the file. The one difference in what it accepts: a byte
+// order mark at the start is skipped, where JSON.parse fails. It also refuses duplicate keys, which
 // JSON.parse accepts silently, keeping the last one.
 //
 // Uses no Node and no DOM APIs: the CLI and the browser editor share it.

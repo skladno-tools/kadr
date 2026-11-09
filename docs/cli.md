@@ -70,7 +70,7 @@ $ kadr check talk.kadr.json
 talk.kadr.json
   14:9   error    slide 2, slot "image": alt is empty                        alt-empty
                   Describe what the image shows; it is never drawn on the slide.
-  31:17  error    slide 4, element "logo": unknown field "aling"             unknown-field
+  31:17  error    slide 4, element "tagline": unknown field "aling"          unknown-field
                   Did you mean "align"?
   40:5   warning  slide 5, element "note": text is 18 px, hard to read       text-too-small
                   Use at least 24 px on a 1080 px tall canvas, or the role "caption".
@@ -100,20 +100,20 @@ talk.kadr.json
           "message": "unknown field \"aling\"",
           "hint": "Did you mean \"align\"?",
           "path": "/slides/3/elements/0/aling",
-          "where": "slide 4, element \"logo\"",
+          "where": "slide 4, element \"tagline\"",
           "line": 31,
           "column": 17
         }
       ]
     }
   ],
-  "errors": 2,
-  "warnings": 1
+  "errors": 1,
+  "warnings": 0
 }
 ```
 
 - `output` is the version of this JSON shape. New fields may appear in the same version; renaming or removing one is a new version.
-- `path` is a JSON Pointer into the deck (counted from 0, as JSON is). `line` and `column` are counted from 1.
+- `path` is a JSON Pointer into the deck (counted from 0, as JSON is). `line` and `column` are counted from 1. A column counts characters as a person sees them (Unicode code points): a Cyrillic letter, an emoji or a tab is one column. Editors that count UTF-16 units differ only after an emoji or another rare character on the same line.
 - With `--json`, standard output carries exactly one JSON document and nothing else. `build`, `pdf`, `new` and `upgrade` add the path of the file they wrote.
 
 ### Exit codes

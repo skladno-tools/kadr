@@ -38,7 +38,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 - **Organization `skladno-tools`.** It holds Kadr and Chistovik, a separate project that formats documents to a strict standard.
 - **Kadr and Chistovik share no code.** Kadr is about expressive freedom; Chistovik is about strict compliance. A shared core would pull both in opposite directions. If real duplication appears later, it can be moved into a shared library then.
-- **One browser origin for both sites.** On GitHub Pages, `skladno-tools.github.io/kadr` and `skladno-tools.github.io/chistovik` share an origin and can read each other's storage (the same issue found in the Pips security audit). Every storage key Kadr uses starts with `kadr:`, and its service worker's scope is `/kadr/`. If either project ever holds private data, give the projects their own subdomains on a custom domain.
+- **One browser origin for both sites.** On GitHub Pages, `skladno-tools.github.io/kadr` and `skladno-tools.github.io/chistovik` share an origin and can read each other's storage: a browser keeps storage per origin, and every project of one GitHub account or organization is served from the same origin. Every storage key Kadr uses starts with `kadr:`, and its service worker's scope is `/kadr/`. If either project ever holds private data, give the projects their own subdomains on a custom domain.
 - **Branches.** `unstable` for day-to-day work; `main` is published. Changes reach `main` only through a pull request from `unstable` that the owner merges.
 - **English** for code and documentation, so people and AI tools everywhere can use it.
 - **Plain ASCII.** Command output, test output, messages and documentation use plain ASCII: words like `error` and `warning`, marks like `[+]` and `[-]` where a mark is needed, `1920x1080` and `...` rather than typographic signs. No emoji or pictographs. Content that is about other scripts, such as Cyrillic sample text, and legal notices copied word for word from upstream, such as a font's copyright line with the copyright sign, are the exceptions.
@@ -48,7 +48,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **Implement `check`** as designed in `docs/cli.md`: reading JSON with positions, the schema, and the checks beyond the schema in `docs/format.md` section 15.
+1. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
 2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
 3. **Layout geometry:** where each layout puts its slots on the canvas.
 4. **The player:** rendering, steps, transitions, morphing and presenter view.
