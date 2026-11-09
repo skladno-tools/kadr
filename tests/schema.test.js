@@ -42,6 +42,7 @@ const kinds = {
   required: 'missing',
   additionalProperties: 'unknown',
   unevaluatedProperties: 'unknown',
+  'false schema': 'unknown',
   dependentRequired: 'dependent',
   type: 'type',
   enum: 'value',

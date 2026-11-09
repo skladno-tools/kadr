@@ -1,0 +1,53 @@
+{
+  "description": "only a rectangle has corners, so an ellipse or a line takes no radius",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "ellipse",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": 10
+          },
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 0,
+            "radius": 4
+          },
+          {
+            "type": "shape",
+            "shape": "circle",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": 4
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/radius",
+      "kind": "unknown"
+    },
+    {
+      "at": "/slides/0/elements/1/radius",
+      "kind": "unknown"
+    },
+    {
+      "at": "/slides/0/elements/2/shape",
+      "kind": "value"
+    }
+  ]
+}

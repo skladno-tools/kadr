@@ -25,7 +25,7 @@ Draft. Machine-readable schema: [`schema/0.1/kadr.schema.json`](../schema/0.1/ka
 
 ## 3. Version
 
-The `"kadr": "0.1"` field is required.
+The `"kadr": "0.1"` field is required. It is a string of two numbers joined by a dot; the number `0.1` is not a version.
 
 - While the version starts with `0.`, the format may change. Every change ships with a function that upgrades older files, so old presentations keep working.
 - After `1.0`, a change in the second number only adds features; a change in the first may change existing behavior and always ships with an upgrade.
@@ -179,7 +179,7 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 | `shape` | `rect`, `ellipse`, `line`. Required. A line runs from (`x`, `y`) to (`x + w`, `y + h`), so its `w` and `h` may be zero or negative: `h: 0` is a horizontal line, `w: 0` a vertical one. |
 | `fill`, `stroke` | Fill and stroke colors. |
 | `strokeWidth` | Stroke width. |
-| `radius` | Corner radius of a rectangle. |
+| `radius` | Corner radius. Only a rectangle takes it: an ellipse or a line has no corners. |
 
 ### `code`
 
@@ -264,8 +264,8 @@ Display and handwriting families are meant for headings and large numbers, not b
 
 The schema catches typos and invalid values. The CLI `check` command also reports:
 
-- **errors:** duplicate `id`s on a slide (slot names included); a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
-- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address.
+- **errors:** duplicate `id`s on a slide (slot names included); two slides with the same `id`; a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
+- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.
 
 ## 16. Not in 0.1
 

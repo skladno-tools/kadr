@@ -1395,9 +1395,31 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "enum": [
+                  "ellipse",
+                  "line"
+                ]
+              }
+            },
+            "required": [
+              "shape"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "radius": false
+            }
+          }
         }
       ],
-      "description": "A rectangle, ellipse or line. A rectangle or ellipse needs positive w and h. A line runs from (x, y) to (x + w, y + h), so its w and h may be zero or negative. When \"shape\" itself is wrong, only \"shape\" is reported."
+      "description": "A rectangle, ellipse or line. A rectangle or ellipse needs positive w and h. A line runs from (x, y) to (x + w, y + h), so its w and h may be zero or negative. Only a rectangle has corners, so only it takes \"radius\". When \"shape\" itself is wrong, only \"shape\" is reported."
     },
     "codeElement": {
       "type": "object",

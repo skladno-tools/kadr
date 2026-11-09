@@ -33,6 +33,8 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 - **The layout check is opt-in** (`check --layout`). It needs a browser, and a check that turned itself on whenever a browser was found would give different results on different machines.
 - **`kadr docs` prints the format description**, so an AI tool with only the CLI can learn the format in prose as well as from the schema.
 - **A live preview (`kadr present`) waits for the player.** The name is reserved.
+- **A wrong version gets one diagnostic.** Missing, malformed, unknown or newer: the schema is not run, because which schema applies is unknown, and dozens of follow-on errors would hide the one that matters.
+- **Files are replaced only when that is clearly wanted.** `upgrade` prints its result unless given `--write`. `build` and `pdf` replace a file only if Kadr made it, which they can tell from a mark in the file; anything else needs `--force`.
 
 ## Repository
 
