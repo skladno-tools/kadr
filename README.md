@@ -44,7 +44,8 @@ Needs Node 24 or newer.
 
 ```
 npm install
-npm test
+npm test           # tests
+npm run typecheck  # types, checked by TypeScript
 ```
 
 ## Branches

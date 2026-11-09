@@ -1,3 +1,4 @@
+// @ts-check
 // Builds the bundled font library in /fonts from the pinned Fontsource
 // packages listed in ./package.json.
 //
@@ -45,6 +46,7 @@ const library = [
   ['roboto-mono', 'mono'], ['ibm-plex-mono', 'mono'],
 ];
 
+/** @param {string} id */
 const pkgDir = (id) => {
   for (const scope of ['@fontsource-variable', '@fontsource']) {
     const dir = join(modules, scope, id);
@@ -54,14 +56,18 @@ const pkgDir = (id) => {
 };
 
 // Pulls the @font-face blocks out of a Fontsource stylesheet.
+/** @param {string} cssPath */
 const faces = (cssPath) => {
   const css = readFileSync(cssPath, 'utf8');
   return [...css.matchAll(/@font-face\s*{([^}]*)}/g)].map(([, body]) => {
+    /** @param {string} k */
     const get = (k) => body.match(new RegExp(`${k}:\\s*([^;]+);`))?.[1].trim();
+    const file = get('src')?.match(/url\(\.\/files\/([^)]+)\)/)?.[1];
+    if (!file) throw new Error(`${cssPath}: a @font-face without a file`);
     return {
       style: get('font-style'),
       weight: get('font-weight'),
-      file: get('src').match(/url\(\.\/files\/([^)]+)\)/)[1],
+      file,
       range: get('unicode-range'),
     };
   });
@@ -81,9 +87,10 @@ for (const [id, category] of library) {
   if (!meta.subsets.includes('cyrillic')) throw new Error(`${id}: no Cyrillic`);
 
   const variable = scope === '@fontsource-variable';
+  /** @type {string[]} */
   const sheets = variable
     ? ['wght.css', 'wght-italic.css']
-    : meta.weights.flatMap((w) => [`${w}.css`, `${w}-italic.css`]);
+    : meta.weights.flatMap((/** @type {number} */ w) => [`${w}.css`, `${w}-italic.css`]);
 
   const list = sheets.filter((s) => existsSync(join(dir, s))).flatMap((s) => faces(join(dir, s)));
   mkdirSync(join(out, id), { recursive: true });

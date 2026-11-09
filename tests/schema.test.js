@@ -14,7 +14,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Ajv2020 from 'ajv/dist/2020.js';
+import { Ajv2020 } from 'ajv/dist/2020.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const schemaPath = join(root, 'schema', '0.1', 'kadr.schema.json');
