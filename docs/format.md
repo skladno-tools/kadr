@@ -15,7 +15,7 @@ Draft. Machine-readable schema: [`schema/0.1/kadr.schema.json`](../schema/0.1/ka
 - Extension: `.kadr.json`. Encoding: UTF-8.
 - A `"$schema"` field is allowed, so editors can suggest fields and flag errors. The published schema for this version lives at `https://skladno-tools.github.io/kadr/schema/0.1/kadr.schema.json`; each version keeps its own address, so older files stay valid against their own schema.
 - An image (`src`) is one of three things:
-  - a path relative to the presentation file that stays inside its folder: `photo.jpg`, `assets/photo.jpg`. No `..`, no absolute path (`/...`, `C:\...`), no backslashes, no `?` or `#`;
+  - a path relative to the presentation file that stays inside its folder: `photo.jpg`, `assets/my photo.jpg`. It is the file's name written as it is, not a URL: no `%` escapes, so a space is a space. No `..`, no absolute path (`/...`, `C:\...`), no backslashes, no `?`, `#` or `%`, no spaces at either end and no control characters;
   - an `https://` address;
   - a `data:image/` URI of one of the formats below, such as `data:image/png;base64,...`.
 
@@ -194,7 +194,7 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 A small subset of Markdown. It follows the rules of CommonMark, so markup works only where it is obvious, and a character that does not form markup stays an ordinary character.
 
 - **Paragraphs.** A blank line separates paragraphs; a single newline is a line break within a paragraph.
-- **Emphasis.** `**bold**` and `*italic*`. An opening `*` must be followed by a character that is not a space, and a closing one preceded by such a character. Any other `*` is just an asterisk: `5 * 3`, `price*`. Bold and italic can contain each other, code and links.
+- **Emphasis.** `**bold**` and `*italic*`. An opening `*` must be followed by a character that is not a space, and a closing one preceded by such a character. Any other `*` is just an asterisk: `5 * 3`, `price*`. Bold and italic can contain each other, code and links. Bold text has weight 700, or 900 in text that is already 700 or heavier; a family without that weight shows the nearest one it has (section 14).
 - **Code.** `` `code` ``. Everything between the backticks is shown as it is, with no markup and no escapes. A backtick without a closing one is just a backtick. Text cannot show a backtick inside code; use a `code` element for that.
 - **Links.** `[text](https://...)`, with an `https://` or `http://` address. A `[` that does not start this exact form is just a bracket.
 - **Lists.** Lines starting with `- ` or a number and a dot (`1. `). Nest with two spaces per level.

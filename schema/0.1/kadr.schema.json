@@ -94,8 +94,8 @@
     },
     "src": {
       "type": "string",
-      "pattern": "^(?:https://[^\\s/?#]\\S*|data:image/(?:png|jpeg|webp|avif|gif|svg\\+xml)(?:;[A-Za-z0-9=+.-]+)*,.*|(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\\])(?!(?:[^/]*/)*\\.\\.(?:/|$))[^\\\\?#\\u0000-\\u001f]+)$",
-      "description": "An image: a path relative to the deck file that stays inside its folder (no \"..\", no absolute path, no backslash, no \"?\" or \"#\"), an https:// address, or a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG."
+      "pattern": "^(?:https://[^\\s/?#@:\\\\\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069][^\\s\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069]*|data:image/(?:png|jpeg|webp|avif|gif|svg\\+xml)(?:;[A-Za-z0-9=+.-]+)*,.*|(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\\\\s])(?!(?:[^/]*/)*\\.\\.(?:/|$))[^\\\\?#%\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069]+(?<!\\s))$",
+      "description": "An image: a path relative to the deck file that stays inside its folder, written literally (no \"..\", no absolute path, no backslash, no \"?\", \"#\" or \"%\", no spaces at either end), an https:// address, or a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG."
     },
     "colorToken": {
       "enum": [
@@ -1330,10 +1330,7 @@
           "minimum": 0,
           "maximum": 200
         },
-        "radius": {
-          "type": "number",
-          "minimum": 0
-        }
+        "radius": true
       },
       "patternProperties": {
         "^x-": true
@@ -1415,6 +1412,28 @@
             "type": "object",
             "properties": {
               "radius": false
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "const": "rect"
+              }
+            },
+            "required": [
+              "shape"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "radius": {
+                "type": "number",
+                "minimum": 0
+              }
             }
           }
         }

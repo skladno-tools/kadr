@@ -125,6 +125,87 @@
             "h": 100,
             "src": "",
             "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": " /etc/passwd",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": " http://evil.com/x.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "a.png ",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "%2e%2e/secret.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "a%20b.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "https://@/x",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "https://a.com/\u0000x",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "a\u202ex.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "src": "a\u0085.png",
+            "alt": "An image"
           }
         ]
       },
@@ -198,6 +279,42 @@
     },
     {
       "at": "/slides/1/slots/image/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/13/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/14/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/15/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/16/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/17/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/18/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/19/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/20/src",
+      "kind": "pattern"
+    },
+    {
+      "at": "/slides/0/elements/21/src",
       "kind": "pattern"
     }
   ]

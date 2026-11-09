@@ -23,7 +23,7 @@ kadr docs
 kadr fonts
 ```
 
-Global options: `--json`, `--no-color`, `--help`, `--version`. `-` as a file name reads the deck from standard input; relative image paths are then taken from the current directory.
+Global options: `--json`, `--no-color`, `--help`, `--version`. `-` as a file name reads the deck from standard input. Such a deck has no folder of its own, so it may use only `https://` and `data:` images, unless `--base <folder>` names the folder its paths are relative to.
 
 ### `kadr new`
 
@@ -38,6 +38,8 @@ Validates against the schema of the file's version, then runs the checks beyond 
 ### `kadr build`
 
 Makes one self-contained HTML file that presents the deck in any modern browser, offline: the player, the deck, its images and only the font files it uses (the families it names, split by the scripts its text actually contains). Runs `check` first and writes nothing if there are errors. Default output: next to the deck, `talk.kadr.json` -> `talk.html`. The file carries a `generator` meta tag, so the next build may replace it; a file without the mark is replaced only with `--force`.
+
+Image paths are resolved to their real location, following links in the file system; a path that ends up outside the deck's folder is an `image-address` error. The schema already keeps the written path inside the folder; this keeps a link inside it from pointing elsewhere on the disk.
 
 Remote `https://` images are left as links, with a `remote-image` warning: the built file then needs the network for them. Build never downloads anything.
 
@@ -59,7 +61,7 @@ Prints the description of the newest format version (`docs/format.md`), so an AI
 
 ### `kadr fonts`
 
-Lists the bundled families with their category, weight range and italics, from `fonts/catalog.json`. The schema says which names are allowed; this says which are meant for headings, body text or code.
+Lists the bundled families with their category, the weights they have and whether they have italics, from `fonts/catalog.json`. The schema says which names are allowed; this says which are meant for headings, body text or code.
 
 ## 3. Reading the output
 
@@ -146,7 +148,7 @@ With any of the four version codes, the schema is not run: which schema would ap
 
 | Code | When |
 |---|---|
-| `unknown-field` | A field the format does not have. Suggests the closest known name. |
+| `unknown-field` | A field the format does not have, or one this kind of element does not take (`radius` on an ellipse). Suggests the closest known name, or says where the field belongs. |
 | `missing-field` | A required field is absent. |
 | `wrong-type` | A string where a number is expected, and so on. |
 | `bad-value` | A value outside the allowed set or range. Lists or suggests the allowed values. |
@@ -175,7 +177,7 @@ With any of the four version codes, the schema is not run: which schema would ap
 | `text-too-small` | warning | Text below 24 px for a 1080 px tall canvas (scaled for other sizes). |
 | `display-font-body-text` | warning | A display or handwriting family on long body text. |
 | `font-no-italic` | warning | Italic text (`*...*`) in a family without italics: it is shown upright. The hint names families of the same kind that have italics. |
-| `font-weight-missing` | warning | A `weight` the family does not have: the nearest weight it has is used. The hint lists its weights. |
+| `font-weight-missing` | warning | A weight the family does not have, from `weight` or from `**bold**`: the nearest weight it has is used. The hint lists its weights. |
 | `remote-image` | warning | An `https://` image: the built deck will need the network. |
 | `text-overflow` | warning | Text taller than its box. Only with `--layout`. |
 | `valign-without-height` | warning | `valign` on text without `h`: a box that fits its content has nothing to align in. |
