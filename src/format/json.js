@@ -56,11 +56,20 @@ class SyntaxProblem extends Error {
 /** @param {string} segment */
 const escapePointer = (segment) => segment.replace(/~/g, '~0').replace(/\//g, '~1');
 
-/** @param {string} ch */
-const describe = (ch) => {
-  if (ch === '') return 'the end of the file';
-  const code = ch.codePointAt(0) ?? 0;
-  if (code < 0x20 || code === 0x7f) return `the control character U+${code.toString(16).toUpperCase().padStart(4, '0')}`;
+/**
+ * Names the character at an offset for a message. Characters that cannot be
+ * seen, or that look like something else, are named by their code.
+ * @param {string} text @param {number} offset
+ */
+const describe = (text, offset) => {
+  if (offset >= text.length) return 'the end of the file';
+  const cp = /** @type {number} */ (text.codePointAt(offset));
+  const code = `U+${cp.toString(16).toUpperCase().padStart(4, '0')}`;
+  if (cp >= 0xd800 && cp <= 0xdfff) return `an unpaired surrogate ${code}`;
+  if (cp < 0x20 || (cp >= 0x7f && cp <= 0x9f)) return `the control character ${code}`;
+  const ch = String.fromCodePoint(cp);
+  if (/\p{Zs}/u.test(ch)) return `the space character ${code}, which JSON does not count as a space`;
+  if (/[\p{Z}\p{Cf}]/u.test(ch)) return `the invisible character ${code}`;
   return `"${ch}"`;
 };
 
@@ -162,7 +171,7 @@ export function parseJson(text) {
       throw new SyntaxProblem(pos, `unexpected word "${w}"`, 'Text values go in double quotes.');
     }
     if (ch === '') throw new SyntaxProblem(pos, 'the file ends where a value is expected');
-    throw new SyntaxProblem(pos, `expected a value, found ${describe(ch)}`);
+    throw new SyntaxProblem(pos, `expected a value, found ${describe(text, pos)}`);
   };
 
   /** @param {string} path @param {number} depth */
@@ -183,7 +192,7 @@ export function parseJson(text) {
         if (ch === "'") throw new SyntaxProblem(pos, 'keys use double quotes in JSON', 'Replace the single quotes with double quotes.');
         if (/[A-Za-z_$]/.test(ch)) throw new SyntaxProblem(pos, 'a key must be in double quotes', 'Put the key in double quotes.');
         if (ch === '') throw new SyntaxProblem(pos, 'the file ends inside an object', 'Close the object with "}".');
-        throw new SyntaxProblem(pos, `expected a key in double quotes, found ${describe(ch)}`);
+        throw new SyntaxProblem(pos, `expected a key in double quotes, found ${describe(text, pos)}`);
       }
       const keyPlace = locate(keyAt);
       const key = parseString();
@@ -204,7 +213,7 @@ export function parseJson(text) {
       skipSpace();
       if (peek() !== ':') {
         if (peek() === '') throw new SyntaxProblem(pos, 'the file ends inside an object', 'Close the object with "}".');
-        throw new SyntaxProblem(pos, `expected ":" after the key, found ${describe(peek())}`);
+        throw new SyntaxProblem(pos, `expected ":" after the key, found ${describe(text, pos)}`);
       }
       pos++; // :
       skipSpace();
@@ -225,7 +234,7 @@ export function parseJson(text) {
       if (next === '}') { pos++; return obj; }
       if (next === '"') throw new SyntaxProblem(pos, 'a comma is missing between members', 'Add a comma after the previous value.');
       if (next === '') throw new SyntaxProblem(pos, 'the file ends inside an object', 'Close the object with "}".');
-      throw new SyntaxProblem(pos, `expected "," or "}", found ${describe(next)}`);
+      throw new SyntaxProblem(pos, `expected "," or "}", found ${describe(text, pos)}`);
     }
   };
 
@@ -252,10 +261,12 @@ export function parseJson(text) {
       }
       if (next === ']') { pos++; return arr; }
       if (next === '') throw new SyntaxProblem(pos, 'the file ends inside a list', 'Close the list with "]".');
-      if (next === '"' || next === '{' || next === '[' || next === '-' || (next >= '0' && next <= '9')) {
+      const startsValue = next === '"' || next === '{' || next === '[' || next === '-' || (next >= '0' && next <= '9')
+        || text.startsWith('true', pos) || text.startsWith('false', pos) || text.startsWith('null', pos);
+      if (startsValue) {
         throw new SyntaxProblem(pos, 'a comma is missing between items', 'Add a comma after the previous item.');
       }
-      throw new SyntaxProblem(pos, `expected "," or "]", found ${describe(next)}`);
+      throw new SyntaxProblem(pos, `expected "," or "]", found ${describe(text, pos)}`);
     }
   };
 
@@ -269,7 +280,7 @@ export function parseJson(text) {
       if (Number.isNaN(c)) throw new SyntaxProblem(openAt, 'the string is not closed', 'Add the closing double quote.');
       if (c === 0x22) { out += text.slice(chunk, pos); pos++; return out; }
       if (c === 0x0a || c === 0x0d) throw new SyntaxProblem(pos, 'a string cannot span lines', 'Write \\n for a line break inside a string.');
-      if (c < 0x20) throw new SyntaxProblem(pos, `${describe(text[pos])} is not allowed inside a string`, 'Write it as an escape, such as \\t for a tab.');
+      if (c < 0x20) throw new SyntaxProblem(pos, `${describe(text, pos)} is not allowed inside a string`, 'Write it as an escape, such as \\t for a tab.');
       if (c !== 0x5c) { pos++; continue; }
       out += text.slice(chunk, pos);
       const e = text[pos + 1] ?? '';
@@ -325,6 +336,21 @@ export function parseJson(text) {
       column: at.column,
     });
     return { ok: false, value: undefined, places, diagnostics };
+  }
+  // After a duplicate key, the places of the first occurrence's members are
+  // stale: keep only places of values that are in the result.
+  if (diagnostics.some((d) => d.code === 'json-duplicate-key')) {
+    /** @type {Set<string>} */
+    const live = new Set();
+    /** @param {unknown} v @param {string} path */
+    const walk = (v, path) => {
+      live.add(path);
+      if (v && typeof v === 'object') {
+        for (const [k, child] of Object.entries(v)) walk(child, `${path}/${Array.isArray(v) ? k : escapePointer(k)}`);
+      }
+    };
+    walk(value, '');
+    for (const path of [...places.keys()]) if (!live.has(path)) places.delete(path);
   }
   return { ok: diagnostics.length === 0, value, places, diagnostics };
 }

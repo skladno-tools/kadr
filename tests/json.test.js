@@ -56,7 +56,7 @@ const random = (/** @type {number} */ seed) => () => {
 const generator = (rnd) => {
   /** @template T @param {T[]} list @returns {T} */
   const pick = (list) => list[Math.floor(rnd() * list.length)];
-  const chars = ['a', 'Z', '0', ' ', '"', '\\', '/', '\n', '\t', '\u0001', 'ж', 'Ё', 'é', ' ', '😀', '\ud800', '~', '_'];
+  const chars = ['a', 'Z', '0', ' ', '"', '\\', '/', '\n', '\t', '\u0001', 'ж', 'Ё', '\u00E9', '\u2028', '\u{1F600}', '\ud800', '~', '_'];
   const string = () => Array.from({ length: Math.floor(rnd() * 6) }, () => pick(chars)).join('');
   const numbers = [0, -0, 1, -1, 42, 3.14, -2.5e-7, 1e21, 123456789012, 0.1, Number.MAX_SAFE_INTEGER];
   /** @param {number} depth @returns {unknown} */
@@ -118,7 +118,7 @@ test('generated valid texts read exactly as JSON.parse reads them', () => {
 test('generated broken texts are rejected exactly when JSON.parse rejects them', () => {
   const rnd = random(2);
   const { value, write, pick } = generator(rnd);
-  const noise = ['{', '}', '[', ']', ',', ':', '"', '\\', '/', '*', ' ', '\n', '0', '1', '-', '+', '.', 'e', 'E', 'a', 't', 'n', 'u', "'", 'x', '\u0000', '﻿'];
+  const noise = ['{', '}', '[', ']', ',', ':', '"', '\\', '/', '*', ' ', '\n', '0', '1', '-', '+', '.', 'e', 'E', 'a', 't', 'n', 'u', "'", 'x', '\u0000', '\uFEFF'];
   for (let i = 0; i < 20000; i++) {
     let text = write(value(0));
     for (let edits = 1 + Math.floor(rnd() * 3); edits > 0; edits--) {
@@ -156,9 +156,9 @@ test('lines and columns: any line break, tabs, Cyrillic, emoji, byte order mark'
   assert.deepEqual(at('{\r"a":\r1}', '/a'), { line: 3, column: 1 });
   assert.deepEqual(at('{\n\t"a":\t1}', '/a'), { line: 2, column: 7 });
   assert.deepEqual(at('{"ключ": 1, "b": 2}', '/b'), { line: 1, column: 18 });
-  assert.deepEqual(at('{"😀": 1, "b": 2}', '/b'), { line: 1, column: 15 });
-  assert.deepEqual(at('﻿{"a": 1}', '/a'), { line: 1, column: 7 });
-  assert.deepEqual(parseJson('﻿{"a": 1}').value, { a: 1 });
+  assert.deepEqual(at('{"\u{1F600}": 1, "b": 2}', '/b'), { line: 1, column: 15 });
+  assert.deepEqual(at('\uFEFF{"a": 1}', '/a'), { line: 1, column: 7 });
+  assert.deepEqual(parseJson('\uFEFF{"a": 1}').value, { a: 1 });
 });
 
 test('duplicate keys are all reported, at the second key, and reading goes on', () => {
@@ -175,6 +175,13 @@ test('duplicate keys are all reported, at the second key, and reading goes on', 
       hint: 'It first appears on line 1. Keep one of them.', path: '/a', line: 3, column: 2,
     },
   ]);
+});
+
+test('after a duplicate key, only places of values in the result are kept', () => {
+  const { value, places } = parseJson('{"a": {"b": 2, "c": [1]}, "a": 1, "d": {"e": 1}, "d": {"e": 2}}');
+  assert.deepEqual(value, { a: 1, d: { e: 2 } });
+  assert.deepEqual([...places.keys()].sort(), ['', '/a', '/d', '/d/e']);
+  assert.deepEqual(places.get('/d/e'), { key: { line: 1, column: 56 }, value: { line: 1, column: 61 } });
 });
 
 test('"__proto__" is an ordinary member and cannot change the object', () => {
@@ -255,6 +262,12 @@ const syntax = [
   ['{"a": 1}}', 'unexpected text after the end of the JSON value', 'A file holds one JSON value. Remove what follows it.', 1, 9],
   ['{"a": 1} {"b": 2}', 'unexpected text after the end of the JSON value', 'A file holds one JSON value. Remove what follows it.', 1, 10],
   ['{,}', 'expected a key in double quotes, found ","', undefined, 1, 2],
+  ['[1 true]', 'a comma is missing between items', 'Add a comma after the previous item.', 1, 4],
+  ['[1 null]', 'a comma is missing between items', 'Add a comma after the previous item.', 1, 4],
+  ['[1 \u{1F600}]', 'expected "," or "]", found "\u{1F600}"', undefined, 1, 4],
+  ['[\u00A01]', 'expected a value, found the space character U+00A0, which JSON does not count as a space', undefined, 1, 2],
+  ['{"a":\u200B1}', 'expected a value, found the invisible character U+200B', undefined, 1, 6],
+  ['[\uDC00]', 'expected a value, found an unpaired surrogate U+DC00', undefined, 1, 2],
   ['{"a": \u0001}', 'expected a value, found the control character U+0001', undefined, 1, 7],
 ];
 
