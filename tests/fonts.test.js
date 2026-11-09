@@ -56,3 +56,21 @@ test('every font file carries a copyright notice of its own', () => {
     }
   }
 });
+
+test('a malformed WOFF2 file is refused, never read past its end', () => {
+  const good = readFileSync(join(fonts, 'inter', 'inter-latin-wght-normal.woff2'));
+  assert.match(String(nameOf(good, 0)), /Inter Project Authors/);
+  /** @type {[string, Buffer][]} */
+  const broken = [
+    ['cut inside the header', good.subarray(0, 20)],
+    ['cut inside the table directory', good.subarray(0, 52)],
+    ['cut inside the compressed data', good.subarray(0, good.length - 100)],
+    ['no tables', Buffer.concat([good.subarray(0, 12), Buffer.from([0, 0]), good.subarray(14)])],
+    ['one table more than there is', (() => { const b = Buffer.from(good); b.writeUInt16BE(b.readUInt16BE(12) + 1, 12); return b; })()],
+    ['compressed length past the end', (() => { const b = Buffer.from(good); b.writeUInt32BE(b.length * 2, 20); return b; })()],
+    ['not WOFF2 at all', Buffer.from('wOFF and then some bytes that are not a WOFF2 font at all, padded out')],
+  ];
+  for (const [name, bytes] of broken) {
+    assert.throws(() => nameOf(bytes, 0), { message: /^(malformed WOFF2 file|not a WOFF2 file)/ }, name);
+  }
+});

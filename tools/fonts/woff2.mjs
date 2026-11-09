@@ -6,7 +6,9 @@
 // the authoritative one for that file.
 //
 // Format: https://www.w3.org/TR/WOFF2/. Only what is needed to reach the
-// "name" table is read; the name table is never transformed in WOFF2.
+// "name" table is read; the name table is never transformed in WOFF2. A file
+// that is malformed in any way that matters here is refused with an error,
+// never read past its end.
 
 import { brotliDecompressSync } from 'node:zlib';
 
@@ -19,6 +21,14 @@ const knownTags = [
   'trak', 'Zapf', 'Silf', 'Glat', 'Gloc', 'Feat', 'Sill',
 ];
 
+/** Fonts in the library are a few hundred KB at most; refuse anything absurd. */
+const MAX_FONT_SIZE = 64 * 1024 * 1024;
+
+/** @param {boolean} ok @param {string} what */
+const need = (ok, what) => {
+  if (!ok) throw new Error(`malformed WOFF2 file: ${what}`);
+};
+
 /**
  * The strings of one name ID, Windows English first, then any Windows, then Mac.
  * @param {Buffer} font  a WOFF2 file
@@ -26,30 +36,46 @@ const knownTags = [
  * @returns {string | undefined}
  */
 export function nameOf(font, nameId) {
+  need(font.length >= 48, 'shorter than its header');
   if (font.toString('latin1', 0, 4) !== 'wOF2') throw new Error('not a WOFF2 file');
   if (font.toString('latin1', 4, 8) === 'ttcf') throw new Error('font collections are not supported');
   const numTables = font.readUInt16BE(12);
+  const sfntSize = font.readUInt32BE(16);
   const compressedLength = font.readUInt32BE(20);
+  need(numTables > 0, 'no tables');
+  need(sfntSize <= MAX_FONT_SIZE, 'too large');
   let pos = 48;
 
+  const byte = () => {
+    need(pos < font.length, 'the table directory runs past the end');
+    return font[pos++];
+  };
   const base128 = () => {
     let value = 0;
     for (let i = 0; i < 5; i++) {
-      const byte = font[pos++];
-      if (i === 0 && byte === 0x80) throw new Error('bad UIntBase128');
-      value = value * 128 + (byte & 0x7f);
-      if (!(byte & 0x80)) return value;
+      const b = byte();
+      need(!(i === 0 && b === 0x80), 'a number with a leading zero byte');
+      value = value * 128 + (b & 0x7f);
+      need(value < 2 ** 32, 'a number of 2^32 or more');
+      if (!(b & 0x80)) return value;
     }
-    throw new Error('bad UIntBase128');
+    throw new Error('malformed WOFF2 file: a number longer than five bytes');
   };
 
   /** @type {{ tag: string, length: number }[]} */
   const tables = [];
   for (let i = 0; i < numTables; i++) {
-    const flags = font[pos++];
+    const flags = byte();
     const index = flags & 0x3f;
     let tag;
-    if (index === 0x3f) { tag = font.toString('latin1', pos, pos + 4); pos += 4; } else tag = knownTags[index];
+    if (index === 0x3f) {
+      need(pos + 4 <= font.length, 'the table directory runs past the end');
+      tag = font.toString('latin1', pos, pos + 4);
+      pos += 4;
+    } else {
+      need(index < knownTags.length, `an unknown table index ${index}`);
+      tag = knownTags[index];
+    }
     const version = flags >> 6;
     const origLength = base128();
     // glyf and loca are transformed unless the version is 3; any other table
@@ -60,9 +86,11 @@ export function nameOf(font, nameId) {
     tables.push({ tag, length });
   }
 
-  const data = brotliDecompressSync(font.subarray(pos, pos + compressedLength));
+  need(pos + compressedLength <= font.length, 'the compressed data runs past the end');
+  const data = brotliDecompressSync(font.subarray(pos, pos + compressedLength), { maxOutputLength: MAX_FONT_SIZE });
   let offset = 0;
   for (const { tag, length } of tables) {
+    need(offset + length <= data.length, `the "${tag}" table runs past the end of the data`);
     if (tag === 'name') return readName(data.subarray(offset, offset + length), nameId);
     offset += length;
   }
@@ -71,8 +99,10 @@ export function nameOf(font, nameId) {
 
 /** @param {Buffer} name @param {number} nameId */
 function readName(name, nameId) {
+  need(name.length >= 6, 'the name table is shorter than its header');
   const count = name.readUInt16BE(2);
   const storage = name.readUInt16BE(4);
+  need(6 + count * 12 <= name.length, 'the name records run past the name table');
   /** @type {{ rank: number, text: string }[]} */
   const found = [];
   for (let i = 0; i < count; i++) {
@@ -82,8 +112,10 @@ function readName(name, nameId) {
     if (name.readUInt16BE(r + 6) !== nameId) continue;
     const length = name.readUInt16BE(r + 8);
     const start = storage + name.readUInt16BE(r + 10);
+    need(start + length <= name.length, 'a name runs past the name table');
     const bytes = name.subarray(start, start + length);
     if (platform === 3 || platform === 0) {
+      need(length % 2 === 0, 'a UTF-16 name of odd length');
       // UTF-16BE
       const swapped = Buffer.from(bytes);
       swapped.swap16();
