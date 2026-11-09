@@ -1,0 +1,11 @@
+{
+  "description": "no \"kadr\" field",
+  "deck": {
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    "/kadr"
+  ]
+}

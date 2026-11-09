@@ -1,0 +1,48 @@
+{
+  "kadr": "0.1",
+  "slides": [
+    {
+      "layout": "title",
+      "slots": { "title": "Title", "subtitle": { "content": "Subtitle", "color": "muted" } }
+    },
+    {
+      "layout": "section",
+      "slots": { "kicker": "Part 1", "title": { "content": "Section", "size": "display", "weight": 800 } }
+    },
+    {
+      "layout": "content",
+      "slots": {
+        "title": "Content",
+        "body": { "content": "- one\n- two\n  - nested\n1. numbered", "reveal": "items", "step": 1 }
+      }
+    },
+    {
+      "layout": "split",
+      "slots": {
+        "title": "Split",
+        "body": "Text next to an image.",
+        "image": { "src": "photo.jpg", "alt": "A photo", "fit": "contain", "radius": 24 }
+      }
+    },
+    {
+      "layout": "image",
+      "slots": {
+        "image": { "id": "hero", "src": "photo.jpg", "alt": "A photo", "focus": { "x": 0.5, "y": 0.2 } },
+        "caption": "A caption"
+      }
+    },
+    {
+      "layout": "quote",
+      "slots": { "quote": "Simplicity is a great virtue.", "author": { "content": "Someone", "align": "right" } }
+    },
+    {
+      "layout": "number",
+      "slots": { "value": { "content": "42", "x": 100, "y": 200, "w": 600 }, "label": "answers" }
+    },
+    {
+      "layout": "content",
+      "slots": { "title": "Slots and free elements together" },
+      "elements": [{ "type": "text", "x": 160, "y": 900, "w": 800, "content": "Above the slots" }]
+    }
+  ]
+}

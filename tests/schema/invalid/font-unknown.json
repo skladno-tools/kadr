@@ -1,0 +1,17 @@
+{
+  "description": "a family that is not in the bundled library",
+  "deck": {
+    "kadr": "0.1",
+    "theme": {
+      "fonts": {
+        "heading": "Comic Sans MS"
+      }
+    },
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    "/theme/fonts/heading"
+  ]
+}

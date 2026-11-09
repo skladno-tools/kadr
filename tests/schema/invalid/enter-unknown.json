@@ -1,0 +1,23 @@
+{
+  "description": "an entrance effect that does not exist",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "enter": "spin"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/enter"
+  ]
+}

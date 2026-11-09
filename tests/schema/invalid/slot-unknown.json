@@ -1,0 +1,17 @@
+{
+  "description": "a slot the layout does not have",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "title",
+        "slots": {
+          "body": "Text"
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/slots/body"
+  ]
+}

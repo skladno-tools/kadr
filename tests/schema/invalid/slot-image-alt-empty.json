@@ -1,0 +1,20 @@
+{
+  "description": "an image slot with an empty alt",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "image",
+        "slots": {
+          "image": {
+            "src": "a.jpg",
+            "alt": ""
+          }
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/slots/image/alt"
+  ]
+}

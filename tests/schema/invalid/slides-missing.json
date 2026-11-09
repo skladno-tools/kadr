@@ -1,0 +1,9 @@
+{
+  "description": "no \"slides\" field",
+  "deck": {
+    "kadr": "0.1"
+  },
+  "errors": [
+    "/slides"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "description": "a layout that does not exist",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "grid"
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/layout"
+  ]
+}

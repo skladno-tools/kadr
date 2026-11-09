@@ -1,0 +1,20 @@
+{
+  "description": "a slot already has a type, so \"type\" is not allowed",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "title",
+        "slots": {
+          "title": {
+            "type": "text",
+            "content": "Title"
+          }
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/slots/title/type"
+  ]
+}

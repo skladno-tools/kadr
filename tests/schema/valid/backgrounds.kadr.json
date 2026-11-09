@@ -1,0 +1,16 @@
+{
+  "kadr": "0.1",
+  "background": { "type": "live", "preset": "aurora", "colors": ["accent", "accent2"], "speed": 1.5 },
+  "slides": [
+    { "background": "#101820" },
+    { "background": "surface" },
+    { "background": { "type": "color", "color": "bg" } },
+    { "background": { "type": "gradient", "colors": ["#1b1440", "accent"] } },
+    { "background": { "type": "gradient", "colors": ["bg", "accent", "accent2", "#fff", "#000", "#123456"], "angle": 360, "kind": "radial" } },
+    { "background": { "type": "image", "src": "sea.jpg" } },
+    { "background": { "type": "image", "src": "https://example.com/sea.jpg", "dim": 0.4, "blur": 8, "focus": { "x": 0, "y": 1 } } },
+    { "background": { "type": "live", "preset": "mesh" } },
+    { "background": { "type": "live", "preset": "particles", "speed": 0 } },
+    { "background": { "type": "live", "preset": "waves", "colors": ["accent"], "speed": 4 } }
+  ]
+}

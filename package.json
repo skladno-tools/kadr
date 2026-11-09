@@ -1,0 +1,17 @@
+{
+  "name": "@skladno-tools/kadr",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Beautiful, engaging slide decks with as little effort as possible.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test --test-reporter=tap"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0"
+  }
+}

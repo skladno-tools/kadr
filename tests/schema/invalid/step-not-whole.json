@@ -1,0 +1,32 @@
+{
+  "description": "steps are whole numbers from 0",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "step": 1.5
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "step": -1
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/step",
+    "/slides/0/elements/1/step"
+  ]
+}

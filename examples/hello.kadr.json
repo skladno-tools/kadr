@@ -1,0 +1,63 @@
+{
+  "$schema": "../schema/0.1/kadr.schema.json",
+  "kadr": "0.1",
+  "meta": { "title": "Meet Kadr", "author": "The Kadr team", "lang": "en" },
+  "theme": { "extends": "aurora", "fonts": { "heading": "Unbounded", "body": "Onest" } },
+  "background": { "type": "live", "preset": "aurora" },
+  "defaults": { "transition": "morph", "duration": 700 },
+  "slides": [
+    {
+      "id": "cover",
+      "layout": "title",
+      "slots": {
+        "title": "Kadr",
+        "subtitle": "Beautiful slides without the busywork"
+      },
+      "notes": "Say hello and what the talk is about."
+    },
+    {
+      "id": "idea",
+      "layout": "content",
+      "slots": {
+        "title": "The idea",
+        "body": { "content": "- You write the content\n- Kadr makes it beautiful\n- Animations happen on their own", "reveal": "items", "step": 1 }
+      }
+    },
+    {
+      "id": "morph-a",
+      "elements": [
+        { "id": "dot", "type": "shape", "shape": "ellipse", "x": 160, "y": 440, "w": 200, "h": 200, "fill": "accent" },
+        { "id": "label", "type": "text", "x": 420, "y": 480, "w": 900, "content": "This is a circle", "size": "title" }
+      ]
+    },
+    {
+      "id": "morph-b",
+      "elements": [
+        { "id": "dot", "type": "shape", "shape": "rect", "x": 1260, "y": 240, "w": 480, "h": 600, "radius": 48, "fill": "accent2" },
+        { "id": "label", "type": "text", "x": 160, "y": 480, "w": 900, "content": "Not anymore", "size": "title" },
+        { "id": "hint", "type": "text", "x": 160, "y": 620, "w": 900, "content": "Same `id` on both slides, and the element *flows* by itself.", "size": "body", "color": "muted", "enter": "rise" }
+      ]
+    },
+    {
+      "id": "photo",
+      "layout": "split",
+      "slots": {
+        "title": "A photo next to the text",
+        "body": "The layout puts everything in its place.",
+        "image": { "src": "assets/mountains.svg", "alt": "Illustration: mountains at sunrise" }
+      }
+    },
+    {
+      "id": "fonts",
+      "layout": "number",
+      "slots": { "value": "44", "label": "font families built in, Latin and Cyrillic" },
+      "background": { "type": "gradient", "colors": ["#1b1440", "accent"], "angle": 120 }
+    },
+    {
+      "id": "thanks",
+      "layout": "title",
+      "slots": { "title": "Thank you!", "subtitle": "kadr" },
+      "transition": "fade"
+    }
+  ]
+}

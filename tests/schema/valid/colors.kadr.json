@@ -1,0 +1,14 @@
+{
+  "kadr": "0.1",
+  "slides": [
+    {
+      "elements": [
+        { "type": "shape", "shape": "rect", "x": 0, "y": 0, "w": 100, "h": 100, "fill": "bg", "stroke": "surface" },
+        { "type": "shape", "shape": "rect", "x": 0, "y": 0, "w": 100, "h": 100, "fill": "text", "stroke": "muted" },
+        { "type": "shape", "shape": "rect", "x": 0, "y": 0, "w": 100, "h": 100, "fill": "accent", "stroke": "accent2" },
+        { "type": "shape", "shape": "rect", "x": 0, "y": 0, "w": 100, "h": 100, "fill": "#abc", "stroke": "#abcd" },
+        { "type": "shape", "shape": "rect", "x": 0, "y": 0, "w": 100, "h": 100, "fill": "#AABBCC", "stroke": "#aabbccdd" }
+      ]
+    }
+  ]
+}

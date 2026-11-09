@@ -1,0 +1,16 @@
+{
+  "description": "slots on a slide with no layout",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "slots": {
+          "title": "Title"
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/slots"
+  ]
+}

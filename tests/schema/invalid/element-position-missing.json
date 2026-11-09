@@ -1,0 +1,21 @@
+{
+  "description": "x, y and w are required",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "content": "Text"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/w",
+    "/slides/0/elements/0/x",
+    "/slides/0/elements/0/y"
+  ]
+}

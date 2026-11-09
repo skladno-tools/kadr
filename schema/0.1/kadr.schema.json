@@ -1,0 +1,1406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skladno-tools.github.io/kadr/schema/0.1/kadr.schema.json",
+  "title": "Kadr 0.1",
+  "description": "Kadr presentation format, version 0.1. Specification: docs/format.md.",
+  "type": "object",
+  "required": [
+    "kadr",
+    "slides"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "kadr": {
+      "const": "0.1",
+      "description": "Format version."
+    },
+    "meta": {
+      "$ref": "#/$defs/meta"
+    },
+    "canvas": {
+      "$ref": "#/$defs/canvas"
+    },
+    "theme": {
+      "$ref": "#/$defs/theme"
+    },
+    "background": {
+      "$ref": "#/$defs/background"
+    },
+    "defaults": {
+      "$ref": "#/$defs/defaults"
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/slide"
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-": true
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$",
+      "description": "Identifier: lowercase Latin letters, digits and hyphens; starts with a letter."
+    },
+    "px": {
+      "type": "number",
+      "description": "Canvas pixels."
+    },
+    "ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000,
+      "description": "Milliseconds."
+    },
+    "unit": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "size": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Width or height in canvas pixels, greater than 0."
+    },
+    "rotate": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360,
+      "default": 0,
+      "description": "Rotation in degrees."
+    },
+    "opacity": {
+      "$ref": "#/$defs/unit",
+      "default": 1,
+      "description": "Opacity from 0 to 1."
+    },
+    "step": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99,
+      "default": 0,
+      "description": "The step at which the element appears. 0: right after the transition."
+    },
+    "hex": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+    },
+    "colorToken": {
+      "enum": [
+        "bg",
+        "surface",
+        "text",
+        "muted",
+        "accent",
+        "accent2"
+      ]
+    },
+    "color": {
+      "description": "A theme color name or a hex color.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/colorToken"
+        },
+        {
+          "$ref": "#/$defs/hex"
+        }
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false
+    },
+    "canvas": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 7680,
+          "default": 1920
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 7680,
+          "default": 1080
+        }
+      },
+      "additionalProperties": false
+    },
+    "themeName": {
+      "enum": [
+        "aurora",
+        "paper",
+        "ink",
+        "studio"
+      ]
+    },
+    "fontFamily": {
+      "description": "A family from the bundled font library (fonts/catalog.json). Kept in sync by tools/fonts/build.mjs.",
+      "enum": [
+        "Inter",
+        "Manrope",
+        "Onest",
+        "Golos Text",
+        "Geologica",
+        "Commissioner",
+        "Rubik",
+        "Nunito",
+        "Mulish",
+        "Open Sans",
+        "Noto Sans",
+        "IBM Plex Sans",
+        "Montserrat",
+        "Raleway",
+        "Jost",
+        "Exo 2",
+        "Wix Madefor Text",
+        "Wix Madefor Display",
+        "PT Sans",
+        "Literata",
+        "Source Serif 4",
+        "Lora",
+        "Merriweather",
+        "Noto Serif",
+        "EB Garamond",
+        "Cormorant",
+        "Alegreya",
+        "Playfair Display",
+        "PT Serif",
+        "Unbounded",
+        "Oswald",
+        "Comfortaa",
+        "Tektur",
+        "Russo One",
+        "Yeseva One",
+        "Press Start 2P",
+        "Caveat",
+        "Lobster",
+        "Pacifico",
+        "JetBrains Mono",
+        "Fira Code",
+        "Source Code Pro",
+        "Roboto Mono",
+        "IBM Plex Mono"
+      ]
+    },
+    "theme": {
+      "description": "A built-in theme by name, or a built-in theme with overrides.",
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "$ref": "#/$defs/themeName"
+      },
+      "else": {
+        "type": "object",
+        "properties": {
+          "extends": {
+            "$ref": "#/$defs/themeName"
+          },
+          "colors": {
+            "type": "object",
+            "properties": {
+              "bg": {
+                "$ref": "#/$defs/hex"
+              },
+              "surface": {
+                "$ref": "#/$defs/hex"
+              },
+              "text": {
+                "$ref": "#/$defs/hex"
+              },
+              "muted": {
+                "$ref": "#/$defs/hex"
+              },
+              "accent": {
+                "$ref": "#/$defs/hex"
+              },
+              "accent2": {
+                "$ref": "#/$defs/hex"
+              }
+            },
+            "additionalProperties": false
+          },
+          "fonts": {
+            "type": "object",
+            "properties": {
+              "heading": {
+                "$ref": "#/$defs/fontFamily"
+              },
+              "body": {
+                "$ref": "#/$defs/fontFamily"
+              },
+              "mono": {
+                "$ref": "#/$defs/fontFamily"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "default": "aurora"
+    },
+    "transition": {
+      "enum": [
+        "morph",
+        "fade",
+        "push",
+        "none"
+      ]
+    },
+    "effect": {
+      "enum": [
+        "none",
+        "fade",
+        "rise",
+        "drop",
+        "zoom",
+        "blur",
+        "type"
+      ]
+    },
+    "enter": {
+      "description": "How the element appears: an effect name, or an object with details.",
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "$ref": "#/$defs/effect"
+      },
+      "else": {
+        "type": "object",
+        "required": [
+          "effect"
+        ],
+        "properties": {
+          "effect": {
+            "$ref": "#/$defs/effect"
+          },
+          "duration": {
+            "$ref": "#/$defs/ms"
+          },
+          "delay": {
+            "$ref": "#/$defs/ms"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "transition": {
+          "$ref": "#/$defs/transition"
+        },
+        "duration": {
+          "$ref": "#/$defs/ms"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        }
+      },
+      "additionalProperties": false
+    },
+    "background": {
+      "description": "Background layer. Always fills the whole screen. A color, or an object chosen by its type.",
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "$ref": "#/$defs/color"
+      },
+      "else": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "color",
+              "gradient",
+              "image",
+              "live"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "color"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "type": "object",
+              "required": [
+                "color"
+              ],
+              "properties": {
+                "type": true,
+                "color": {
+                  "$ref": "#/$defs/color"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "gradient"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "type": "object",
+              "required": [
+                "colors"
+              ],
+              "properties": {
+                "type": true,
+                "colors": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 6,
+                  "items": {
+                    "$ref": "#/$defs/color"
+                  }
+                },
+                "angle": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 360,
+                  "default": 135
+                },
+                "kind": {
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "default": "linear"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "image"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "type": "object",
+              "required": [
+                "src"
+              ],
+              "properties": {
+                "type": true,
+                "src": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dim": {
+                  "$ref": "#/$defs/unit",
+                  "default": 0
+                },
+                "blur": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "default": 0
+                },
+                "focus": {
+                  "$ref": "#/$defs/focus"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "live"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "type": "object",
+              "required": [
+                "preset"
+              ],
+              "properties": {
+                "type": true,
+                "preset": {
+                  "enum": [
+                    "aurora",
+                    "mesh",
+                    "particles",
+                    "waves"
+                  ]
+                },
+                "colors": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 6,
+                  "items": {
+                    "$ref": "#/$defs/color"
+                  }
+                },
+                "speed": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 4,
+                  "default": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    "focus": {
+      "type": "object",
+      "description": "The point of the image (0 to 1 on each axis) that stays visible when the image is cropped.",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/unit"
+        },
+        "y": {
+          "$ref": "#/$defs/unit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "enum": [
+        "title",
+        "section",
+        "content",
+        "split",
+        "image",
+        "quote",
+        "number"
+      ]
+    },
+    "slide": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        },
+        "slots": {
+          "type": "object"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/element"
+          }
+        },
+        "background": {
+          "$ref": "#/$defs/background"
+        },
+        "transition": {
+          "$ref": "#/$defs/transition"
+        },
+        "duration": {
+          "$ref": "#/$defs/ms"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "dependentRequired": {
+        "slots": [
+          "layout"
+        ]
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "title"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "subtitle": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "section"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "kicker": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "title": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "content"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "body": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "split"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "body": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "image": {
+                    "$ref": "#/$defs/imageSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "image"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "$ref": "#/$defs/imageSlot"
+                  },
+                  "caption": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "quote"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "quote": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "author": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "number"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "$ref": "#/$defs/textSlot"
+                  },
+                  "label": {
+                    "$ref": "#/$defs/textSlot"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "textSlot": {
+      "description": "The text of a layout slot, or an object that refines its text element.",
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "type": "string"
+      },
+      "else": {
+        "$ref": "#/$defs/textOverride"
+      }
+    },
+    "textOverride": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "$ref": "#/$defs/size"
+        },
+        "h": {
+          "$ref": "#/$defs/size"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "content": {
+          "type": "string"
+        },
+        "size": {
+          "description": "Font size in canvas pixels, or a theme text role.",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 8,
+              "maximum": 600
+            },
+            {
+              "enum": [
+                "display",
+                "title",
+                "heading",
+                "body",
+                "caption"
+              ]
+            }
+          ]
+        },
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "font": {
+          "enum": [
+            "heading",
+            "body",
+            "mono"
+          ]
+        },
+        "weight": {
+          "enum": [
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900
+          ]
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "valign": {
+          "enum": [
+            "top",
+            "middle",
+            "bottom"
+          ]
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 0.8,
+          "maximum": 3
+        },
+        "reveal": {
+          "enum": [
+            "all",
+            "items"
+          ],
+          "default": "all"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "description": "Refines the text element of a layout slot."
+    },
+    "imageSlot": {
+      "type": "object",
+      "required": [
+        "src",
+        "alt"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "$ref": "#/$defs/size"
+        },
+        "h": {
+          "$ref": "#/$defs/size"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "src": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Text alternative. Required; never drawn on the slide. Read by screen readers and AI tools, shown only if the image fails to load."
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ],
+          "default": "cover"
+        },
+        "focus": {
+          "$ref": "#/$defs/focus"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "description": "The image of a layout slot. Needs src and alt."
+    },
+    "element": {
+      "description": "A freely placed element, chosen by its type.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "image",
+            "shape",
+            "code"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/textElement"
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "image"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/imageElement"
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "shape"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/shapeElement"
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "code"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/codeElement"
+          }
+        }
+      ]
+    },
+    "textElement": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "content"
+      ],
+      "properties": {
+        "type": true,
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "$ref": "#/$defs/size"
+        },
+        "h": {
+          "$ref": "#/$defs/size"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "content": {
+          "type": "string"
+        },
+        "size": {
+          "description": "Font size in canvas pixels, or a theme text role.",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 8,
+              "maximum": 600
+            },
+            {
+              "enum": [
+                "display",
+                "title",
+                "heading",
+                "body",
+                "caption"
+              ]
+            }
+          ]
+        },
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "font": {
+          "enum": [
+            "heading",
+            "body",
+            "mono"
+          ]
+        },
+        "weight": {
+          "enum": [
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900
+          ]
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "valign": {
+          "enum": [
+            "top",
+            "middle",
+            "bottom"
+          ]
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 0.8,
+          "maximum": 3
+        },
+        "reveal": {
+          "enum": [
+            "all",
+            "items"
+          ],
+          "default": "all"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "description": "Text. Height is optional: without it the box fits the content."
+    },
+    "imageElement": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h",
+        "src",
+        "alt"
+      ],
+      "properties": {
+        "type": true,
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "$ref": "#/$defs/size"
+        },
+        "h": {
+          "$ref": "#/$defs/size"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "src": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Text alternative. Required; never drawn on the slide. Read by screen readers and AI tools, shown only if the image fails to load."
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ],
+          "default": "cover"
+        },
+        "focus": {
+          "$ref": "#/$defs/focus"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "description": "An image. alt is required and never drawn on the slide."
+    },
+    "shapeElement": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h",
+        "shape"
+      ],
+      "properties": {
+        "type": true,
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "type": "number"
+        },
+        "h": {
+          "type": "number"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "shape": {
+          "enum": [
+            "rect",
+            "ellipse",
+            "line"
+          ]
+        },
+        "fill": {
+          "$ref": "#/$defs/color"
+        },
+        "stroke": {
+          "$ref": "#/$defs/color"
+        },
+        "strokeWidth": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 200
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "const": "line"
+              }
+            },
+            "required": [
+              "shape"
+            ]
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "w": {
+                "$ref": "#/$defs/size"
+              },
+              "h": {
+                "$ref": "#/$defs/size"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A rectangle, ellipse or line. Only a line may have zero or negative w and h: it runs from (x, y) to (x + w, y + h)."
+    },
+    "codeElement": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h",
+        "code"
+      ],
+      "properties": {
+        "type": true,
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "$ref": "#/$defs/px"
+        },
+        "y": {
+          "$ref": "#/$defs/px"
+        },
+        "w": {
+          "$ref": "#/$defs/size"
+        },
+        "h": {
+          "$ref": "#/$defs/size"
+        },
+        "rotate": {
+          "$ref": "#/$defs/rotate"
+        },
+        "opacity": {
+          "$ref": "#/$defs/unit",
+          "default": 1
+        },
+        "step": {
+          "$ref": "#/$defs/step"
+        },
+        "enter": {
+          "$ref": "#/$defs/enter"
+        },
+        "code": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z0-9+#-]{1,32}$"
+        },
+        "size": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 200
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": false,
+      "description": "Source code with highlighting."
+    }
+  }
+}

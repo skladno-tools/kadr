@@ -1,0 +1,23 @@
+{
+  "description": "a field of another element type",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "fill": "accent"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/fill"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "description": "a gradient needs at least two colors",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "background": {
+          "type": "gradient",
+          "colors": [
+            "accent"
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/background/colors"
+  ]
+}

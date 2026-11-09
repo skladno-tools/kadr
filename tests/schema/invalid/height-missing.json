@@ -1,0 +1,39 @@
+{
+  "description": "images, shapes and code need h",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "src": "a.jpg",
+            "alt": "An image"
+          },
+          {
+            "type": "shape",
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "shape": "rect"
+          },
+          {
+            "type": "code",
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "code": "x = 1"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/h",
+    "/slides/0/elements/1/h",
+    "/slides/0/elements/2/h"
+  ]
+}

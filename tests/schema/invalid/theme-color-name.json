@@ -1,0 +1,17 @@
+{
+  "description": "theme colors are defined in hex",
+  "deck": {
+    "kadr": "0.1",
+    "theme": {
+      "colors": {
+        "accent": "muted"
+      }
+    },
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    "/theme/colors/accent"
+  ]
+}

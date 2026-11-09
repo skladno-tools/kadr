@@ -1,0 +1,13 @@
+{
+  "description": "a typo in a top-level field",
+  "deck": {
+    "kadr": "0.1",
+    "titel": "Talk",
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    "/titel"
+  ]
+}

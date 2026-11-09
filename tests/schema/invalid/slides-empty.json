@@ -1,0 +1,10 @@
+{
+  "description": "a deck needs at least one slide",
+  "deck": {
+    "kadr": "0.1",
+    "slides": []
+  },
+  "errors": [
+    "/slides"
+  ]
+}

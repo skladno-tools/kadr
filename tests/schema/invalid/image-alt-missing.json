@@ -1,0 +1,23 @@
+{
+  "description": "an image without alt",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "image",
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 400,
+            "src": "a.jpg"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/alt"
+  ]
+}

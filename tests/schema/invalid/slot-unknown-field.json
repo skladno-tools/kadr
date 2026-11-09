@@ -1,0 +1,20 @@
+{
+  "description": "a typo in a slot refinement",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "title",
+        "slots": {
+          "title": {
+            "content": "Title",
+            "colour": "accent"
+          }
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/slots/title/colour"
+  ]
+}

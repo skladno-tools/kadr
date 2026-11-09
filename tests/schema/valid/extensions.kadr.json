@@ -1,0 +1,16 @@
+{
+  "kadr": "0.1",
+  "x-editor": { "zoom": 0.5 },
+  "meta": { "title": "Extensions", "author": "Kadr", "description": "x- fields", "lang": "en-GB", "x-source": "test" },
+  "slides": [
+    {
+      "x-locked": true,
+      "layout": "split",
+      "slots": {
+        "title": { "content": "Slot", "x-note": "slot text" },
+        "image": { "src": "a.jpg", "alt": "An image", "x-credit": "Someone" }
+      },
+      "elements": [{ "type": "text", "x": 0, "y": 0, "w": 100, "content": "a", "x-group": 1 }]
+    }
+  ]
+}

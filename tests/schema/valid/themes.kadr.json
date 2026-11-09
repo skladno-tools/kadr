@@ -1,0 +1,9 @@
+{
+  "kadr": "0.1",
+  "theme": {
+    "extends": "paper",
+    "colors": { "bg": "#fff", "surface": "#f4f1ea", "text": "#1a1a1a", "muted": "#6b6b6b", "accent": "#e4572e", "accent2": "#17bebb" },
+    "fonts": { "heading": "Unbounded", "body": "Onest", "mono": "JetBrains Mono" }
+  },
+  "slides": [{}]
+}

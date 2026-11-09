@@ -1,0 +1,35 @@
+{
+  "kadr": "0.1",
+  "slides": [
+    {
+      "elements": [
+        {
+          "type": "text", "id": "t", "x": 100, "y": 100, "w": 800, "h": 300,
+          "rotate": -5, "opacity": 0.9, "step": 1, "enter": "rise",
+          "content": "**Bold**, *italic*, `code` and a [link](https://example.com)\n\nSecond paragraph",
+          "size": 48, "color": "text", "font": "heading", "weight": 700,
+          "align": "center", "valign": "middle", "lineHeight": 1.2, "reveal": "all"
+        },
+        {
+          "type": "image", "id": "i", "x": 1000, "y": 100, "w": 600, "h": 400,
+          "rotate": 360, "opacity": 0, "step": 2, "enter": { "effect": "zoom", "duration": 500, "delay": 100 },
+          "src": "data:image/png;base64,iVBORw0KGgo=", "alt": "A tiny image",
+          "fit": "cover", "focus": { "x": 0.5, "y": 0.5 }, "radius": 16
+        },
+        {
+          "type": "shape", "id": "s", "x": 100, "y": 600, "w": 300, "h": 200,
+          "rotate": -360, "opacity": 1, "step": 3, "enter": "drop",
+          "shape": "rect", "fill": "accent", "stroke": "#ffffff80", "strokeWidth": 4, "radius": 12
+        },
+        {
+          "type": "shape", "x": 500, "y": 600, "w": 200, "h": 200, "shape": "ellipse", "fill": "accent2"
+        },
+        {
+          "type": "code", "id": "c", "x": 1000, "y": 600, "w": 800, "h": 300,
+          "step": 99, "enter": { "effect": "blur" },
+          "code": "const answer = 42;", "lang": "js", "size": 28
+        }
+      ]
+    }
+  ]
+}

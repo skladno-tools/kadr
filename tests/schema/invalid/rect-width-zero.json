@@ -1,0 +1,23 @@
+{
+  "description": "only a line may have zero or negative w and h",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 100
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/elements/0/w"
+  ]
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b1440"/>
+      <stop offset="0.45" stop-color="#7a3f8f"/>
+      <stop offset="0.75" stop-color="#f08a5d"/>
+      <stop offset="1" stop-color="#ffd27f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.52" r="0.5">
+      <stop offset="0" stop-color="#fff1c1" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#fff1c1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#sky)"/>
+  <rect width="1600" height="1200" fill="url(#glow)"/>
+  <circle cx="1120" cy="640" r="130" fill="#fff4d6"/>
+  <path d="M0 760 L220 560 L380 680 L600 420 L820 640 L1010 500 L1240 700 L1420 560 L1600 680 V1200 H0 Z" fill="#8a5f97"/>
+  <path d="M0 880 L180 720 L360 820 L560 640 L760 820 L940 700 L1160 860 L1380 720 L1600 840 V1200 H0 Z" fill="#43306b"/>
+  <path d="M600 420 L670 490 L640 482 L612 502 L586 480 L562 492 L549 480 Z" fill="#eadff2"/>
+  <path d="M0 1000 L240 880 L460 960 L700 840 L940 980 L1180 880 L1400 960 L1600 900 V1200 H0 Z" fill="#2a1d4a"/>
+  <path d="M0 1100 L300 1030 L620 1090 L900 1020 L1240 1100 L1600 1040 V1200 H0 Z" fill="#170f2e"/>
+</svg>

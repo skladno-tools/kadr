@@ -1,0 +1,14 @@
+{
+  "description": "ids are lowercase",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "id": "Intro"
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/id"
+  ]
+}

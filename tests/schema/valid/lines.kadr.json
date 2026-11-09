@@ -1,0 +1,14 @@
+{
+  "kadr": "0.1",
+  "slides": [
+    {
+      "elements": [
+        { "type": "shape", "shape": "line", "x": 100, "y": 100, "w": 400, "h": 300, "stroke": "accent", "strokeWidth": 4 },
+        { "type": "shape", "shape": "line", "x": 100, "y": 500, "w": 400, "h": 0, "stroke": "accent" },
+        { "type": "shape", "shape": "line", "x": 600, "y": 100, "w": 0, "h": 400, "stroke": "accent" },
+        { "type": "shape", "shape": "line", "x": 800, "y": 500, "w": 300, "h": -400, "stroke": "accent" },
+        { "type": "shape", "shape": "line", "x": 1600, "y": 500, "w": -300, "h": -400, "stroke": "accent" }
+      ]
+    }
+  ]
+}

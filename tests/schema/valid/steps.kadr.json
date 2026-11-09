@@ -1,0 +1,18 @@
+{
+  "kadr": "0.1",
+  "defaults": { "transition": "fade", "duration": 0, "enter": { "effect": "rise", "duration": 10000, "delay": 0 } },
+  "slides": [
+    {
+      "transition": "morph",
+      "duration": 700,
+      "elements": [
+        { "type": "text", "x": 100, "y": 100, "w": 800, "content": "- a\n- b\n- c", "reveal": "items", "step": 1 },
+        { "type": "text", "x": 100, "y": 500, "w": 800, "content": "Typed", "enter": "type", "step": 4 },
+        { "type": "text", "x": 100, "y": 700, "w": 800, "content": "None", "enter": "none" },
+        { "type": "text", "x": 100, "y": 900, "w": 800, "content": "Fade", "enter": "fade" }
+      ]
+    },
+    { "transition": "push", "layout": "content", "slots": { "body": { "content": "- x\n- y", "reveal": "items", "step": 2, "enter": "zoom" } } },
+    { "transition": "none", "hidden": true, "notes": "Skipped when presenting." }
+  ]
+}

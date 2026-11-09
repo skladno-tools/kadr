@@ -1,0 +1,956 @@
+{
+  "fonts": [
+    {
+      "id": "inter",
+      "family": "Inter",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)",
+      "source": "@fontsource-variable/inter@5.3.0"
+    },
+    {
+      "id": "manrope",
+      "family": "Manrope",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        200,
+        800
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2019 The Manrope Project Authors (https://github.com/sharanda/manrope)",
+      "source": "@fontsource-variable/manrope@5.3.0"
+    },
+    {
+      "id": "onest",
+      "family": "Onest",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "math",
+        "symbols",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)",
+      "source": "@fontsource-variable/onest@5.3.1"
+    },
+    {
+      "id": "golos-text",
+      "family": "Golos Text",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        400,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2019 The Golos Text Project Authors (https://github.com/googlefonts/golos-text)",
+      "source": "@fontsource-variable/golos-text@5.3.0"
+    },
+    {
+      "id": "geologica",
+      "family": "Geologica",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2020 The Geologica Project Authors (https://github.com/googlefonts/geologica)",
+      "source": "@fontsource-variable/geologica@5.3.0"
+    },
+    {
+      "id": "commissioner",
+      "family": "Commissioner",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2019 The Commissioner Project Authors (github.com/kosbarts/Commissioner)",
+      "source": "@fontsource-variable/commissioner@5.3.0"
+    },
+    {
+      "id": "rubik",
+      "family": "Rubik",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        300,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "arabic",
+        "cyrillic",
+        "cyrillic-ext",
+        "hebrew",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2015 The Rubik Project Authors (https://github.com/googlefonts/rubik)",
+      "source": "@fontsource-variable/rubik@5.3.0"
+    },
+    {
+      "id": "nunito",
+      "family": "Nunito",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        200,
+        1000
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)",
+      "source": "@fontsource-variable/nunito@5.3.0"
+    },
+    {
+      "id": "mulish",
+      "family": "Mulish",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        200,
+        1000
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2016 The Mulish Project Authors (https://github.com/googlefonts/mulish)",
+      "source": "@fontsource-variable/mulish@5.3.0"
+    },
+    {
+      "id": "open-sans",
+      "family": "Open Sans",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        300,
+        800
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "hebrew",
+        "latin",
+        "latin-ext",
+        "math",
+        "symbols",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2020 The Open Sans Project Authors (https://github.com/googlefonts/opensans)",
+      "source": "@fontsource-variable/open-sans@5.3.0"
+    },
+    {
+      "id": "noto-sans",
+      "family": "Noto Sans",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "devanagari",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)",
+      "source": "@fontsource-variable/noto-sans@5.3.0"
+    },
+    {
+      "id": "ibm-plex-sans",
+      "family": "IBM Plex Sans",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2019 IBM Corp. All rights reserved.",
+      "source": "@fontsource-variable/ibm-plex-sans@5.3.0"
+    },
+    {
+      "id": "montserrat",
+      "family": "Montserrat",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)",
+      "source": "@fontsource-variable/montserrat@5.3.0"
+    },
+    {
+      "id": "raleway",
+      "family": "Raleway",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2010 The Raleway Project Authors (impallari@gmail.com), with Reserved Font Name \"Raleway\".",
+      "source": "@fontsource-variable/raleway@5.3.0"
+    },
+    {
+      "id": "jost",
+      "family": "Jost",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2020 The Jost Project Authors (https://github.com/indestructible-type/Jost)",
+      "source": "@fontsource-variable/jost@5.3.0"
+    },
+    {
+      "id": "exo-2",
+      "family": "Exo 2",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2013 The Exo 2 Project Authors (https://github.com/googlefonts/Exo-2.0)",
+      "source": "@fontsource-variable/exo-2@5.3.0"
+    },
+    {
+      "id": "wix-madefor-text",
+      "family": "Wix Madefor Text",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        400,
+        800
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2021 The Wix Madefor Project Authors (https://github.com/wix/wixmadefor/)",
+      "source": "@fontsource-variable/wix-madefor-text@5.3.0"
+    },
+    {
+      "id": "wix-madefor-display",
+      "family": "Wix Madefor Display",
+      "category": "sans",
+      "variable": true,
+      "weights": [
+        400,
+        800
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2021 The Wix Madefor Project Authors (https://github.com/wix/wixmadefor/)",
+      "source": "@fontsource-variable/wix-madefor-display@5.3.0"
+    },
+    {
+      "id": "pt-sans",
+      "family": "PT Sans",
+      "category": "sans",
+      "variable": false,
+      "weights": [
+        400,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright © 2009 ParaType Ltd. All rights reserved.",
+      "source": "@fontsource/pt-sans@5.3.0"
+    },
+    {
+      "id": "literata",
+      "family": "Literata",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        200,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)",
+      "source": "@fontsource-variable/literata@5.3.0"
+    },
+    {
+      "id": "source-serif-4",
+      "family": "Source Serif 4",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        200,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Google Inc.",
+      "source": "@fontsource-variable/source-serif-4@5.3.1"
+    },
+    {
+      "id": "lora",
+      "family": "Lora",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        400,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "math",
+        "symbols",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name \"Lora\".",
+      "source": "@fontsource-variable/lora@5.3.0"
+    },
+    {
+      "id": "merriweather",
+      "family": "Merriweather",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        300,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2024 The Merriweather Project Authors (https://github.com/EbenSorkin/Merriweather4) with Reserved Font Name \"Merriweather\".",
+      "source": "@fontsource-variable/merriweather@5.3.0"
+    },
+    {
+      "id": "noto-serif",
+      "family": "Noto Serif",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        100,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "math",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)",
+      "source": "@fontsource-variable/noto-serif@5.3.0"
+    },
+    {
+      "id": "eb-garamond",
+      "family": "EB Garamond",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        400,
+        800
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2017 The EB Garamond Project Authors (https://github.com/octaviopardo/EBGaramond12)",
+      "source": "@fontsource-variable/eb-garamond@5.3.0"
+    },
+    {
+      "id": "cormorant",
+      "family": "Cormorant",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        300,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2015 The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant)",
+      "source": "@fontsource-variable/cormorant@5.3.0"
+    },
+    {
+      "id": "alegreya",
+      "family": "Alegreya",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        400,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2011 The Alegreya Project Authors (https://github.com/huertatipografica/Alegreya)",
+      "source": "@fontsource-variable/alegreya@5.3.0"
+    },
+    {
+      "id": "playfair-display",
+      "family": "Playfair Display",
+      "category": "serif",
+      "variable": true,
+      "weights": [
+        400,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2017 The Playfair Display Project Authors (https://github.com/clauseggers/Playfair-Display), with Reserved Font Name \"Playfair Display\".",
+      "source": "@fontsource-variable/playfair-display@5.3.0"
+    },
+    {
+      "id": "pt-serif",
+      "family": "PT Serif",
+      "category": "serif",
+      "variable": false,
+      "weights": [
+        400,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright © 2010 ParaType Ltd. All rights reserved.",
+      "source": "@fontsource/pt-serif@5.3.0"
+    },
+    {
+      "id": "unbounded",
+      "family": "Unbounded",
+      "category": "display",
+      "variable": true,
+      "weights": [
+        200,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)",
+      "source": "@fontsource-variable/unbounded@5.3.0"
+    },
+    {
+      "id": "oswald",
+      "family": "Oswald",
+      "category": "display",
+      "variable": true,
+      "weights": [
+        200,
+        700
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2016 The Oswald Project Authors (https://github.com/googlefonts/OswaldFont)",
+      "source": "@fontsource-variable/oswald@5.3.0"
+    },
+    {
+      "id": "comfortaa",
+      "family": "Comfortaa",
+      "category": "display",
+      "variable": true,
+      "weights": [
+        300,
+        700
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2011 The Comfortaa Project Authors (https://github.com/alexeiva/comfortaa), with Reserved Font Name \"Comfortaa\".",
+      "source": "@fontsource-variable/comfortaa@5.3.0"
+    },
+    {
+      "id": "tektur",
+      "family": "Tektur",
+      "category": "display",
+      "variable": true,
+      "weights": [
+        400,
+        900
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2023 The Tektur Project Authors (https://www.github.com/hyvyys/Tektur)",
+      "source": "@fontsource-variable/tektur@5.3.0"
+    },
+    {
+      "id": "russo-one",
+      "family": "Russo One",
+      "category": "display",
+      "variable": false,
+      "weights": [
+        400
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright (c) 2011-2012, Jovanny Lemonad (lemonad@jovanny.ru), with Reserved Font Name \"Russo\"",
+      "source": "@fontsource/russo-one@5.3.0"
+    },
+    {
+      "id": "yeseva-one",
+      "family": "Yeseva One",
+      "category": "display",
+      "variable": false,
+      "weights": [
+        400
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2012 The Yeseva One Project Authors (lemonad@jovanny.ru), with Reserved Font Name \"Yeseva\".",
+      "source": "@fontsource/yeseva-one@5.3.0"
+    },
+    {
+      "id": "press-start-2p",
+      "family": "Press Start 2P",
+      "category": "display",
+      "variable": false,
+      "weights": [
+        400
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2012 The Press Start 2P Project Authors (cody@zone38.net), with Reserved Font Name \"Press Start 2P\"",
+      "source": "@fontsource/press-start-2p@5.3.0"
+    },
+    {
+      "id": "caveat",
+      "family": "Caveat",
+      "category": "handwriting",
+      "variable": true,
+      "weights": [
+        400,
+        700
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)",
+      "source": "@fontsource-variable/caveat@5.3.0"
+    },
+    {
+      "id": "lobster",
+      "family": "Lobster",
+      "category": "handwriting",
+      "variable": false,
+      "weights": [
+        400
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2010 The Lobster Project Authors (https://github.com/impallari/The-Lobster-Font), with Reserved Font Name \"Lobster\".",
+      "source": "@fontsource/lobster@5.3.0"
+    },
+    {
+      "id": "pacifico",
+      "family": "Pacifico",
+      "category": "handwriting",
+      "variable": false,
+      "weights": [
+        400
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)",
+      "source": "@fontsource/pacifico@5.3.0"
+    },
+    {
+      "id": "jetbrains-mono",
+      "family": "JetBrains Mono",
+      "category": "mono",
+      "variable": true,
+      "weights": [
+        100,
+        800
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)",
+      "source": "@fontsource-variable/jetbrains-mono@5.3.0"
+    },
+    {
+      "id": "fira-code",
+      "family": "Fira Code",
+      "category": "mono",
+      "variable": true,
+      "weights": [
+        300,
+        700
+      ],
+      "italic": false,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "symbols2"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2014-2020 The Fira Code Project Authors (https://github.com/tonsky/FiraCode)",
+      "source": "@fontsource-variable/fira-code@5.3.0"
+    },
+    {
+      "id": "source-code-pro",
+      "family": "Source Code Pro",
+      "category": "mono",
+      "variable": true,
+      "weights": [
+        200,
+        900
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "greek-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Google Inc.",
+      "source": "@fontsource-variable/source-code-pro@5.3.1"
+    },
+    {
+      "id": "roboto-mono",
+      "family": "Roboto Mono",
+      "category": "mono",
+      "variable": true,
+      "weights": [
+        100,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "greek",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2015 The Roboto Mono Project Authors (https://github.com/googlefonts/robotomono)",
+      "source": "@fontsource-variable/roboto-mono@5.3.0"
+    },
+    {
+      "id": "ibm-plex-mono",
+      "family": "IBM Plex Mono",
+      "category": "mono",
+      "variable": false,
+      "weights": [
+        100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700
+      ],
+      "italic": true,
+      "subsets": [
+        "cyrillic",
+        "cyrillic-ext",
+        "latin",
+        "latin-ext",
+        "vietnamese"
+      ],
+      "license": "OFL-1.1",
+      "copyright": "Copyright 2017 IBM Corp. All rights reserved.",
+      "source": "@fontsource/ibm-plex-mono@5.3.0"
+    }
+  ]
+}

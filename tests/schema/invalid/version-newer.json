@@ -1,0 +1,12 @@
+{
+  "description": "a format version this schema does not describe",
+  "deck": {
+    "kadr": "0.2",
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    "/kadr"
+  ]
+}

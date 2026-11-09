@@ -1,0 +1,18 @@
+{
+  "description": "a field of another kind of background",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "background": {
+          "type": "image",
+          "src": "a.jpg",
+          "preset": "aurora"
+        }
+      }
+    ]
+  },
+  "errors": [
+    "/slides/0/background/preset"
+  ]
+}
