@@ -51,7 +51,8 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
-2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
-3. **Layout geometry:** where each layout puts its slots on the canvas.
-4. **The player:** rendering, steps, transitions, morphing and presenter view.
+1. **A table of limits in `format.md`.** Every number range, pattern and default the schema sets, in prose for people and AI tools, with a test that checks each row against the schema and that no limit in the schema is left out.
+2. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
+3. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
+4. **Layout geometry:** where each layout puts its slots on the canvas.
+5. **The player:** rendering, steps, transitions, morphing and presenter view.
