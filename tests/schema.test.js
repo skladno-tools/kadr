@@ -31,7 +31,7 @@ const filesIn = (dir, suffix) =>
 
 /** @param {boolean} strict */
 const compile = (strict) =>
-  new Ajv2020({ allErrors: true, strict }).compile(readJson(schemaPath));
+  new Ajv2020({ allErrors: true, strict, verbose: true }).compile(schema);
 
 // What kind of mistake each validator keyword reports. The kinds are close to
 // the diagnostic codes in docs/cli.md, so a case says not only where the
@@ -57,27 +57,42 @@ const kinds = {
   maxLength: 'size',
 };
 
-// Wrapper keywords only say that something inside them failed.
-const wrappers = new Set(['if', 'anyOf', 'oneOf', 'allOf', 'not']);
-
 /**
  * @typedef {object} Problem
  * @property {string} at    JSON Pointer of the wrong place
- * @property {string} kind  one of the kinds above, or "choice"
+ * @property {string} kind  one of the kinds above, "choice", or a wrapper keyword
  */
 
+const schema = readJson(schemaPath);
+
 /**
- * Turns the validator's errors into a sorted list of problems.
+ * The schemas an anyOf chooses between, with references resolved.
+ * @param {unknown[]} branches
+ */
+const resolve = (branches) => new Set(branches.map((b) => {
+  const ref = /** @type {{ $ref?: string }} */ (b).$ref;
+  if (ref === undefined) return b;
+  const name = /^#\/\$defs\/([^/]+)$/.exec(ref)?.[1];
+  if (name === undefined) throw new Error(`unexpected reference ${ref}`);
+  return schema.$defs[name];
+}));
+
+/**
+ * Turns the validator's errors into a sorted list of problems. Every error
+ * counts: the same mistake reported twice is two problems, so a schema that
+ * reports one thing twice fails its case.
  *
  * - An unknown or missing field points at the field itself; a field that
  *   needs another one (slots without a layout) points at the field that is
  *   there.
  * - When every branch of an anyOf fails at the anyOf's own place (a color that
- *   is neither a theme name nor hex), that is one problem of kind "choice".
- * - Any other wrapper error is dropped when a more specific error sits at or
- *   below its place. One that does not is kept under its own keyword, so the
- *   test shows it.
- * @param {import('ajv').ErrorObject[]} errors
+ *   is neither a theme name nor hex), the branch errors are one problem of
+ *   kind "choice". Branch errors are recognised by the schema that reported
+ *   them, so an unrelated error at the same place is still reported.
+ * - "if" and "allOf" errors are dropped: the validator reports them only
+ *   together with the errors inside them. Other wrappers ("not", "oneOf")
+ *   are reported under their own keyword; this schema uses neither.
+ * @param {import('ajv').ErrorObject[]} errors  from a validator with verbose: true
  * @returns {Problem[]}
  */
 const problems = (errors) => {
@@ -95,29 +110,28 @@ const problems = (errors) => {
     if (k === undefined) throw new Error(`no kind for the keyword "${e.keyword}"; add one to the table`);
     return k;
   };
-  const specific = errors.filter((e) => !wrappers.has(e.keyword));
-  const below = (/** @type {string} */ at) =>
-    specific.some((e) => place(e).startsWith(`${at}/`));
-  /** @type {Map<string, Problem>} */
-  const found = new Map();
-  const add = (/** @type {string} */ at, /** @type {string} */ k) => found.set(`${at} ${k}`, { at, kind: k });
+  /** @type {Problem[]} */
+  const found = [];
   /** @type {Set<import('ajv').ErrorObject>} */
   const absorbed = new Set();
   for (const e of errors.filter((w) => w.keyword === 'anyOf')) {
-    const at = e.instancePath;
-    const branches = specific.filter((s) => place(s) === at);
-    if (branches.length > 0 && !below(at)) {
-      branches.forEach((b) => absorbed.add(b));
-      add(at, 'choice');
+    const branches = resolve(/** @type {unknown[]} */ (e.schema));
+    const mine = errors.filter((b) => b.instancePath === e.instancePath && branches.has(b.parentSchema));
+    const elsewhere = errors.some((b) => b.instancePath.startsWith(`${e.instancePath}/`) && !absorbed.has(b));
+    if (mine.length > 0 && !elsewhere) {
+      mine.forEach((b) => absorbed.add(b));
+      found.push({ at: e.instancePath, kind: 'choice' });
     }
   }
-  for (const e of specific) if (!absorbed.has(e)) add(place(e), kind(e));
-  for (const e of errors.filter((w) => wrappers.has(w.keyword) && w.keyword !== 'anyOf')) {
-    const at = place(e);
-    if (!specific.some((s) => place(s) === at) && !below(at)) add(at, e.keyword);
+  for (const e of errors) {
+    if (absorbed.has(e) || e.keyword === 'anyOf' || e.keyword === 'if' || e.keyword === 'allOf') continue;
+    found.push({ at: place(e), kind: e.keyword === 'not' || e.keyword === 'oneOf' ? e.keyword : kind(e) });
   }
-  return [...found.values()].sort((a, b) => (a.at === b.at ? a.kind.localeCompare(b.kind) : a.at < b.at ? -1 : 1));
+  return found.sort(byPlace);
 };
+
+/** @param {Problem} a @param {Problem} b */
+const byPlace = (a, b) => (a.at === b.at ? a.kind.localeCompare(b.kind) : a.at < b.at ? -1 : 1);
 
 test('the schema compiles in strict mode', () => {
   assert.doesNotThrow(() => compile(true));
@@ -144,6 +158,6 @@ for (const name of filesIn(join(casesDir, 'invalid'), '.json')) {
   test(`invalid: ${name.replace(/\.json$/, '')}: ${description}`, () => {
     /** @type {Problem[]} */
     const expected = errors;
-    assert.deepEqual(problemsOf(deck), [...expected].sort((a, b) => (a.at === b.at ? a.kind.localeCompare(b.kind) : a.at < b.at ? -1 : 1)));
+    assert.deepEqual(problemsOf(deck), [...expected].sort(byPlace));
   });
 }
