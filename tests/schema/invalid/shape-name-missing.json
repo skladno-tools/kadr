@@ -1,0 +1,25 @@
+{
+  "description": "a shape without \"shape\" is reported only there, not as a wrong h",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 0
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/shape",
+      "kind": "missing"
+    }
+  ]
+}

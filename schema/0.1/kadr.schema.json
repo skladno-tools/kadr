@@ -1322,14 +1322,17 @@
             "type": "object",
             "properties": {
               "shape": {
-                "const": "line"
+                "enum": [
+                  "rect",
+                  "ellipse"
+                ]
               }
             },
             "required": [
               "shape"
             ]
           },
-          "else": {
+          "then": {
             "type": "object",
             "properties": {
               "w": {
@@ -1342,7 +1345,7 @@
           }
         }
       ],
-      "description": "A rectangle, ellipse or line. Only a line may have zero or negative w and h: it runs from (x, y) to (x + w, y + h)."
+      "description": "A rectangle, ellipse or line. A rectangle or ellipse needs positive w and h. A line runs from (x, y) to (x + w, y + h), so its w and h may be zero or negative. When \"shape\" itself is wrong, only \"shape\" is reported."
     },
     "codeElement": {
       "type": "object",
