@@ -1,0 +1,26 @@
+{
+  "description": "slots that are not an object are reported once, not once per rule",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "title",
+        "slots": "Title"
+      },
+      {
+        "layout": "image",
+        "slots": []
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/slots",
+      "kind": "type"
+    },
+    {
+      "at": "/slides/1/slots",
+      "kind": "type"
+    }
+  ]
+}

@@ -590,6 +590,9 @@
             "properties": {
               "layout": {
                 "const": "title"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -620,6 +623,9 @@
             "properties": {
               "layout": {
                 "const": "section"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -650,6 +656,9 @@
             "properties": {
               "layout": {
                 "const": "content"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -680,6 +689,9 @@
             "properties": {
               "layout": {
                 "const": "split"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -713,6 +725,9 @@
             "properties": {
               "layout": {
                 "const": "image"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -743,6 +758,9 @@
             "properties": {
               "layout": {
                 "const": "quote"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -773,6 +791,9 @@
             "properties": {
               "layout": {
                 "const": "number"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -1326,10 +1347,14 @@
                   "rect",
                   "ellipse"
                 ]
+              },
+              "w": {
+                "type": "number"
               }
             },
             "required": [
-              "shape"
+              "shape",
+              "w"
             ]
           },
           "then": {
@@ -1337,7 +1362,32 @@
             "properties": {
               "w": {
                 "$ref": "#/$defs/size"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "enum": [
+                  "rect",
+                  "ellipse"
+                ]
               },
+              "h": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "shape",
+              "h"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
               "h": {
                 "$ref": "#/$defs/size"
               }
