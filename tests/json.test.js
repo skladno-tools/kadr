@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseJson, MAX_DEPTH } from '../src/format/json.js';
+import { parseJson, MAX_DEPTH, MAX_DUPLICATES } from '../src/format/json.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -214,6 +214,47 @@ test('reading time grows linearly, even when the whole file is one line', () => 
     assert.ok(ms < 3000, `${name}: ${Math.round(ms)} ms`);
   }
   assert.deepEqual(parseJson(oneLine).value, deck);
+});
+
+test('long keys do not make reading slow or memory-hungry', () => {
+  // A full pointer stored for every value would repeat every key above it:
+  // with long keys, memory grows with depth times key length, and long
+  // strings with equal lengths also collide in hash maps.
+  let deep = '';
+  for (let i = 0; i < 500; i++) deep += `{"${'k'.repeat(4000)}${i}": [1, 2, 3], "n": `;
+  deep += `0${'}'.repeat(500)}`;
+  const cases = [
+    ['a 20,000-character key over 10,000 items', `{"${'k'.repeat(20000)}": [${Array(10000).fill(0).join(',')}]}`],
+    ['500 levels of 4,000-character keys', deep],
+  ];
+  for (const [name, text] of cases) {
+    const started = performance.now();
+    const got = parseJson(text);
+    const ms = performance.now() - started;
+    assert.equal(got.ok, true, name);
+    assert.ok(ms < 3000, `${name}: ${Math.round(ms)} ms`);
+  }
+});
+
+test(`at most ${MAX_DUPLICATES} duplicate keys are listed, then one note`, () => {
+  const text = `{${Array.from({ length: MAX_DUPLICATES + 50 }, () => '"a": 1').join(', ')}}`;
+  const { diagnostics, value } = parseJson(text);
+  assert.deepEqual(value, { a: 1 });
+  assert.equal(diagnostics.length, MAX_DUPLICATES + 1);
+  assert.ok(diagnostics.every((d) => d.code === 'json-duplicate-key'));
+  assert.equal(diagnostics[MAX_DUPLICATES].message, `more than ${MAX_DUPLICATES} duplicate keys; only the first ${MAX_DUPLICATES} are listed`);
+  assert.equal(diagnostics[MAX_DUPLICATES].path, undefined);
+});
+
+test('a place is found by any valid pointer, and not by an invalid one', () => {
+  const { places } = parseJson('{"a/b": {"m~n": [10, 20]}, "": 1}');
+  assert.deepEqual(places.get('/a~1b/m~0n/1'), { value: { line: 1, column: 22 } });
+  assert.deepEqual(places.get('/'), { key: { line: 1, column: 28 }, value: { line: 1, column: 32 } });
+  for (const missing of ['/a~1b/m~0n/2', '/a~1b/m~0n/01', '/a~1b/m~0n/-1', '/a/b', 'a~1b', '/a~1b/m~0n/1/x']) {
+    assert.equal(places.get(missing), undefined, missing);
+  }
+  assert.equal(parseJson('{').places.get('/x'), undefined);
+  assert.equal(parseJson('').places.get(''), undefined);
 });
 
 test(`nesting up to ${MAX_DEPTH} levels is read; deeper is refused`, () => {

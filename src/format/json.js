@@ -4,8 +4,12 @@
 // It returns the same value as JSON.parse, plus the line and column of every
 // value (and of the key of every object member), so diagnostics can point at
 // the exact place in the file. The one difference in what it accepts: a byte
-// order mark at the start is skipped, where JSON.parse fails. It also refuses duplicate keys, which
-// JSON.parse accepts silently, keeping the last one.
+// order mark at the start is skipped, where JSON.parse fails. It also reports
+// duplicate keys, which JSON.parse accepts silently, keeping the last one.
+//
+// Time and memory grow linearly with the size of the text, whatever its shape:
+// one long line, long keys, deep nesting. That matters because the browser
+// editor will open decks that other people wrote.
 //
 // Uses no Node and no DOM APIs: the CLI and the browser editor share it.
 
@@ -36,12 +40,89 @@
  * @typedef {object} ParseResult
  * @property {boolean} ok              false if there is any error
  * @property {unknown} value           the value; undefined after a syntax error
- * @property {Map<string, Place>} places  by JSON Pointer ("" is the whole document)
+ * @property {Places} places           where each value is, by JSON Pointer
  * @property {Diagnostic[]} diagnostics
+ */
+
+/**
+ * @typedef {object} Node  one value in the tree of places
+ * @property {Place} place
+ * @property {Map<string, Node> | Node[]} [children]  members of an object, items of a list
  */
 
 /** Deeper nesting is refused, so a crafted file cannot exhaust the stack. */
 export const MAX_DEPTH = 512;
+
+/** At most this many duplicate keys are reported one by one. */
+export const MAX_DUPLICATES = 100;
+
+/**
+ * Where each value is. Places are kept as a tree of the same shape as the
+ * value, so every key is stored once, as in the value itself. Storing a full
+ * JSON Pointer for every value would repeat every key above it, which makes
+ * memory and time grow with depth times key length.
+ */
+export class Places {
+  /** @param {Node | undefined} root */
+  constructor(root) {
+    this.root = root;
+  }
+
+  /**
+   * The place of the value at a JSON Pointer ("" is the whole document).
+   * @param {string} pointer
+   * @returns {Place | undefined}
+   */
+  get(pointer) {
+    let node = this.root;
+    if (node === undefined) return undefined;
+    if (pointer === '') return node.place;
+    if (!pointer.startsWith('/')) return undefined;
+    for (const raw of pointer.slice(1).split('/')) {
+      /** @type {Map<string, Node> | Node[] | undefined} */
+      const children = node.children;
+      if (children === undefined) return undefined;
+      if (Array.isArray(children)) {
+        if (!/^(?:0|[1-9]\d*)$/.test(raw)) return undefined;
+        node = children[Number(raw)];
+      } else {
+        node = children.get(raw.replace(/~1/g, '/').replace(/~0/g, '~'));
+      }
+      if (node === undefined) return undefined;
+    }
+    return node.place;
+  }
+
+  /**
+   * Every value's pointer and place, parents before children.
+   * @returns {Generator<[string, Place]>}
+   */
+  *entries() {
+    if (this.root === undefined) return;
+    /** @type {[string, Node][]} */
+    const stack = [['', this.root]];
+    while (stack.length > 0) {
+      const [pointer, node] = /** @type {[string, Node]} */ (stack.pop());
+      yield [pointer, node.place];
+      const children = node.children;
+      if (children === undefined) continue;
+      /** @type {[string, Node][]} */
+      const next = Array.isArray(children)
+        ? children.map((child, i) => [`${pointer}/${i}`, child])
+        : [...children].map(([key, child]) => [`${pointer}/${escapePointer(key)}`, child]);
+      for (let i = next.length - 1; i >= 0; i--) stack.push(next[i]);
+    }
+  }
+
+  /** @returns {Generator<string>} */
+  *keys() {
+    for (const [pointer] of this.entries()) yield pointer;
+  }
+
+  [Symbol.iterator]() {
+    return this.entries();
+  }
+}
 
 const BOM = 0xfeff;
 
@@ -129,10 +210,14 @@ export function parseJson(text) {
     return { line: cursorLine + 1, column: cursorColumn };
   };
 
-  /** @type {Map<string, Place>} */
-  const places = new Map();
   /** @type {Diagnostic[]} */
   const diagnostics = [];
+  let duplicates = 0;
+  // The keys and indexes from the top down to the value being read. Joined
+  // into a pointer only when a diagnostic needs one.
+  /** @type {(string | number)[]} */
+  const trail = [];
+  const pointer = () => trail.map((s) => `/${typeof s === 'number' ? s : escapePointer(s)}`).join('');
   let pos = start;
 
   const peek = () => text[pos] ?? '';
@@ -147,12 +232,12 @@ export function parseJson(text) {
     }
   };
 
-  /** @param {string} path @param {number} depth @returns {unknown} */
-  const parseValue = (path, depth) => {
+  /** @param {Node} node @param {number} depth @returns {unknown} */
+  const parseValue = (node, depth) => {
     skipSpace();
     const ch = peek();
-    if (ch === '{') return parseObject(path, depth + 1);
-    if (ch === '[') return parseArray(path, depth + 1);
+    if (ch === '{') return parseObject(node, depth + 1);
+    if (ch === '[') return parseArray(node, depth + 1);
     if (ch === '"') return parseString();
     if (ch === '-' || (ch >= '0' && ch <= '9')) return parseNumber();
     if (ch === "'") throw new SyntaxProblem(pos, 'strings use double quotes in JSON', 'Replace the single quotes with double quotes.');
@@ -175,12 +260,15 @@ export function parseJson(text) {
     throw new SyntaxProblem(pos, `expected a value, found ${describe(text, pos)}`);
   };
 
-  /** @param {string} path @param {number} depth */
-  const parseObject = (path, depth) => {
+  /** @param {Node} node @param {number} depth */
+  const parseObject = (node, depth) => {
     if (depth > MAX_DEPTH) throw new SyntaxProblem(pos, `the nesting is deeper than ${MAX_DEPTH} levels`);
     pos++; // {
     /** @type {Record<string, unknown>} */
     const obj = {};
+    /** @type {Map<string, Node>} */
+    const members = new Map();
+    node.children = members;
     /** @type {Map<string, Position>} */
     const seen = new Map();
     skipSpace();
@@ -197,19 +285,30 @@ export function parseJson(text) {
       }
       const keyPlace = locate(keyAt);
       const key = parseString();
-      const memberPath = `${path}/${escapePointer(key)}`;
+      trail.push(key);
       const was = seen.get(key);
       if (was !== undefined) {
-        const at = keyPlace;
-        diagnostics.push({
-          severity: 'error',
-          code: 'json-duplicate-key',
-          message: `the key "${key}" appears twice in one object`,
-          hint: `It first appears on line ${was.line}. Keep one of them.`,
-          path: memberPath,
-          line: at.line,
-          column: at.column,
-        });
+        duplicates++;
+        if (duplicates <= MAX_DUPLICATES) {
+          diagnostics.push({
+            severity: 'error',
+            code: 'json-duplicate-key',
+            message: `the key "${key.length > 80 ? `${key.slice(0, 80)}...` : key}" appears twice in one object`,
+            hint: `It first appears on line ${was.line}. Keep one of them.`,
+            path: pointer(),
+            line: keyPlace.line,
+            column: keyPlace.column,
+          });
+        } else if (duplicates === MAX_DUPLICATES + 1) {
+          diagnostics.push({
+            severity: 'error',
+            code: 'json-duplicate-key',
+            message: `more than ${MAX_DUPLICATES} duplicate keys; only the first ${MAX_DUPLICATES} are listed`,
+            hint: 'Remove the duplicates listed and check again.',
+            line: keyPlace.line,
+            column: keyPlace.column,
+          });
+        }
       } else seen.set(key, keyPlace);
       skipSpace();
       if (peek() !== ':') {
@@ -218,9 +317,13 @@ export function parseJson(text) {
       }
       pos++; // :
       skipSpace();
-      // Places are taken in reading order, before the value is read.
-      places.set(memberPath, { key: keyPlace, value: locate(pos) });
-      const value = parseValue(memberPath, depth);
+      // Places are taken in reading order, before the value is read. A
+      // duplicate key replaces the earlier member, as in the value.
+      /** @type {Node} */
+      const child = { place: { key: keyPlace, value: locate(pos) } };
+      members.set(key, child);
+      const value = parseValue(child, depth);
+      trail.pop();
       // defineProperty makes "__proto__" an ordinary member, as JSON.parse does.
       Object.defineProperty(obj, key, { value, writable: true, enumerable: true, configurable: true });
       skipSpace();
@@ -239,18 +342,24 @@ export function parseJson(text) {
     }
   };
 
-  /** @param {string} path @param {number} depth */
-  const parseArray = (path, depth) => {
+  /** @param {Node} node @param {number} depth */
+  const parseArray = (node, depth) => {
     if (depth > MAX_DEPTH) throw new SyntaxProblem(pos, `the nesting is deeper than ${MAX_DEPTH} levels`);
     pos++; // [
     /** @type {unknown[]} */
     const arr = [];
+    /** @type {Node[]} */
+    const items = [];
+    node.children = items;
     skipSpace();
     if (peek() === ']') { pos++; return arr; }
     for (;;) {
-      const itemPath = `${path}/${arr.length}`;
-      places.set(itemPath, { value: locate(pos) });
-      arr.push(parseValue(itemPath, depth));
+      /** @type {Node} */
+      const child = { place: { value: locate(pos) } };
+      items.push(child);
+      trail.push(arr.length);
+      arr.push(parseValue(child, depth));
+      trail.pop();
       skipSpace();
       const next = peek();
       if (next === ',') {
@@ -318,11 +427,13 @@ export function parseJson(text) {
 
   /** @type {unknown} */
   let value;
+  /** @type {Node | undefined} */
+  let root;
   try {
     skipSpace();
     if (pos >= text.length) throw new SyntaxProblem(pos, 'the file is empty', 'A deck is a JSON object: { "kadr": "0.1", "slides": [{}] }.');
-    places.set('', { value: locate(pos) });
-    value = parseValue('', 0);
+    root = { place: { value: locate(pos) } };
+    value = parseValue(root, 0);
     skipSpace();
     if (pos < text.length) throw new SyntaxProblem(pos, 'unexpected text after the end of the JSON value', 'A file holds one JSON value. Remove what follows it.');
   } catch (e) {
@@ -336,22 +447,7 @@ export function parseJson(text) {
       line: at.line,
       column: at.column,
     });
-    return { ok: false, value: undefined, places, diagnostics };
+    return { ok: false, value: undefined, places: new Places(root), diagnostics };
   }
-  // After a duplicate key, the places of the first occurrence's members are
-  // stale: keep only places of values that are in the result.
-  if (diagnostics.some((d) => d.code === 'json-duplicate-key')) {
-    /** @type {Set<string>} */
-    const live = new Set();
-    /** @param {unknown} v @param {string} path */
-    const walk = (v, path) => {
-      live.add(path);
-      if (v && typeof v === 'object') {
-        for (const [k, child] of Object.entries(v)) walk(child, `${path}/${Array.isArray(v) ? k : escapePointer(k)}`);
-      }
-    };
-    walk(value, '');
-    for (const path of [...places.keys()]) if (!live.has(path)) places.delete(path);
-  }
-  return { ok: diagnostics.length === 0, value, places, diagnostics };
+  return { ok: diagnostics.length === 0, value, places: new Places(root), diagnostics };
 }
