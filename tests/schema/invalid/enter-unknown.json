@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/enter"
+    {
+      "at": "/slides/0/elements/0/enter",
+      "kind": "value"
+    }
   ]
 }

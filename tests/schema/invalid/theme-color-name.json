@@ -12,6 +12,9 @@
     ]
   },
   "errors": [
-    "/theme/colors/accent"
+    {
+      "at": "/theme/colors/accent",
+      "kind": "pattern"
+    }
   ]
 }

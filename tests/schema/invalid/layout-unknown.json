@@ -9,6 +9,9 @@
     ]
   },
   "errors": [
-    "/slides/0/layout"
+    {
+      "at": "/slides/0/layout",
+      "kind": "value"
+    }
   ]
 }

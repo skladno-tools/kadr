@@ -8,6 +8,9 @@
     ]
   },
   "errors": [
-    "/titel"
+    {
+      "at": "/titel",
+      "kind": "unknown"
+    }
   ]
 }

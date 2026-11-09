@@ -13,6 +13,9 @@
     ]
   },
   "errors": [
-    "/slides/0/background/preset"
+    {
+      "at": "/slides/0/background/preset",
+      "kind": "unknown"
+    }
   ]
 }

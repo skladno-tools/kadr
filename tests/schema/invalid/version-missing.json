@@ -6,6 +6,9 @@
     ]
   },
   "errors": [
-    "/kadr"
+    {
+      "at": "/kadr",
+      "kind": "missing"
+    }
   ]
 }

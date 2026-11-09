@@ -190,7 +190,7 @@ The package needs Node 24 or newer. It is written in JavaScript with types check
 ## 6. Tests
 
 - Every diagnostic code has a deck that triggers it and the expected output, text and JSON, kept as files next to each other. A change in wording shows up as a diff in review.
-- The schema has its own suite in `tests/schema/`: valid decks that must pass with no errors, and invalid ones with the exact places the schema must reject. An invalid case passes only if the errors are in exactly those places, no fewer and no more.
+- The schema has its own suite in `tests/schema/`: valid decks that must pass with no errors, and invalid ones with the exact problems the schema must find, each a place and a kind (`missing`, `unknown`, `value`...). An invalid case passes only if the schema finds exactly those problems, no fewer and no more.
 - `build` is run twice on the example and the outputs must be identical.
 
 ## 7. The browser

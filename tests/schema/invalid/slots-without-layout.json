@@ -11,6 +11,9 @@
     ]
   },
   "errors": [
-    "/slides/0/slots"
+    {
+      "at": "/slides/0/slots",
+      "kind": "dependent"
+    }
   ]
 }

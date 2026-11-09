@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/color"
+    {
+      "at": "/slides/0/elements/0/color",
+      "kind": "choice"
+    }
   ]
 }

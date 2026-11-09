@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/alt"
+    {
+      "at": "/slides/0/elements/0/alt",
+      "kind": "missing"
+    }
   ]
 }

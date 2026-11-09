@@ -9,6 +9,9 @@
     ]
   },
   "errors": [
-    "/slides/0/id"
+    {
+      "at": "/slides/0/id",
+      "kind": "pattern"
+    }
   ]
 }
