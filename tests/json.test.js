@@ -187,6 +187,28 @@ test('"__proto__" is an ordinary member and cannot change the object', () => {
   assert.deepEqual(value, JSON.parse('{"__proto__": {"polluted": true}, "a": {"__proto__": null}}'));
 });
 
+test('reading time grows linearly, even when the whole file is one line', () => {
+  // Scripts and AI tools often write a deck as one line (JSON.stringify with
+  // no indentation). Finding a column must not mean counting from the start
+  // of the line for every value, which would make reading quadratic.
+  const slides = Array.from({ length: 8000 }, (_, i) => ({
+    id: `s${i}`, layout: 'content', slots: { title: `Slide ${i}`, body: '- one\n- two' },
+  }));
+  const image = `data:image/png;base64,${'A'.repeat(1_000_000)}`;
+  const deck = { kadr: '0.1', slides: [{ layout: 'image', slots: { image: { src: image, alt: 'An image' } } }, ...slides] };
+  const oneLine = JSON.stringify(deck);
+  const duplicates = `{${Array.from({ length: 20000 }, () => '"a":1').join(',')}}`;
+  for (const [name, text] of [['a 1.8 MB deck on one line', oneLine], ['20,000 duplicate keys on one line', duplicates]]) {
+    const started = performance.now();
+    const got = parseJson(text);
+    const ms = performance.now() - started;
+    assert.ok(got.value !== undefined, name);
+    // A linear reader takes well under a second here; a quadratic one, minutes.
+    assert.ok(ms < 3000, `${name}: ${Math.round(ms)} ms`);
+  }
+  assert.deepEqual(parseJson(oneLine).value, deck);
+});
+
 test(`nesting up to ${MAX_DEPTH} levels is read; deeper is refused`, () => {
   assert.equal(parseJson('['.repeat(MAX_DEPTH) + ']'.repeat(MAX_DEPTH)).ok, true);
   assert.equal(parseJson('{"a":'.repeat(MAX_DEPTH) + '1' + '}'.repeat(MAX_DEPTH)).ok, true);

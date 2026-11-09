@@ -83,26 +83,40 @@ export function parseJson(text) {
     }
   }
 
+  // Positions are asked for almost always in increasing order, so locate()
+  // remembers the last one and counts on from it. Counting from the start of
+  // the line every time would make reading a one-line file quadratic.
+  let cursorLine = 0;
+  let cursorOffset = start;
+  let cursorColumn = 1;
+
   /** @param {number} offset @returns {Position} */
   const locate = (offset) => {
-    let lo = 0;
-    let hi = lineStarts.length - 1;
-    while (lo < hi) {
-      const mid = (lo + hi + 1) >> 1;
-      if (lineStarts[mid] <= offset) lo = mid;
-      else hi = mid - 1;
+    const nextLineStart = lineStarts[cursorLine + 1] ?? Infinity;
+    if (offset < cursorOffset || offset >= nextLineStart) {
+      let lo = 0;
+      let hi = lineStarts.length - 1;
+      while (lo < hi) {
+        const mid = (lo + hi + 1) >> 1;
+        if (lineStarts[mid] <= offset) lo = mid;
+        else hi = mid - 1;
+      }
+      cursorLine = lo;
+      cursorOffset = lineStarts[lo];
+      cursorColumn = 1;
     }
-    let column = 1;
-    for (let i = lineStarts[lo]; i < offset; i++) {
+    const lineStart = lineStarts[cursorLine];
+    for (let i = cursorOffset; i < offset; i++) {
       const c = text.charCodeAt(i);
       // The second half of a surrogate pair is part of the same character.
-      if (c >= 0xdc00 && c <= 0xdfff && i > lineStarts[lo]) {
+      if (c >= 0xdc00 && c <= 0xdfff && i > lineStart) {
         const prev = text.charCodeAt(i - 1);
         if (prev >= 0xd800 && prev <= 0xdbff) continue;
       }
-      column++;
+      cursorColumn++;
     }
-    return { line: lo + 1, column };
+    cursorOffset = offset;
+    return { line: cursorLine + 1, column: cursorColumn };
   };
 
   /** @type {Map<string, Place>} */
@@ -157,7 +171,7 @@ export function parseJson(text) {
     pos++; // {
     /** @type {Record<string, unknown>} */
     const obj = {};
-    /** @type {Map<string, number>} */
+    /** @type {Map<string, Position>} */
     const seen = new Map();
     skipSpace();
     if (peek() === '}') { pos++; return obj; }
@@ -171,12 +185,12 @@ export function parseJson(text) {
         if (ch === '') throw new SyntaxProblem(pos, 'the file ends inside an object', 'Close the object with "}".');
         throw new SyntaxProblem(pos, `expected a key in double quotes, found ${describe(ch)}`);
       }
+      const keyPlace = locate(keyAt);
       const key = parseString();
       const memberPath = `${path}/${escapePointer(key)}`;
-      const first = seen.get(key);
-      if (first !== undefined) {
-        const was = locate(first);
-        const at = locate(keyAt);
+      const was = seen.get(key);
+      if (was !== undefined) {
+        const at = keyPlace;
         diagnostics.push({
           severity: 'error',
           code: 'json-duplicate-key',
@@ -186,7 +200,7 @@ export function parseJson(text) {
           line: at.line,
           column: at.column,
         });
-      } else seen.set(key, keyAt);
+      } else seen.set(key, keyPlace);
       skipSpace();
       if (peek() !== ':') {
         if (peek() === '') throw new SyntaxProblem(pos, 'the file ends inside an object', 'Close the object with "}".');
@@ -194,11 +208,11 @@ export function parseJson(text) {
       }
       pos++; // :
       skipSpace();
-      const valueAt = pos;
+      // Places are taken in reading order, before the value is read.
+      places.set(memberPath, { key: keyPlace, value: locate(pos) });
       const value = parseValue(memberPath, depth);
       // defineProperty makes "__proto__" an ordinary member, as JSON.parse does.
       Object.defineProperty(obj, key, { value, writable: true, enumerable: true, configurable: true });
-      places.set(memberPath, { key: locate(keyAt), value: locate(valueAt) });
       skipSpace();
       const next = peek();
       if (next === ',') {
@@ -225,9 +239,8 @@ export function parseJson(text) {
     if (peek() === ']') { pos++; return arr; }
     for (;;) {
       const itemPath = `${path}/${arr.length}`;
-      const valueAt = pos;
+      places.set(itemPath, { value: locate(pos) });
       arr.push(parseValue(itemPath, depth));
-      places.set(itemPath, { value: locate(valueAt) });
       skipSpace();
       const next = peek();
       if (next === ',') {
@@ -296,9 +309,8 @@ export function parseJson(text) {
   try {
     skipSpace();
     if (pos >= text.length) throw new SyntaxProblem(pos, 'the file is empty', 'A deck is a JSON object: { "kadr": "0.1", "slides": [{}] }.');
-    const valueAt = pos;
+    places.set('', { value: locate(pos) });
     value = parseValue('', 0);
-    places.set('', { value: locate(valueAt) });
     skipSpace();
     if (pos < text.length) throw new SyntaxProblem(pos, 'unexpected text after the end of the JSON value', 'A file holds one JSON value. Remove what follows it.');
   } catch (e) {
