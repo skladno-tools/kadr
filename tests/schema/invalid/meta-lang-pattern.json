@@ -1,0 +1,18 @@
+{
+  "description": "a language is a tag like \"en\" or \"pt-BR\"",
+  "deck": {
+    "kadr": "0.1",
+    "meta": {
+      "lang": "english"
+    },
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    {
+      "at": "/meta/lang",
+      "kind": "pattern"
+    }
+  ]
+}

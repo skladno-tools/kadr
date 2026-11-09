@@ -1,0 +1,20 @@
+{
+  "description": "a text slot is a string or an object",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "layout": "title",
+        "slots": {
+          "title": 5
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/slots/title",
+      "kind": "type"
+    }
+  ]
+}

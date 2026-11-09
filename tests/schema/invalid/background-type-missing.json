@@ -1,0 +1,19 @@
+{
+  "description": "a background object needs a type",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "background": {
+          "color": "accent"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/background/type",
+      "kind": "missing"
+    }
+  ]
+}
