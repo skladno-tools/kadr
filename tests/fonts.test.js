@@ -14,7 +14,7 @@ import { nameOf } from '../tools/fonts/woff2.mjs';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const fonts = join(root, 'fonts');
 
-/** @type {{ fonts: { id: string, family: string, license: string, copyright: string }[] }} */
+/** @type {{ fonts: { id: string, family: string, license: string, copyright: string, weights: number[], italic: boolean }[] }} */
 const catalog = JSON.parse(readFileSync(join(fonts, 'catalog.json'), 'utf8'));
 const schema = JSON.parse(readFileSync(join(root, 'schema', '0.1', 'kadr.schema.json'), 'utf8'));
 const css = readFileSync(join(fonts, 'fonts.css'), 'utf8');
@@ -39,6 +39,14 @@ for (const font of catalog.fonts) {
     assert.ok(hasNotice(license.slice(0, body)), `no copyright notice before the license text: ${license.slice(0, body).trim()}`);
   });
 }
+
+test('the catalog lists each family\'s weights as steps of 100, lightest first', () => {
+  for (const font of catalog.fonts) {
+    assert.ok(font.weights.length > 0, font.family);
+    assert.ok(font.weights.every((w, i) => Number.isInteger(w / 100) && w >= 100 && w <= 1000 && (i === 0 || w > font.weights[i - 1])), `${font.family}: ${font.weights}`);
+    assert.equal(typeof font.italic, 'boolean', font.family);
+  }
+});
 
 test('every file the stylesheet names exists, and every font file is named', () => {
   const named = [...css.matchAll(/url\(\.\/([^)]+)\)/g)].map((m) => m[1]).sort();

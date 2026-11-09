@@ -246,7 +246,7 @@ Fields starting with `x-` are allowed at the top level, in `meta`, on slides, on
 
 Kadr ships its own fonts, so a presentation looks the same everywhere and works offline. Every family covers Latin and Cyrillic, and all are licensed under the SIL Open Font License 1.1.
 
-- `fonts/catalog.json` lists each family: name, category, weight range, italic support, scripts and license.
+- `fonts/catalog.json` lists each family: name, category, the weights it has (in steps of 100), whether it has italics, scripts and license.
 - `fonts/fonts.css` declares all families. Font files are split by script, so a browser downloads only the parts a presentation actually uses.
 - The schema accepts exactly the families in the catalog. `tools/fonts/build.mjs` rebuilds the library from pinned packages and keeps the schema in sync.
 
@@ -260,12 +260,14 @@ Kadr ships its own fonts, so a presentation looks the same everywhere and works 
 
 Display and handwriting families are meant for headings and large numbers, not body text.
 
+**No imitated styles.** When a family lacks a style, a browser imitates it: it slants the letters for italics and thickens them for bold, and each browser does it differently. Kadr never lets it. Text in a family without italics stays upright, and a weight the family does not have is shown in the nearest weight it has. `check` warns about both, so the choice is visible.
+
 ## 15. Checks beyond the schema
 
 The schema catches typos and invalid values. The CLI `check` command also reports:
 
 - **errors:** duplicate `id`s on a slide (slot names included); two slides with the same `id`; a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
-- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.
+- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; italic text in a family without italics; a weight the family does not have; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.
 
 ## 16. Not in 0.1
 

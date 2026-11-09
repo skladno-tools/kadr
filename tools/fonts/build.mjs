@@ -93,6 +93,14 @@ rmSync(out, { recursive: true, force: true });
 rmSync(old, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
+/** Multiples of 100 from min to max. @param {number} min @param {number} max */
+const steps = (min, max) => {
+  /** @type {number[]} */
+  const out = [];
+  for (let w = Math.ceil(min / 100) * 100; w <= max; w += 100) out.push(w);
+  return out;
+};
+
 const hasNotice = (/** @type {string} */ text) => /copyright|\u00a9|\(c\)/i.test(text);
 
 const catalog = [];
@@ -149,7 +157,9 @@ for (const [id, category] of library) {
     family: meta.family,
     category,
     variable,
-    weights: variable ? [Number(wght.min), Number(wght.max)] : meta.weights,
+    // Always the list of weights the family has, in steps of 100. A variable
+    // family has every step between its lightest and boldest weight.
+    weights: variable ? steps(Number(wght.min), Number(wght.max)) : meta.weights.map(Number),
     italic: list.some((f) => f.style === 'italic'),
     subsets: meta.subsets,
     license: meta.license.type,

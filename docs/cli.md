@@ -174,6 +174,8 @@ With any of the four version codes, the schema is not run: which schema would ap
 | `list-one-number` | warning | A numbered list of one item: usually a sentence that starts with a number. The hint shows the escape: `2024\.`, written `2024\\.` in JSON. |
 | `text-too-small` | warning | Text below 24 px for a 1080 px tall canvas (scaled for other sizes). |
 | `display-font-body-text` | warning | A display or handwriting family on long body text. |
+| `font-no-italic` | warning | Italic text (`*...*`) in a family without italics: it is shown upright. The hint names families of the same kind that have italics. |
+| `font-weight-missing` | warning | A `weight` the family does not have: the nearest weight it has is used. The hint lists its weights. |
 | `remote-image` | warning | An `https://` image: the built deck will need the network. |
 | `text-overflow` | warning | Text taller than its box. Only with `--layout`. |
 | `valign-without-height` | warning | `valign` on text without `h`: a box that fits its content has nothing to align in. |
