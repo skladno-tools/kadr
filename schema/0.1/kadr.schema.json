@@ -92,6 +92,11 @@
       "type": "string",
       "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
     },
+    "src": {
+      "type": "string",
+      "pattern": "^(?:https://[^\\s/?#]\\S*|data:image/(?:png|jpeg|webp|avif|gif|svg\\+xml)(?:;[A-Za-z0-9=+.-]+)*,.*|(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\\])(?!(?:[^/]*/)*\\.\\.(?:/|$))[^\\\\?#\\u0000-\\u001f]+)$",
+      "description": "An image: a path relative to the deck file that stays inside its folder (no \"..\", no absolute path, no backslash, no \"?\" or \"#\"), an https:// address, or a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
     "colorToken": {
       "enum": [
         "bg",
@@ -443,8 +448,7 @@
               "properties": {
                 "type": true,
                 "src": {
-                  "type": "string",
-                  "minLength": 1
+                  "$ref": "#/$defs/src"
                 },
                 "dim": {
                   "$ref": "#/$defs/unit",
@@ -975,8 +979,7 @@
           "$ref": "#/$defs/enter"
         },
         "src": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/src"
         },
         "alt": {
           "type": "string",
@@ -1242,8 +1245,7 @@
           "$ref": "#/$defs/enter"
         },
         "src": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/src"
         },
         "alt": {
           "type": "string",

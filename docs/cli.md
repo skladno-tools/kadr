@@ -151,6 +151,8 @@ Codes are part of the contract: once released, a code keeps its meaning and is n
 | `unknown-slot` | A slot the slide's layout does not have. Lists the layout's slots. |
 | `slots-without-layout` | `slots` on a slide with no `layout`. |
 | `alt-empty` | An image whose `alt` is empty. A missing `alt` is `missing-field`. |
+| `image-address` | An image address that is not a path inside the deck's folder, `https://` or `data:image/`. The hint names what was found: `..`, an absolute path, a scheme such as `file:`. |
+| `image-insecure` | An `http://` image: a deck served over HTTPS cannot load it reliably. The hint suggests `https://`. Reported instead of `image-address`. |
 
 **Beyond the schema** (`docs/format.md` section 15):
 
@@ -160,8 +162,8 @@ Codes are part of the contract: once released, a code keeps its meaning and is n
 | `morph-type-mismatch` | error | Elements with one `id` on consecutive slides have different types. Hidden slides are skipped, as when presenting. |
 | `type-effect-not-text` | error | The `type` entrance on an element that is not text. |
 | `image-missing` | error | An image file that does not exist. |
-| `image-insecure` | error | An `http://` image. A deck served over HTTPS cannot load it reliably; the hint suggests `https://`. |
-| `image-format` | error | An image that is not PNG, JPEG, WebP, AVIF, GIF or SVG, judged by its extension or the media type of a `data:` URI. |
+| `image-format` | error | An image file whose extension is not that of PNG, JPEG, WebP, AVIF, GIF or SVG. For an `https://` address, the extension of its path, leaving out `?...` and `#...`. |
+| `image-format-unknown` | warning | An `https://` address with no extension, so its format cannot be checked. |
 | `off-canvas` | warning | An element lies entirely outside the canvas. |
 | `line-zero-length` | warning | A line with both `w` and `h` equal to 0. |
 | `list-one-number` | warning | A numbered list of one item: usually a sentence that starts with a number. The hint shows the escape: `2024\.`, written `2024\\.` in JSON. |

@@ -1,0 +1,103 @@
+{
+  "kadr": "0.1",
+  "background": {
+    "type": "image",
+    "src": "assets/sea.jpg"
+  },
+  "slides": [
+    {
+      "elements": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "photo.jpg",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "assets/photo one.png",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "./a/b/c.webp",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": ".hidden.gif",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "фото.avif",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "https://example.com/sea.jpg",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "https://cdn.example.com/i/123?w=800#top",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "data:image/png;base64,iVBORw0KGgo=",
+          "alt": "An image"
+        },
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100,
+          "src": "data:image/svg+xml;charset=utf-8,%3Csvg%2F%3E",
+          "alt": "An image"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "slots": {
+        "image": {
+          "src": "https://example.com/a.webp",
+          "alt": "An image"
+        }
+      }
+    }
+  ]
+}
