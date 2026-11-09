@@ -19,7 +19,7 @@ You describe a presentation in one JSON file; Kadr lays it out, animates it and 
 | [`tests/`](tests/) | Tests: the schema, the JSON reader and the font library |
 | [`fonts/`](fonts/) | Bundled font library: 44 families, Latin and Cyrillic |
 | [`tools/fonts/`](tools/fonts/) | Rebuilds the font library from pinned sources |
-| [`.github/workflows/`](.github/workflows/) | Checks GitHub runs on every push: tests, types, and a rebuild of the fonts |
+| [`.github/workflows/`](.github/workflows/) | Checks GitHub runs on pushes to `main` and `unstable` and on pull requests: tests and types, and a rebuild of the fonts when they or their build change |
 
 ## A taste of the format
 
