@@ -1,6 +1,6 @@
 # Kadr CLI
 
-Draft. Nothing here is implemented yet; the open questions at the end are still to be decided.
+Design. Nothing here is implemented yet.
 
 ## 1. Principles
 
@@ -19,6 +19,7 @@ kadr build <file> [-o <file.html>] [--force]
 kadr pdf <file> [-o <file.pdf>] [--force]
 kadr upgrade <file> [-o <file>]
 kadr schema [<version>]
+kadr docs
 kadr fonts
 ```
 
@@ -31,6 +32,8 @@ Writes a short starter deck: a title slide and a content slide, with `"$schema"`
 ### `kadr check`
 
 Validates against the schema of the file's version, then runs the checks beyond the schema (`docs/format.md` section 15). With `--layout`, it also lays the deck out in a browser and reports text that overflows its box (section 7). `--strict` turns warnings into errors, for CI.
+
+`--layout` is never turned on by itself, even when a browser is found: the same command must give the same result on every machine. Overflowing text is a common mistake for AI tools, so `kadr docs` and the hints advise running `check --layout` whenever a browser is available.
 
 ### `kadr build`
 
@@ -49,6 +52,10 @@ Rewrites a deck in the newest format version this CLI knows, using the format's 
 ### `kadr schema`
 
 Prints the JSON Schema of the newest format version, or of the given one. The quickest way for an AI tool to learn the format.
+
+### `kadr docs`
+
+Prints the description of the newest format version (`docs/format.md`), so an AI tool that has only the CLI learns the format in prose as well as from the schema. With `--json`, the text comes as the `docs` field.
 
 ### `kadr fonts`
 
@@ -171,6 +178,7 @@ src/format/         reading with positions, schema validation, checks, upgrades
 src/player/         the player (later)
 src/cli/            the commands
 schema/<version>/   schemas, shipped in the package
+docs/format.md      the format description, shipped in the package for kadr docs
 fonts/              the font library, shipped in the package
 tests/
 ```
@@ -191,9 +199,6 @@ Text height depends on real font shaping and line breaking, so the only trustwor
 
 `pdf` and `check --layout` use a Chromium-based browser through `playwright-core`, which downloads nothing by itself. Kadr looks for Chrome, Chromium or Edge installed on the system, or the one named in `KADR_BROWSER`. If there is none, it stops with exit code 2 and says how to get one (`npx playwright install chromium`).
 
-## 8. Open questions
+## 8. Later
 
-1. **Package name.** `@skladno-tools/kadr` on npm with the command `kadr`, or the plain name `kadr` if it is free.
-2. **Layout check by default.** Overflowing text is a common mistake for AI tools. `check` could run `--layout` automatically whenever a browser is found, at the cost of being slower and giving different results on different machines.
-3. **A live preview.** `kadr present <file>` or `kadr build --watch`: serve the deck locally and reload on every save. Useful while writing a deck; not needed for the first version.
-4. **Printing the documentation.** `kadr docs` could print `docs/format.md`, so an AI tool with only the CLI learns the format in prose as well as from the schema.
+- **`kadr present <file>`**: serves the deck locally and reloads it on every save, for writing a deck with the result in view. It comes with the player; the name is reserved now so the set of commands does not change shape later.

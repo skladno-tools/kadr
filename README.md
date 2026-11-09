@@ -11,7 +11,7 @@ You describe a presentation in one JSON file; Kadr lays it out, animates it and 
 | Path | Contents |
 |---|---|
 | [`docs/format.md`](docs/format.md) | The presentation format, version 0.1 (draft) |
-| [`docs/cli.md`](docs/cli.md) | The command-line tool, design draft |
+| [`docs/cli.md`](docs/cli.md) | The command-line tool: design, not yet implemented |
 | [`docs/decisions.md`](docs/decisions.md) | Why things are the way they are, and what comes next |
 | [`schema/0.1/kadr.schema.json`](schema/0.1/kadr.schema.json) | JSON Schema for `.kadr.json` files |
 | [`examples/`](examples/) | Example presentations |

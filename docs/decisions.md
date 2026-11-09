@@ -25,6 +25,13 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 - **Hidden slides do not exist while presenting.** The slides around one flow into each other directly, because that is what the audience sees. Going back plays the transition in reverse; a jump to a distant slide fades.
 - **Bundled fonts only.** 44 families under the SIL Open Font License 1.1, all with Latin and Cyrillic, so a deck looks the same everywhere and works offline. The schema accepts exactly the bundled families; `tools/fonts/build.mjs` keeps them in sync. Files are split by script, so the size of the library does not slow a deck down.
 
+## CLI
+
+- **A Node package, `@skladno-tools/kadr`, with the command `kadr`.** The player and the editor run in the browser, so the core is JavaScript; Node runs the same code, so the CLI shares the core instead of repeating it. npm is how Node programs are shared, and `npx` runs Kadr with no install step. Standalone executables can be built from the same code later.
+- **The layout check is opt-in** (`check --layout`). It needs a browser, and a check that turned itself on whenever a browser was found would give different results on different machines.
+- **`kadr docs` prints the format description**, so an AI tool with only the CLI can learn the format in prose as well as from the schema.
+- **A live preview (`kadr present`) waits for the player.** The name is reserved.
+
 ## Repository
 
 - **Organization `skladno-tools`.** It holds Kadr and Chistovik, a separate project that formats documents to a strict standard.
@@ -39,7 +46,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **Settle the open questions in `docs/cli.md`**, then implement `check`, including the checks beyond the schema in `docs/format.md` section 15.
+1. **Implement `check`** as designed in `docs/cli.md`: reading JSON with positions, the schema, and the checks beyond the schema in `docs/format.md` section 15.
 2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
 3. **Layout geometry:** where each layout puts its slots on the canvas.
 4. **The player:** rendering, steps, transitions, morphing and presenter view.
