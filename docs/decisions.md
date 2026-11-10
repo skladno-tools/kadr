@@ -19,6 +19,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 - **Strict schema.** Unknown fields are errors, so typos are caught at once. Fields starting with `x-` are the escape hatch for extensions.
 - **Colors from the theme.** A color is a theme name (`accent`, `muted`...) or hex; names like `red` are rejected, so a deck stays within one color system.
 - **`alt` is required, not empty, and never drawn.** It is for screen readers and AI tools and shows only if the image fails to load. A visible caption is separate content. Purely decorative images go in the background, which has no `alt`.
+- **The prose and the schema say the same.** `format.md` lists every range, pattern and default the schema sets (section 16), because AI tools learn the format from the prose that `kadr docs` prints. The schema decides; a test compares the two both ways, so neither can change alone.
 - **Errors only where they are.** The schema chooses every variant by a discriminator (an element's `type`, string or object for a slot) and lists each variant's fields explicitly. A mistake is then reported in its own place, and correct fields next to it are never called unknown; an AI tool following a false "unknown field" would delete good content. `tests/schema/` checks the exact place and kind of every error.
 - **Markup by CommonMark rules.** Text uses a small subset of Markdown, and markup works only where it is obvious: `5 * 3` stays as it is. People and AI tools already know these rules, and almost no text needs escapes.
 - **Images a browser shows natively:** PNG, JPEG, WebP, AVIF, GIF and SVG, so a deck looks the same when presenting and in PDF. An image is a path that stays inside the deck's folder, an `https://` address or a `data:image/` URI, and nothing else: a deck served over HTTPS cannot load `http://` images reliably, and a deck from someone else must never pull a file from elsewhere on the disk into a built deck. A path is the file's name written literally, never percent-encoded, so `%2e%2e` cannot become `..`, and `build` checks the real location of every file, so a link in the folder cannot point elsewhere either. The rule is strict on purpose: relaxing it later keeps old decks valid, tightening it would not.
@@ -51,8 +52,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **A table of limits in `format.md`.** Every number range, pattern and default the schema sets, in prose for people and AI tools, with a test that checks each row against the schema and that no limit in the schema is left out.
-2. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
-3. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
-4. **Layout geometry:** where each layout puts its slots on the canvas.
-5. **The player:** rendering, steps, transitions, morphing and presenter view.
+1. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
+2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
+3. **Layout geometry:** where each layout puts its slots on the canvas.
+4. **The player:** rendering, steps, transitions, morphing and presenter view.

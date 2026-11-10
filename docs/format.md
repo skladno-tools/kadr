@@ -133,6 +133,8 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 
 ## 9. Elements
 
+The ranges and defaults of all fields are gathered in section 16.
+
 ### Common fields
 
 | Field | Description |
@@ -269,6 +271,50 @@ The schema catches typos and invalid values. The CLI `check` command also report
 - **errors:** duplicate `id`s on a slide (slot names included); two slides with the same `id`; a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
 - **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; italic text in a family without italics; a weight the family does not have; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.
 
-## 16. Not in 0.1
+## 16. Limits and defaults
+
+Every range, pattern and default the schema sets, in one place. The schema is what decides; a test checks that this section says the same thing, so the two cannot drift apart.
+
+| Field | Allowed | Default |
+|---|---|---|
+| `slides` | at least 1 slide | - |
+| `canvas.width` | whole number, 320 to 7680 | `1920` |
+| `canvas.height` | whole number, 320 to 7680 | `1080` |
+| `theme` | a built-in theme, or an object | `"aurora"` |
+| `x`, `y` | any number | - |
+| `w`, `h` | number above 0; on a line, any number | - |
+| `rotate` | number, -360 to 360 | `0` |
+| `opacity` | number, 0 to 1 | `1` |
+| `step` | whole number, 0 to 99 | `0` |
+| `duration`, `delay` (transitions and entrances, in ms) | whole number, 0 to 10000 | - |
+| `hidden` | `true` or `false` | `false` |
+| `alt` | at least 1 character | - |
+| `fit` | `cover` or `contain` | `"cover"` |
+| `focus.x`, `focus.y` | number, 0 to 1 | - |
+| `dim` (image background) | number, 0 to 1 | `0` |
+| `blur` (image background) | number, 0 to 100 | `0` |
+| `radius` | number, at least 0 | - |
+| `size` (text) | number, 8 to 600, or a role | - |
+| `size` (code) | number, 8 to 200 | - |
+| `lineHeight` | number, 0.8 to 3 | - |
+| `reveal` | `all` or `items` | `"all"` |
+| `strokeWidth` | number, 0 to 200 | - |
+| `colors` (gradient background) | 2 to 6 colors | - |
+| `angle` (gradient background) | number, 0 to 360 | `135` |
+| `kind` (gradient background) | `linear` or `radial` | `"linear"` |
+| `colors` (live background) | 1 to 6 colors | - |
+| `speed` (live background) | number, 0 to 4 | `1` |
+
+Text that must have a certain form, as regular expressions:
+
+- `id`: `^[a-z][a-z0-9-]{0,63}$`
+- hex color: `^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$`
+- `meta.lang`: `^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$`
+- `lang` (code): `^[a-z0-9+#-]{1,32}$`
+- `src`: `^(?:https://[^\s/?#@:\\\u0000-\u001f\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069][^\s\u0000-\u001f\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069]*|data:image/(?:png|jpeg|webp|avif|gif|svg\+xml)(?:;[A-Za-z0-9=+.-]+)*,.*|(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\s])(?!(?:[^/]*/)*\.\.(?:/|$))[^\\?#%\u0000-\u001f\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069]+(?<!\s))$`
+
+The `src` expression is the three forms of section 2 written out: an `https://` address, a `data:image/` URI, or a relative path inside the deck's folder.
+
+## 17. Not in 0.1
 
 Tables, charts, video, element groups, master slides, custom motion paths, links between slides. The format is designed so these can be added as new element types without changing existing ones.

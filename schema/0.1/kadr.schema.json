@@ -858,8 +858,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"
@@ -969,8 +968,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"
@@ -1119,8 +1117,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"
@@ -1235,8 +1232,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"
@@ -1303,8 +1299,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"
@@ -1470,8 +1465,7 @@
           "$ref": "#/$defs/rotate"
         },
         "opacity": {
-          "$ref": "#/$defs/unit",
-          "default": 1
+          "$ref": "#/$defs/opacity"
         },
         "step": {
           "$ref": "#/$defs/step"

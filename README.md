@@ -16,7 +16,7 @@ You describe a presentation in one JSON file; Kadr lays it out, animates it and 
 | [`schema/0.1/kadr.schema.json`](schema/0.1/kadr.schema.json) | JSON Schema for `.kadr.json` files |
 | [`examples/`](examples/) | Example presentations |
 | [`src/format/`](src/format/) | Reading and checking decks, shared by the CLI and the browser (in progress) |
-| [`tests/`](tests/) | Tests: the schema, the JSON reader and the font library |
+| [`tests/`](tests/) | Tests: the schema, the JSON reader, the font library, and that the limits in the format description match the schema |
 | [`fonts/`](fonts/) | Bundled font library: 44 families, Latin and Cyrillic |
 | [`tools/fonts/`](tools/fonts/) | Rebuilds the font library from pinned sources |
 | [`.github/workflows/`](.github/workflows/) | Checks GitHub runs on pushes to `main` and `unstable` and on pull requests: tests and types, and a rebuild of the fonts when they or their build change |
