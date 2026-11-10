@@ -46,7 +46,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 - **Branches.** `unstable` for day-to-day work; `main` is published. Changes reach `main` only through a pull request from `unstable` that the owner merges.
 - **English** for code and documentation, so people and AI tools everywhere can use it.
 - **Plain ASCII.** Command output, test output, messages and documentation use plain ASCII: words like `error` and `warning`, marks like `[+]` and `[-]` where a mark is needed, `1920x1080` and `...` rather than typographic signs. No emoji or pictographs. Content that is about other scripts, such as Cyrillic sample text, and legal notices copied word for word from upstream, such as a font's copyright line with the copyright sign, are the exceptions.
-- **Few dependencies.** Node 24 or newer; JavaScript with types checked by TypeScript through JSDoc, so there is no build step. Tests use Node's own runner. Dependencies are pinned to exact versions; so far they are only needed for development: Ajv, TypeScript and Node's type definitions.
+- **Few dependencies.** Node 24 or newer; JavaScript with types checked by TypeScript through JSDoc, so there is no build step. Tests use Node's own runner. Dependencies are pinned to exact versions. The code itself needs one, Ajv, to validate against the schema; TypeScript and Node's type definitions are needed only for development.
 - **License.** Apache 2.0 for code and documentation; fonts keep their own licenses.
 - **Schema address.** Each format version keeps its own address: `https://skladno-tools.github.io/kadr/schema/<version>/kadr.schema.json`.
 

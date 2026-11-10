@@ -17,10 +17,12 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Ajv2020 } from 'ajv/dist/2020.js';
+import { schemaOf, validate } from '../src/format/schema.js';
+import { problems } from '../src/format/problems.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const schemaPath = join(root, 'schema', '0.1', 'kadr.schema.json');
 const casesDir = join(root, 'tests', 'schema');
+const schema = schemaOf('0.1');
 
 /** @param {string} path */
 const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
@@ -29,119 +31,25 @@ const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const filesIn = (dir, suffix) =>
   readdirSync(dir).filter((name) => name.endsWith(suffix)).sort();
 
-/** @param {boolean} strict */
-const compile = (strict) =>
-  new Ajv2020({ allErrors: true, strict, verbose: true }).compile(schema);
+/** @typedef {{ at: string, kind: string }} Expected */
 
-// What kind of mistake each validator keyword reports. The kinds are close to
-// the diagnostic codes in docs/cli.md, so a case says not only where the
-// schema must object but what it must object to: a missing "alt" and an
-// unknown "alt" are different mistakes at the same place.
-/** @type {Record<string, string>} */
-const kinds = {
-  required: 'missing',
-  additionalProperties: 'unknown',
-  unevaluatedProperties: 'unknown',
-  'false schema': 'unknown',
-  dependentRequired: 'dependent',
-  type: 'type',
-  enum: 'value',
-  const: 'value',
-  pattern: 'pattern',
-  minimum: 'range',
-  maximum: 'range',
-  exclusiveMinimum: 'range',
-  exclusiveMaximum: 'range',
-  minItems: 'size',
-  maxItems: 'size',
-  minLength: 'size',
-  maxLength: 'size',
-};
-
-/**
- * @typedef {object} Problem
- * @property {string} at    JSON Pointer of the wrong place
- * @property {string} kind  one of the kinds above, "choice", or a wrapper keyword
- */
-
-const schema = readJson(schemaPath);
-
-/**
- * The schemas an anyOf chooses between, with references resolved.
- * @param {unknown[]} branches
- */
-const resolve = (branches) => new Set(branches.map((b) => {
-  const ref = /** @type {{ $ref?: string }} */ (b).$ref;
-  if (ref === undefined) return b;
-  const name = /^#\/\$defs\/([^/]+)$/.exec(ref)?.[1];
-  if (name === undefined) throw new Error(`unexpected reference ${ref}`);
-  return schema.$defs[name];
-}));
-
-/**
- * Turns the validator's errors into a sorted list of problems. Every error
- * counts: the same mistake reported twice is two problems, so a schema that
- * reports one thing twice fails its case.
- *
- * - An unknown or missing field points at the field itself; a field that
- *   needs another one (slots without a layout) points at the field that is
- *   there.
- * - When every branch of an anyOf fails at the anyOf's own place (a color that
- *   is neither a theme name nor hex), the branch errors are one problem of
- *   kind "choice". Branch errors are recognised by the schema that reported
- *   them, so an unrelated error at the same place is still reported.
- * - "if" and "allOf" errors are dropped: the validator reports them only
- *   together with the errors inside them. Other wrappers ("not", "oneOf")
- *   are reported under their own keyword; this schema uses neither.
- * @param {import('ajv').ErrorObject[]} errors  from a validator with verbose: true
- * @returns {Problem[]}
- */
-const problems = (errors) => {
-  /** @param {import('ajv').ErrorObject} e */
-  const place = (e) => {
-    const p = /** @type {Record<string, unknown>} */ (e.params);
-    const field = e.keyword === 'dependentRequired'
-      ? p.property
-      : p.unevaluatedProperty ?? p.additionalProperty ?? p.missingProperty;
-    return field === undefined ? e.instancePath : `${e.instancePath}/${field}`;
-  };
-  /** @param {import('ajv').ErrorObject} e */
-  const kind = (e) => {
-    const k = kinds[e.keyword];
-    if (k === undefined) throw new Error(`no kind for the keyword "${e.keyword}"; add one to the table`);
-    return k;
-  };
-  /** @type {Problem[]} */
-  const found = [];
-  /** @type {Set<import('ajv').ErrorObject>} */
-  const absorbed = new Set();
-  for (const e of errors.filter((w) => w.keyword === 'anyOf')) {
-    const branches = resolve(/** @type {unknown[]} */ (e.schema));
-    const mine = errors.filter((b) => b.instancePath === e.instancePath && branches.has(b.parentSchema));
-    const elsewhere = errors.some((b) => b.instancePath.startsWith(`${e.instancePath}/`) && !absorbed.has(b));
-    if (mine.length > 0 && !elsewhere) {
-      mine.forEach((b) => absorbed.add(b));
-      found.push({ at: e.instancePath, kind: 'choice' });
-    }
-  }
-  for (const e of errors) {
-    if (absorbed.has(e) || e.keyword === 'anyOf' || e.keyword === 'if' || e.keyword === 'allOf') continue;
-    found.push({ at: place(e), kind: e.keyword === 'not' || e.keyword === 'oneOf' ? e.keyword : kind(e) });
-  }
-  return found.sort(byPlace);
-};
-
-/** @param {Problem} a @param {Problem} b */
+/** @param {Expected} a @param {Expected} b */
 const byPlace = (a, b) => (a.at === b.at ? a.kind.localeCompare(b.kind) : a.at < b.at ? -1 : 1);
 
-test('the schema compiles in strict mode', () => {
-  assert.doesNotThrow(() => compile(true));
+test('the schema compiles in strict mode, without warnings', () => {
+  /** @type {unknown[]} */
+  const logged = [];
+  const logger = { log: (/** @type {unknown} */ m) => logged.push(m), warn: (/** @type {unknown} */ m) => logged.push(m), error: (/** @type {unknown} */ m) => logged.push(m) };
+  assert.doesNotThrow(() => new Ajv2020({ strict: true, logger }).compile(structuredClone(schema)));
+  assert.deepEqual(logged, []);
 });
 
-const validate = compile(false);
-
-/** @param {unknown} deck */
-const problemsOf = (deck) => (validate(deck) ? [] : problems(validate.errors ?? []));
+/**
+ * The problems the schema finds in a deck, as place and kind.
+ * @param {unknown} deck
+ * @returns {Expected[]}
+ */
+const problemsOf = (deck) => problems(validate('0.1', deck), schema).map(({ at, kind }) => ({ at, kind }));
 
 const valid = [
   ...filesIn(join(casesDir, 'valid'), '.kadr.json').map((name) => join(casesDir, 'valid', name)),
@@ -157,7 +65,7 @@ for (const path of valid) {
 for (const name of filesIn(join(casesDir, 'invalid'), '.json')) {
   const { description, deck, errors } = readJson(join(casesDir, 'invalid', name));
   test(`invalid: ${name.replace(/\.json$/, '')}: ${description}`, () => {
-    /** @type {Problem[]} */
+    /** @type {Expected[]} */
     const expected = errors;
     assert.deepEqual(problemsOf(deck), [...expected].sort(byPlace));
   });
