@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/type"
+    {
+      "at": "/slides/0/elements/0/type",
+      "kind": "value"
+    }
   ]
 }

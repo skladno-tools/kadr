@@ -14,6 +14,9 @@
     ]
   },
   "errors": [
-    "/slides/0/slots/image/alt"
+    {
+      "at": "/slides/0/slots/image/alt",
+      "kind": "missing"
+    }
   ]
 }

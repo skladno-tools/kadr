@@ -12,6 +12,9 @@
     ]
   },
   "errors": [
-    "/theme/fonts/heading"
+    {
+      "at": "/theme/fonts/heading",
+      "kind": "value"
+    }
   ]
 }

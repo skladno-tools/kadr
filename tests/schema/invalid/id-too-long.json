@@ -1,0 +1,17 @@
+{
+  "description": "an id has at most 64 characters",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "id": "saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/id",
+      "kind": "pattern"
+    }
+  ]
+}

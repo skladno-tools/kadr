@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/fill"
+    {
+      "at": "/slides/0/elements/0/fill",
+      "kind": "unknown"
+    }
   ]
 }

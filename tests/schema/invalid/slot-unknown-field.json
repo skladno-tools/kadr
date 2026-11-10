@@ -15,6 +15,9 @@
     ]
   },
   "errors": [
-    "/slides/0/slots/title/colour"
+    {
+      "at": "/slides/0/slots/title/colour",
+      "kind": "unknown"
+    }
   ]
 }

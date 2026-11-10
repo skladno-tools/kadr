@@ -1,0 +1,79 @@
+{
+  "description": "only a rectangle has corners: an ellipse or a line takes no radius, whatever its value, and a rectangle needs one of at least 0",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "ellipse",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": 10
+          },
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 0,
+            "radius": 4
+          },
+          {
+            "type": "shape",
+            "shape": "circle",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": 4
+          },
+          {
+            "type": "shape",
+            "shape": "ellipse",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": "x"
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "radius": -1
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/radius",
+      "kind": "unknown"
+    },
+    {
+      "at": "/slides/0/elements/1/radius",
+      "kind": "unknown"
+    },
+    {
+      "at": "/slides/0/elements/2/shape",
+      "kind": "value"
+    },
+    {
+      "at": "/slides/0/elements/3/radius",
+      "kind": "unknown"
+    },
+    {
+      "at": "/slides/0/elements/4/radius",
+      "kind": "range"
+    }
+  ]
+}

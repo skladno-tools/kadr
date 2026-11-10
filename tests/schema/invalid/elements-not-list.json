@@ -1,0 +1,17 @@
+{
+  "description": "\"elements\" is a list",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": {}
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements",
+      "kind": "type"
+    }
+  ]
+}

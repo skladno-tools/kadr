@@ -1,0 +1,10 @@
+{
+  "description": "a deck is an object",
+  "deck": [],
+  "errors": [
+    {
+      "at": "",
+      "kind": "type"
+    }
+  ]
+}

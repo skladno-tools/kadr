@@ -7,6 +7,9 @@
     ]
   },
   "errors": [
-    "/kadr"
+    {
+      "at": "/kadr",
+      "kind": "value"
+    }
   ]
 }

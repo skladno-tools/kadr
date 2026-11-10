@@ -1,0 +1,29 @@
+{
+  "description": "a typo inside the object form of enter",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "enter": {
+              "effect": "rise",
+              "durration": 500
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/enter/durration",
+      "kind": "unknown"
+    }
+  ]
+}

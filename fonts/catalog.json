@@ -7,6 +7,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -30,6 +37,11 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": false,
@@ -52,6 +64,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -75,6 +94,10 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -95,6 +118,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -117,6 +147,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -139,6 +176,11 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -161,6 +203,13 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        900,
         1000
       ],
       "italic": true,
@@ -182,6 +231,13 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        900,
         1000
       ],
       "italic": true,
@@ -203,6 +259,10 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": true,
@@ -229,6 +289,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -253,6 +320,11 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": true,
@@ -275,6 +347,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -296,6 +375,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -317,6 +403,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -336,6 +429,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -357,6 +457,9 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": true,
@@ -378,6 +481,9 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": false,
@@ -419,6 +525,12 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -442,6 +554,12 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -454,7 +572,7 @@
         "vietnamese"
       ],
       "license": "OFL-1.1",
-      "copyright": "Google Inc.",
+      "copyright": "© 2014 - 2021 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name ‘Source’.",
       "source": "@fontsource-variable/source-serif-4@5.3.1"
     },
     {
@@ -464,6 +582,8 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
         700
       ],
       "italic": true,
@@ -487,6 +607,11 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -508,6 +633,13 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -532,6 +664,9 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": true,
@@ -555,6 +690,9 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": true,
@@ -576,6 +714,10 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -599,6 +741,10 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -639,6 +785,12 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -660,6 +812,10 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": false,
@@ -681,6 +837,9 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": false,
@@ -703,6 +862,10 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": false,
@@ -783,6 +946,8 @@
       "variable": true,
       "weights": [
         400,
+        500,
+        600,
         700
       ],
       "italic": false,
@@ -843,6 +1008,12 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
         800
       ],
       "italic": true,
@@ -865,6 +1036,9 @@
       "variable": true,
       "weights": [
         300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": false,
@@ -888,6 +1062,12 @@
       "variable": true,
       "weights": [
         200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
         900
       ],
       "italic": true,
@@ -901,7 +1081,7 @@
         "vietnamese"
       ],
       "license": "OFL-1.1",
-      "copyright": "Google Inc.",
+      "copyright": "© 2023 Adobe (http://www.adobe.com/), with Reserved Font Name ‘Source’",
       "source": "@fontsource-variable/source-code-pro@5.3.1"
     },
     {
@@ -911,6 +1091,11 @@
       "variable": true,
       "weights": [
         100,
+        200,
+        300,
+        400,
+        500,
+        600,
         700
       ],
       "italic": true,

@@ -26,7 +26,13 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/step",
-    "/slides/0/elements/1/step"
+    {
+      "at": "/slides/0/elements/0/step",
+      "kind": "type"
+    },
+    {
+      "at": "/slides/0/elements/1/step",
+      "kind": "range"
+    }
   ]
 }

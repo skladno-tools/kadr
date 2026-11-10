@@ -1,0 +1,24 @@
+{
+  "description": "an element without \"type\" is reported only there; its fields are not called unknown",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "content": "Text"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/type",
+      "kind": "missing"
+    }
+  ]
+}

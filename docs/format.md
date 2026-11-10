@@ -14,13 +14,18 @@ Draft. Machine-readable schema: [`schema/0.1/kadr.schema.json`](../schema/0.1/ka
 
 - Extension: `.kadr.json`. Encoding: UTF-8.
 - A `"$schema"` field is allowed, so editors can suggest fields and flag errors. The published schema for this version lives at `https://skladno-tools.github.io/kadr/schema/0.1/kadr.schema.json`; each version keeps its own address, so older files stay valid against their own schema.
-- Resource paths (`src`) are relative to the presentation file. `https://` URLs and embedded `data:` URIs are also allowed. `http://` is not: a deck served over HTTPS, as on GitHub Pages, cannot load such images reliably.
-- Images may be PNG, JPEG, WebP, AVIF, GIF or SVG: every browser shows them natively, so a deck looks the same when presenting and in PDF. The format is taken from the file extension (case does not matter: `.png`, `.jpg` or `.jpeg`, `.webp`, `.avif`, `.gif`, `.svg`) or, for a `data:` URI, from its media type.
+- An image (`src`) is one of three things:
+  - a path relative to the presentation file that stays inside its folder: `photo.jpg`, `assets/my photo.jpg`. It is the file's name written as it is, not a URL: no `%` escapes, so a space is a space. No `..`, no absolute path (`/...`, `C:\...`), no backslashes, no `?`, `#` or `%`, no spaces at either end and no control characters;
+  - an `https://` address;
+  - a `data:image/` URI of one of the formats below, such as `data:image/png;base64,...`.
+
+  Nothing else is accepted: not `http://`, which a deck served over HTTPS, as on GitHub Pages, cannot load reliably; not `file:`, `//server/...` or any other scheme. A deck from someone else can then never pull a file from elsewhere on your disk into a built deck.
+- Images may be PNG, JPEG, WebP, AVIF, GIF or SVG: every browser shows them natively, so a deck looks the same when presenting and in PDF. The format is taken from the file extension (case does not matter: `.png`, `.jpg` or `.jpeg`, `.webp`, `.avif`, `.gif`, `.svg`), for an `https://` address from the extension of its path with any `?...` and `#...` left out, and for a `data:` URI from its media type. An `https://` address with no extension, as some image services use, cannot be judged and gets a warning.
 - An SVG is drawn as a picture: scripts in it do not run and it cannot load other files, so it must be self-contained.
 
 ## 3. Version
 
-The `"kadr": "0.1"` field is required.
+The `"kadr": "0.1"` field is required. It is a string of two numbers joined by a dot; the number `0.1` is not a version.
 
 - While the version starts with `0.`, the format may change. Every change ships with a function that upgrades older files, so old presentations keep working.
 - After `1.0`, a change in the second number only adds features; a change in the first may change existing behavior and always ships with an upgrade.
@@ -159,7 +164,7 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 
 | Field | Description |
 |---|---|
-| `src` | Path or URL. Required. |
+| `src` | The image (section 2). Required. |
 | `alt` | Text alternative. Required and not empty. |
 | `fit` | `cover`: fill and crop; `contain`: fit entirely. |
 | `focus` | The point that stays visible when cropping. |
@@ -174,7 +179,7 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 | `shape` | `rect`, `ellipse`, `line`. Required. A line runs from (`x`, `y`) to (`x + w`, `y + h`), so its `w` and `h` may be zero or negative: `h: 0` is a horizontal line, `w: 0` a vertical one. |
 | `fill`, `stroke` | Fill and stroke colors. |
 | `strokeWidth` | Stroke width. |
-| `radius` | Corner radius of a rectangle. |
+| `radius` | Corner radius. Only a rectangle takes it: an ellipse or a line has no corners. |
 
 ### `code`
 
@@ -189,7 +194,7 @@ A slot element gets an `id` equal to the slot name (`title`, `body`...) unless o
 A small subset of Markdown. It follows the rules of CommonMark, so markup works only where it is obvious, and a character that does not form markup stays an ordinary character.
 
 - **Paragraphs.** A blank line separates paragraphs; a single newline is a line break within a paragraph.
-- **Emphasis.** `**bold**` and `*italic*`. An opening `*` must be followed by a character that is not a space, and a closing one preceded by such a character. Any other `*` is just an asterisk: `5 * 3`, `price*`. Bold and italic can contain each other, code and links.
+- **Emphasis.** `**bold**` and `*italic*`. An opening `*` must be followed by a character that is not a space, and a closing one preceded by such a character. Any other `*` is just an asterisk: `5 * 3`, `price*`. Bold and italic can contain each other, code and links. Bold text has weight 700, or 900 in text that is already 700 or heavier; a family without that weight shows the nearest one it has (section 14).
 - **Code.** `` `code` ``. Everything between the backticks is shown as it is, with no markup and no escapes. A backtick without a closing one is just a backtick. Text cannot show a backtick inside code; use a `code` element for that.
 - **Links.** `[text](https://...)`, with an `https://` or `http://` address. A `[` that does not start this exact form is just a bracket.
 - **Lists.** Lines starting with `- ` or a number and a dot (`1. `). Nest with two spaces per level.
@@ -241,7 +246,7 @@ Fields starting with `x-` are allowed at the top level, in `meta`, on slides, on
 
 Kadr ships its own fonts, so a presentation looks the same everywhere and works offline. Every family covers Latin and Cyrillic, and all are licensed under the SIL Open Font License 1.1.
 
-- `fonts/catalog.json` lists each family: name, category, weight range, italic support, scripts and license.
+- `fonts/catalog.json` lists each family: name, category, the weights it has (in steps of 100), whether it has italics, scripts and license.
 - `fonts/fonts.css` declares all families. Font files are split by script, so a browser downloads only the parts a presentation actually uses.
 - The schema accepts exactly the families in the catalog. `tools/fonts/build.mjs` rebuilds the library from pinned packages and keeps the schema in sync.
 
@@ -255,12 +260,14 @@ Kadr ships its own fonts, so a presentation looks the same everywhere and works 
 
 Display and handwriting families are meant for headings and large numbers, not body text.
 
+**No imitated styles.** When a family lacks a style, a browser imitates it: it slants the letters for italics and thickens them for bold, and each browser does it differently. Kadr never lets it. Text in a family without italics stays upright, and a weight the family does not have is shown in the nearest weight it has. `check` warns about both, so the choice is visible.
+
 ## 15. Checks beyond the schema
 
 The schema catches typos and invalid values. The CLI `check` command also reports:
 
-- **errors:** duplicate `id`s on a slide (slot names included); a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image in a format other than those in section 2; an `http://` image;
-- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online.
+- **errors:** duplicate `id`s on a slide (slot names included); two slides with the same `id`; a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
+- **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; italic text in a family without italics; a weight the family does not have; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.
 
 ## 16. Not in 0.1
 

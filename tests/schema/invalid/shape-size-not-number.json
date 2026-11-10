@@ -1,0 +1,30 @@
+{
+  "description": "a size that is not a number is reported once, not once per rule",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 0,
+            "y": 0,
+            "w": "100",
+            "h": null
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/h",
+      "kind": "type"
+    },
+    {
+      "at": "/slides/0/elements/0/w",
+      "kind": "type"
+    }
+  ]
+}

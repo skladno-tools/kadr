@@ -18,6 +18,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/w"
+    {
+      "at": "/slides/0/elements/0/w",
+      "kind": "range"
+    }
   ]
 }

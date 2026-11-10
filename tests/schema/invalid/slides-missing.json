@@ -4,6 +4,9 @@
     "kadr": "0.1"
   },
   "errors": [
-    "/slides"
+    {
+      "at": "/slides",
+      "kind": "missing"
+    }
   ]
 }

@@ -1,0 +1,32 @@
+# Rebuilds the font library from its pinned packages and fails if the result
+# differs from what is in the repository: fonts/ must never be edited by hand.
+name: fonts
+
+on:
+  push:
+    branches: [main, unstable]
+    paths: ['fonts/**', 'tools/fonts/**', 'schema/**', '.github/workflows/fonts.yml']
+  pull_request:
+    paths: ['fonts/**', 'tools/fonts/**', 'schema/**', '.github/workflows/fonts.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      # No package may run code while it is installed.
+      - run: npm ci --ignore-scripts
+        working-directory: tools/fonts
+      - run: node build.mjs
+        working-directory: tools/fonts
+      - name: The rebuilt library must match the repository
+        run: git status --porcelain && git diff --exit-code --stat && test -z "$(git status --porcelain)"

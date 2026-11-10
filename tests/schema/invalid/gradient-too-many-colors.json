@@ -1,0 +1,28 @@
+{
+  "description": "a gradient has at most six colors",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "background": {
+          "type": "gradient",
+          "colors": [
+            "bg",
+            "surface",
+            "text",
+            "muted",
+            "accent",
+            "accent2",
+            "#000"
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/background/colors",
+      "kind": "size"
+    }
+  ]
+}

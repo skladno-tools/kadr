@@ -16,6 +16,9 @@
     ]
   },
   "errors": [
-    "/slides/0/elements/0/content"
+    {
+      "at": "/slides/0/elements/0/content",
+      "kind": "missing"
+    }
   ]
 }

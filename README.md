@@ -11,13 +11,15 @@ You describe a presentation in one JSON file; Kadr lays it out, animates it and 
 | Path | Contents |
 |---|---|
 | [`docs/format.md`](docs/format.md) | The presentation format, version 0.1 (draft) |
-| [`docs/cli.md`](docs/cli.md) | The command-line tool, design draft |
+| [`docs/cli.md`](docs/cli.md) | The command-line tool: design, not yet implemented |
 | [`docs/decisions.md`](docs/decisions.md) | Why things are the way they are, and what comes next |
 | [`schema/0.1/kadr.schema.json`](schema/0.1/kadr.schema.json) | JSON Schema for `.kadr.json` files |
 | [`examples/`](examples/) | Example presentations |
-| [`tests/`](tests/) | Tests: the schema against valid decks and against mistakes |
+| [`src/format/`](src/format/) | Reading and checking decks, shared by the CLI and the browser (in progress) |
+| [`tests/`](tests/) | Tests: the schema, the JSON reader and the font library |
 | [`fonts/`](fonts/) | Bundled font library: 44 families, Latin and Cyrillic |
 | [`tools/fonts/`](tools/fonts/) | Rebuilds the font library from pinned sources |
+| [`.github/workflows/`](.github/workflows/) | Checks GitHub runs on pushes to `main` and `unstable` and on pull requests: tests and types, and a rebuild of the fonts when they or their build change |
 
 ## A taste of the format
 
@@ -44,7 +46,8 @@ Needs Node 24 or newer.
 
 ```
 npm install
-npm test
+npm test           # tests
+npm run typecheck  # types, checked by TypeScript
 ```
 
 ## Branches

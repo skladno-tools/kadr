@@ -1,0 +1,16 @@
+{
+  "description": "a theme name that does not exist",
+  "deck": {
+    "kadr": "0.1",
+    "theme": "dark",
+    "slides": [
+      {}
+    ]
+  },
+  "errors": [
+    {
+      "at": "/theme",
+      "kind": "value"
+    }
+  ]
+}

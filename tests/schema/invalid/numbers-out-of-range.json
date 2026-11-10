@@ -1,0 +1,85 @@
+{
+  "description": "opacity, rotation, text size, stroke width and speed have limits",
+  "deck": {
+    "kadr": "0.1",
+    "background": {
+      "type": "live",
+      "preset": "waves",
+      "speed": 5
+    },
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "opacity": 1.5
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "rotate": 400
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": 4
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 0,
+            "y": 0,
+            "w": 10,
+            "h": 10,
+            "strokeWidth": 300
+          },
+          {
+            "type": "code",
+            "x": 0,
+            "y": 0,
+            "w": 10,
+            "h": 10,
+            "code": "x",
+            "size": 300
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/background/speed",
+      "kind": "range"
+    },
+    {
+      "at": "/slides/0/elements/0/opacity",
+      "kind": "range"
+    },
+    {
+      "at": "/slides/0/elements/1/rotate",
+      "kind": "range"
+    },
+    {
+      "at": "/slides/0/elements/2/size",
+      "kind": "choice"
+    },
+    {
+      "at": "/slides/0/elements/3/strokeWidth",
+      "kind": "range"
+    },
+    {
+      "at": "/slides/0/elements/4/size",
+      "kind": "range"
+    }
+  ]
+}

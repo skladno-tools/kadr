@@ -1,0 +1,26 @@
+{
+  "description": "a shape name that is not a string is reported only there",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "x": 100,
+            "y": 100,
+            "w": 0,
+            "h": 0,
+            "shape": 5
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/shape",
+      "kind": "value"
+    }
+  ]
+}

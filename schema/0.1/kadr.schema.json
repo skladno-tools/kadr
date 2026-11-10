@@ -92,6 +92,11 @@
       "type": "string",
       "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
     },
+    "src": {
+      "type": "string",
+      "pattern": "^(?:https://[^\\s/?#@:\\\\\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069][^\\s\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069]*|data:image/(?:png|jpeg|webp|avif|gif|svg\\+xml)(?:;[A-Za-z0-9=+.-]+)*,.*|(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\\\\s])(?!(?:[^/]*/)*\\.\\.(?:/|$))[^\\\\?#%\\u0000-\\u001f\\u007f-\\u009f\\u200e\\u200f\\u202a-\\u202e\\u2066-\\u2069]+(?<!\\s))$",
+      "description": "An image: a path relative to the deck file that stays inside its folder, written literally (no \"..\", no absolute path, no backslash, no \"?\", \"#\" or \"%\", no spaces at either end), an https:// address, or a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
     "colorToken": {
       "enum": [
         "bg",
@@ -443,8 +448,7 @@
               "properties": {
                 "type": true,
                 "src": {
-                  "type": "string",
-                  "minLength": 1
+                  "$ref": "#/$defs/src"
                 },
                 "dim": {
                   "$ref": "#/$defs/unit",
@@ -590,6 +594,9 @@
             "properties": {
               "layout": {
                 "const": "title"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -620,6 +627,9 @@
             "properties": {
               "layout": {
                 "const": "section"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -650,6 +660,9 @@
             "properties": {
               "layout": {
                 "const": "content"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -680,6 +693,9 @@
             "properties": {
               "layout": {
                 "const": "split"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -713,6 +729,9 @@
             "properties": {
               "layout": {
                 "const": "image"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -743,6 +762,9 @@
             "properties": {
               "layout": {
                 "const": "quote"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -773,6 +795,9 @@
             "properties": {
               "layout": {
                 "const": "number"
+              },
+              "slots": {
+                "type": "object"
               }
             },
             "required": [
@@ -954,8 +979,7 @@
           "$ref": "#/$defs/enter"
         },
         "src": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/src"
         },
         "alt": {
           "type": "string",
@@ -1221,8 +1245,7 @@
           "$ref": "#/$defs/enter"
         },
         "src": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/src"
         },
         "alt": {
           "type": "string",
@@ -1307,10 +1330,7 @@
           "minimum": 0,
           "maximum": 200
         },
-        "radius": {
-          "type": "number",
-          "minimum": 0
-        }
+        "radius": true
       },
       "patternProperties": {
         "^x-": true
@@ -1322,27 +1342,103 @@
             "type": "object",
             "properties": {
               "shape": {
-                "const": "line"
+                "enum": [
+                  "rect",
+                  "ellipse"
+                ]
+              },
+              "w": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "shape",
+              "w"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "w": {
+                "$ref": "#/$defs/size"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "enum": [
+                  "rect",
+                  "ellipse"
+                ]
+              },
+              "h": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "shape",
+              "h"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "h": {
+                "$ref": "#/$defs/size"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "enum": [
+                  "ellipse",
+                  "line"
+                ]
               }
             },
             "required": [
               "shape"
             ]
           },
-          "else": {
+          "then": {
             "type": "object",
             "properties": {
-              "w": {
-                "$ref": "#/$defs/size"
-              },
-              "h": {
-                "$ref": "#/$defs/size"
+              "radius": false
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "const": "rect"
+              }
+            },
+            "required": [
+              "shape"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "radius": {
+                "type": "number",
+                "minimum": 0
               }
             }
           }
         }
       ],
-      "description": "A rectangle, ellipse or line. Only a line may have zero or negative w and h: it runs from (x, y) to (x + w, y + h)."
+      "description": "A rectangle, ellipse or line. A rectangle or ellipse needs positive w and h. A line runs from (x, y) to (x + w, y + h), so its w and h may be zero or negative. Only a rectangle has corners, so only it takes \"radius\". When \"shape\" itself is wrong, only \"shape\" is reported."
     },
     "codeElement": {
       "type": "object",

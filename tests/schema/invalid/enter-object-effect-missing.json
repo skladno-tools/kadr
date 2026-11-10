@@ -1,0 +1,28 @@
+{
+  "description": "the object form of enter needs an effect",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "enter": {
+              "duration": 500
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/enter/effect",
+      "kind": "missing"
+    }
+  ]
+}

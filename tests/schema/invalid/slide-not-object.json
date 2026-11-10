@@ -1,0 +1,15 @@
+{
+  "description": "a slide is an object",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      "Title"
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0",
+      "kind": "type"
+    }
+  ]
+}

@@ -28,7 +28,7 @@ and copyright notice are in the `LICENSE` file in its folder.
 | Wix Madefor Display | sans | Copyright 2021 The Wix Madefor Project Authors (https://github.com/wix/wixmadefor/) | `@fontsource-variable/wix-madefor-display@5.3.0` |
 | PT Sans | sans | Copyright © 2009 ParaType Ltd. All rights reserved. | `@fontsource/pt-sans@5.3.0` |
 | Literata | serif | Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata) | `@fontsource-variable/literata@5.3.0` |
-| Source Serif 4 | serif | Google Inc. | `@fontsource-variable/source-serif-4@5.3.1` |
+| Source Serif 4 | serif | © 2014 - 2021 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name ‘Source’. | `@fontsource-variable/source-serif-4@5.3.1` |
 | Lora | serif | Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name "Lora". | `@fontsource-variable/lora@5.3.0` |
 | Merriweather | serif | Copyright 2024 The Merriweather Project Authors (https://github.com/EbenSorkin/Merriweather4) with Reserved Font Name "Merriweather". | `@fontsource-variable/merriweather@5.3.0` |
 | Noto Serif | serif | Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) | `@fontsource-variable/noto-serif@5.3.0` |
@@ -49,6 +49,6 @@ and copyright notice are in the `LICENSE` file in its folder.
 | Pacifico | handwriting | Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico) | `@fontsource/pacifico@5.3.0` |
 | JetBrains Mono | mono | Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono) | `@fontsource-variable/jetbrains-mono@5.3.0` |
 | Fira Code | mono | Copyright 2014-2020 The Fira Code Project Authors (https://github.com/tonsky/FiraCode) | `@fontsource-variable/fira-code@5.3.0` |
-| Source Code Pro | mono | Google Inc. | `@fontsource-variable/source-code-pro@5.3.1` |
+| Source Code Pro | mono | © 2023 Adobe (http://www.adobe.com/), with Reserved Font Name ‘Source’ | `@fontsource-variable/source-code-pro@5.3.1` |
 | Roboto Mono | mono | Copyright 2015 The Roboto Mono Project Authors (https://github.com/googlefonts/robotomono) | `@fontsource-variable/roboto-mono@5.3.0` |
 | IBM Plex Mono | mono | Copyright 2017 IBM Corp. All rights reserved. | `@fontsource/ibm-plex-mono@5.3.0` |

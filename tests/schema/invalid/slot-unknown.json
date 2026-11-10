@@ -12,6 +12,9 @@
     ]
   },
   "errors": [
-    "/slides/0/slots/body"
+    {
+      "at": "/slides/0/slots/body",
+      "kind": "unknown"
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "description": "a code language is a short lowercase name",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "code",
+            "x": 0,
+            "y": 0,
+            "w": 10,
+            "h": 10,
+            "code": "x",
+            "lang": "C++ 17"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/lang",
+      "kind": "pattern"
+    }
+  ]
+}

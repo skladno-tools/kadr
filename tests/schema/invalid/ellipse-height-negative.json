@@ -1,0 +1,26 @@
+{
+  "description": "an ellipse needs a positive height",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": -5,
+            "shape": "ellipse"
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/elements/0/h",
+      "kind": "range"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "description": "a kind of background that does not exist; its other fields are not reported",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "background": {
+          "type": "video",
+          "src": "a.mp4"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "/slides/0/background/type",
+      "kind": "value"
+    }
+  ]
+}
