@@ -197,9 +197,15 @@ A small subset of Markdown. It follows the rules of CommonMark, so markup works 
 
 - **Paragraphs.** A blank line separates paragraphs; a single newline is a line break within a paragraph.
 - **Emphasis.** `**bold**` and `*italic*`. An opening `*` must be followed by a character that is not a space, and a closing one preceded by such a character. Any other `*` is just an asterisk: `5 * 3`, `price*`. Bold and italic can contain each other, code and links. Bold text has weight 700, or 900 in text that is already 700 or heavier; a family without that weight shows the nearest one it has (section 14).
-- **Code.** `` `code` ``. Everything between the backticks is shown as it is, with no markup and no escapes. A backtick without a closing one is just a backtick. Text cannot show a backtick inside code; use a `code` element for that.
-- **Links.** `[text](https://...)`, with an `https://` or `http://` address. A `[` that does not start this exact form is just a bracket.
-- **Lists.** Lines starting with `- ` or a number and a dot (`1. `). Nest with two spaces per level.
+- **Code.** `` `code` ``. Everything between the backticks is shown as it is, with no markup and no escapes; a line break inside becomes a space. A backtick without a closing one is just a backtick. Only single backticks form code: two or more in a row are ordinary characters, so text cannot show a backtick inside code; use a `code` element for that.
+- **Links.** `[text](https://...)`, with an `https://` or `http://` address that has no spaces or parentheses. The text can have emphasis and code, but not another link. A `[` that does not start this exact form is just a bracket.
+- **Lists.** A line that starts with `- ` is an item of a bulleted list; one that starts with a number of up to nine digits and `. ` is an item of a numbered list, which counts from the number of its first item.
+  - Two spaces before the marker nest an item one level deeper, at most one level deeper than the item above it.
+  - A line that is not an item continues the item before it, on a new line.
+  - A blank line, or a change between `- ` and numbers at the same level, ends a list.
+  - Inside a paragraph, a numbered item starts a list only if its number is 1: `2024. A good year` on the second line of a paragraph is text. At the start of a paragraph it is a list item, unless escaped (below).
+
+Characters next to a `*` count as CommonMark counts them: symbols, emoji among them, are punctuation, so in `a*<emoji>*` the first `*` does not open emphasis. Emphasis, links and lists nest at most 16 levels deep; deeper levels keep their text and lose the extra nesting.
 
 **Escapes.** A backslash before an ASCII punctuation character makes it ordinary: `\*`, `` \` ``, `\[`, `\-`, `\\`. This is only needed where the character would otherwise form markup, such as a line that starts with a year: `2024\. A good year` is a paragraph, not a list. A backslash before any other character is just a backslash. In JSON, the backslash itself is written twice: `"2024\\. A good year"`.
 
