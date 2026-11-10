@@ -14,5 +14,14 @@
       "at": "/defaults/transtion",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "defaults",
+      "path": "/defaults/transtion",
+      "message": "unknown field \"transtion\"",
+      "hint": "Did you mean \"transition\"?"
+    }
   ]
 }

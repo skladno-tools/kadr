@@ -16,5 +16,14 @@
       "at": "/theme/fonts/heading",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-font",
+      "where": "theme",
+      "path": "/theme/fonts/heading",
+      "message": "the font \"Comic Sans MS\" is not in the library",
+      "hint": "Run \"kadr fonts\" for the families."
+    }
   ]
 }

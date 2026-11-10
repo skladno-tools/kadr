@@ -16,5 +16,14 @@
       "at": "/slides/0/background/type",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, background",
+      "path": "/slides/0/background/type",
+      "message": "unknown type \"video\"",
+      "hint": "Use \"color\", \"gradient\", \"image\" or \"live\"."
+    }
   ]
 }

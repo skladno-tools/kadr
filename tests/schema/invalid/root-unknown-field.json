@@ -12,5 +12,14 @@
       "at": "/titel",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "deck",
+      "path": "/titel",
+      "message": "unknown field \"titel\"",
+      "hint": "Did you mean \"title\" in \"meta\"?"
+    }
   ]
 }

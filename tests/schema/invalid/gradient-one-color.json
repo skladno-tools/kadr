@@ -18,5 +18,13 @@
       "at": "/slides/0/background/colors",
       "kind": "size"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, background",
+      "path": "/slides/0/background/colors",
+      "message": "\"colors\" must have from 2 to 6 colors, not 1"
+    }
   ]
 }

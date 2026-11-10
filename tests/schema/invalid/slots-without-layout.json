@@ -15,5 +15,14 @@
       "at": "/slides/0/slots",
       "kind": "dependent"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "slots-without-layout",
+      "where": "slide 1",
+      "path": "/slides/0/slots",
+      "message": "\"slots\" without a \"layout\"",
+      "hint": "Add a \"layout\", such as \"content\", or put the content in \"elements\"."
+    }
   ]
 }

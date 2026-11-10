@@ -35,6 +35,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 - **The layout check is opt-in** (`check --layout`). It needs a browser, and a check that turned itself on whenever a browser was found would give different results on different machines.
 - **`kadr docs` prints the format description**, so an AI tool with only the CLI can learn the format in prose as well as from the schema.
 - **A live preview (`kadr present`) waits for the player.** The name is reserved.
+- **Nothing from a deck is printed as it is.** A deck may come from anyone and diagnostics go to a terminal, so everything quoted from a deck passes through one function that writes control and invisible characters as escapes and cuts long values.
 - **A wrong version gets one diagnostic.** Missing, malformed, unknown or newer: the schema is not run, because which schema applies is unknown, and dozens of follow-on errors would hide the one that matters.
 - **Files are replaced only when that is clearly wanted.** `upgrade` prints its result unless given `--write`. `build` and `pdf` replace a file only if Kadr made it, which they can tell from a mark in the file; anything else needs `--force`.
 
@@ -52,7 +53,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **Implement `check`** as designed in `docs/cli.md`. Done: the JSON reader with positions (`src/format/json.js`). Next: turning schema errors into diagnostics with codes and hints, the checks beyond the schema in `docs/format.md` section 15, and the command itself.
+1. **Finish `check`** as designed in `docs/cli.md`. Done in `src/format/`: the JSON reader with positions, version handling, schema validation, and diagnostics with codes, places in words and hints (`check.js`). Next: the checks beyond the schema in `docs/format.md` section 15 that need neither themes nor layout geometry (ids, morph pairs, images, lines, lists), then the command itself. The checks on fonts, text sizes and slot positions wait for steps 2 and 3.
 2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
 3. **Layout geometry:** where each layout puts its slots on the canvas.
 4. **The player:** rendering, steps, transitions, morphing and presenter view.

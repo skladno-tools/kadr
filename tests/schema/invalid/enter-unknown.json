@@ -22,5 +22,14 @@
       "at": "/slides/0/elements/0/enter",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/enter",
+      "message": "\"enter\" cannot be \"spin\"",
+      "hint": "Use \"none\", \"fade\", \"rise\", \"drop\", \"zoom\", \"blur\" or \"type\"."
+    }
   ]
 }

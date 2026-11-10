@@ -14,5 +14,14 @@
       "at": "/theme/extends",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "theme",
+      "path": "/theme/extends",
+      "message": "unknown theme \"dark\"",
+      "hint": "Use \"aurora\", \"paper\", \"ink\" or \"studio\"."
+    }
   ]
 }

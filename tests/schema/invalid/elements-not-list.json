@@ -13,5 +13,13 @@
       "at": "/slides/0/elements",
       "kind": "type"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1",
+      "path": "/slides/0/elements",
+      "message": "\"elements\" must be a list, not an object"
+    }
   ]
 }

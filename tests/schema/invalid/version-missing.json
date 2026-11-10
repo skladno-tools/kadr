@@ -10,5 +10,14 @@
       "at": "/kadr",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "version-missing",
+      "where": "deck",
+      "path": "",
+      "message": "missing field \"kadr\"",
+      "hint": "Every deck names its format version. Write \"kadr\": \"0.1\"."
+    }
   ]
 }

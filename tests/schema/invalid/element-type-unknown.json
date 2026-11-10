@@ -22,5 +22,14 @@
       "at": "/slides/0/elements/0/type",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/type",
+      "message": "unknown type \"video\"",
+      "hint": "Use \"text\", \"image\", \"shape\" or \"code\"."
+    }
   ]
 }

@@ -16,5 +16,14 @@
       "at": "/slides/0/slots/body",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-slot",
+      "where": "slide 1",
+      "path": "/slides/0/slots/body",
+      "message": "the layout \"title\" has no slot \"body\"",
+      "hint": "Its slots are \"title\" and \"subtitle\"."
+    }
   ]
 }

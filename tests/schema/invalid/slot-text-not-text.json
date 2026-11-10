@@ -16,5 +16,13 @@
       "at": "/slides/0/slots/title",
       "kind": "type"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1, slot \"title\"",
+      "path": "/slides/0/slots/title",
+      "message": "a slot must be a string or an object, not a number"
+    }
   ]
 }

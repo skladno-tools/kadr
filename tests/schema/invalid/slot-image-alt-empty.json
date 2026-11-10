@@ -19,5 +19,14 @@
       "at": "/slides/0/slots/image/alt",
       "kind": "size"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "alt-empty",
+      "where": "slide 1, slot \"image\"",
+      "path": "/slides/0/slots/image/alt",
+      "message": "alt is empty",
+      "hint": "Describe what the image shows; it is never drawn on the slide."
+    }
   ]
 }

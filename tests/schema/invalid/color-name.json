@@ -22,5 +22,14 @@
       "at": "/slides/0/elements/0/color",
       "kind": "choice"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-color",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/color",
+      "message": "\"red\" is not a color",
+      "hint": "Use a theme color (bg, surface, text, muted, accent, accent2) or hex, such as \"#ff3366\"."
+    }
   ]
 }

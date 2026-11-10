@@ -13,5 +13,14 @@
       "at": "/slides/0/layout",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1",
+      "path": "/slides/0/layout",
+      "message": "unknown layout \"grid\"",
+      "hint": "Use \"title\", \"section\", \"content\", \"split\", \"image\", \"quote\" or \"number\"."
+    }
   ]
 }

@@ -18,5 +18,14 @@
       "at": "/slides/0/slots/image/alt",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "slide 1, slot \"image\"",
+      "path": "/slides/0/slots/image",
+      "message": "missing field \"alt\"",
+      "hint": "Describe what the image shows; it is never drawn on the slide."
+    }
   ]
 }

@@ -23,5 +23,14 @@
       "at": "/slides/0/elements/0/lang",
       "kind": "pattern"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/lang",
+      "message": "\"C++ 17\" cannot be a code language",
+      "hint": "Use a short lowercase name, such as \"js\" or \"python\"."
+    }
   ]
 }

@@ -23,5 +23,14 @@
       "at": "/slides/0/elements/0/alt",
       "kind": "size"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "alt-empty",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/alt",
+      "message": "alt is empty",
+      "hint": "Describe what the image shows; it is never drawn on the slide."
+    }
   ]
 }

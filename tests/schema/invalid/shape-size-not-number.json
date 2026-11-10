@@ -26,5 +26,20 @@
       "at": "/slides/0/elements/0/w",
       "kind": "type"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/w",
+      "message": "\"w\" must be a number, not a string",
+      "hint": "Write 100 without quotes."
+    },
+    {
+      "code": "wrong-type",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/h",
+      "message": "\"h\" must be a number, not null"
+    }
   ]
 }

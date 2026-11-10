@@ -33,5 +33,28 @@
       "at": "/theme/x-b",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "canvas",
+      "path": "/canvas/x-a",
+      "message": "unknown field \"x-a\"",
+      "hint": "Fields that start with \"x-\" are allowed at the top level, in \"meta\", on slides, on elements and in slots."
+    },
+    {
+      "code": "unknown-field",
+      "where": "theme",
+      "path": "/theme/x-b",
+      "message": "unknown field \"x-b\"",
+      "hint": "Fields that start with \"x-\" are allowed at the top level, in \"meta\", on slides, on elements and in slots."
+    },
+    {
+      "code": "unknown-field",
+      "where": "background",
+      "path": "/background/x-c",
+      "message": "unknown field \"x-c\"",
+      "hint": "Fields that start with \"x-\" are allowed at the top level, in \"meta\", on slides, on elements and in slots."
+    }
   ]
 }

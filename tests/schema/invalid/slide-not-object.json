@@ -11,5 +11,13 @@
       "at": "/slides/0",
       "kind": "type"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1",
+      "path": "/slides/0",
+      "message": "a slide must be an object, not a string"
+    }
   ]
 }

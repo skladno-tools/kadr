@@ -24,5 +24,13 @@
       "at": "/slides/0/elements/0/enter/effect",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/enter",
+      "message": "missing field \"effect\" in \"enter\""
+    }
   ]
 }

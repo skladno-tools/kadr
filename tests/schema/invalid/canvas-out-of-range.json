@@ -19,5 +19,20 @@
       "at": "/canvas/width",
       "kind": "range"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "canvas",
+      "path": "/canvas/width",
+      "message": "\"width\" must be from 320 to 7680, not 100"
+    },
+    {
+      "code": "wrong-type",
+      "where": "canvas",
+      "path": "/canvas/height",
+      "message": "\"height\" must be a whole number, not 1080.5",
+      "hint": "Use a whole number, such as 1081."
+    }
   ]
 }

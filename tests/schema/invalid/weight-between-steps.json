@@ -22,5 +22,14 @@
       "at": "/slides/0/elements/0/weight",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/weight",
+      "message": "\"weight\" cannot be 450",
+      "hint": "Use 300, 400, 500, 600, 700, 800 or 900."
+    }
   ]
 }

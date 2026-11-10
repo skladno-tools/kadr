@@ -317,5 +317,175 @@
       "at": "/slides/0/elements/21/src",
       "kind": "pattern"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "image-insecure",
+      "where": "background",
+      "path": "/background/src",
+      "message": "\"http://example.com/bg.jpg\" is an http:// address",
+      "hint": "Use https://: a deck served over HTTPS cannot load http:// images reliably."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/src",
+      "message": "\"../shared/logo.png\" leaves the deck's folder",
+      "hint": "Keep images inside the deck's folder, for example in \"assets/\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/src",
+      "message": "\"a/../../secret.png\" leaves the deck's folder",
+      "hint": "Keep images inside the deck's folder, for example in \"assets/\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/src",
+      "message": "\"/etc/passwd.png\" is an absolute path",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/src",
+      "message": "\"C:\\Users\\me\\x.png\" is an absolute path",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4/src",
+      "message": "\"//server/share/x.png\" is an absolute path",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 6",
+      "path": "/slides/0/elements/5/src",
+      "message": "\"file:///etc/x.png\" uses \"file:\", which is not allowed",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 7",
+      "path": "/slides/0/elements/6/src",
+      "message": "\"javascript:alert(1)\" uses \"javascript:\", which is not allowed",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-insecure",
+      "where": "slide 1, element 8",
+      "path": "/slides/0/elements/7/src",
+      "message": "\"http://example.com/a.png\" is an http:// address",
+      "hint": "Use https://: a deck served over HTTPS cannot load http:// images reliably."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 9",
+      "path": "/slides/0/elements/8/src",
+      "message": "\"HTTPS://example.com/a.png\" is not a complete https:// address",
+      "hint": "Write it as \"https://\" in lowercase, followed by the host name."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 10",
+      "path": "/slides/0/elements/9/src",
+      "message": "\"a.png?v=2\" has a \"?\" or \"#\"",
+      "hint": "A file path takes neither; only an https:// address does."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 11",
+      "path": "/slides/0/elements/10/src",
+      "message": "\"data:text/html,<b>hi</b>\" is not an embedded image Kadr accepts",
+      "hint": "An embedded image is a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG, such as \"data:image/png;base64,...\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 12",
+      "path": "/slides/0/elements/11/src",
+      "message": "\"data:image/tiff;base64,AAAA\" is not an embedded image Kadr accepts",
+      "hint": "An embedded image is a data:image/ URI of PNG, JPEG, WebP, AVIF, GIF or SVG, such as \"data:image/png;base64,...\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 13",
+      "path": "/slides/0/elements/12/src",
+      "message": "the image has no address",
+      "hint": "Use a path relative to the deck file, such as \"assets/photo.jpg\", an https:// address or a data:image/ URI."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 14",
+      "path": "/slides/0/elements/13/src",
+      "message": "the image address \" /etc/passwd\" starts or ends with a space",
+      "hint": "Remove the space."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 15",
+      "path": "/slides/0/elements/14/src",
+      "message": "the image address \" http://evil.com/x.png\" starts or ends with a space",
+      "hint": "Remove the space."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 16",
+      "path": "/slides/0/elements/15/src",
+      "message": "the image address \"a.png \" starts or ends with a space",
+      "hint": "Remove the space."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 17",
+      "path": "/slides/0/elements/16/src",
+      "message": "\"%2e%2e/secret.png\" has a \"%\"",
+      "hint": "Write the file name as it is: a space is a space, not \"%20\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 18",
+      "path": "/slides/0/elements/17/src",
+      "message": "\"a%20b.png\" has a \"%\"",
+      "hint": "Write the file name as it is: a space is a space, not \"%20\"."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 19",
+      "path": "/slides/0/elements/18/src",
+      "message": "\"https://@/x\" is not a complete https:// address",
+      "hint": "Check the address: it needs a host name and no spaces or control characters."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 20",
+      "path": "/slides/0/elements/19/src",
+      "message": "\"https://a.com/\\u0000x\" is not a complete https:// address",
+      "hint": "Check the address: it needs a host name and no spaces or control characters."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 21",
+      "path": "/slides/0/elements/20/src",
+      "message": "\"a\\u202ex.png\" is not an image address Kadr accepts",
+      "hint": "Remove the control or invisible characters from the name."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 1, element 22",
+      "path": "/slides/0/elements/21/src",
+      "message": "\"a\\u0085.png\" is not an image address Kadr accepts",
+      "hint": "Remove the control or invisible characters from the name."
+    },
+    {
+      "code": "image-address",
+      "where": "slide 2, slot \"image\"",
+      "path": "/slides/1/slots/image/src",
+      "message": "\"../a.png\" leaves the deck's folder",
+      "hint": "Keep images inside the deck's folder, for example in \"assets/\"."
+    }
   ]
 }

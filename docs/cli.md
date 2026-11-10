@@ -84,6 +84,7 @@ talk.kadr.json
 - Slides are numbered from 1, as a person counts them; the slide's `id` is shown too when it has one.
 - Diagnostics go to standard output; progress and the summary of a long command to standard error.
 - Color only on a terminal, and never with `NO_COLOR` set or `--no-color`.
+- Anything quoted from the deck is made safe to print: control characters, invisible characters and those that reverse the direction of text are shown as escapes such as `\u001b`, and long values are cut. A deck from someone else cannot steer the terminal through a diagnostic.
 
 ### JSON
 
@@ -115,7 +116,7 @@ talk.kadr.json
 ```
 
 - `output` is the version of this JSON shape. New fields may appear in the same version; renaming or removing one is a new version.
-- `path` is a JSON Pointer into the deck (counted from 0, as JSON is). `line` and `column` are counted from 1. A column counts characters as a person sees them (Unicode code points): a Cyrillic letter, an emoji or a tab is one column. Editors that count UTF-16 units differ only after an emoji or another rare character on the same line.
+- `path` is a JSON Pointer into the deck (counted from 0, as JSON is); for a missing field it is the object the field is missing from. `where` says the same in words; it is `file` for text that is not JSON. `line` and `column` are counted from 1. A column counts characters as a person sees them (Unicode code points): a Cyrillic letter, an emoji or a tab is one column. Editors that count UTF-16 units differ only after an emoji or another rare character on the same line.
 - With `--json`, standard output carries exactly one JSON document and nothing else. `build`, `pdf`, `new` and `upgrade` add the path of the file they wrote.
 
 ### Exit codes
@@ -202,8 +203,9 @@ The package needs Node 24 or newer. It is written in JavaScript with types check
 
 ## 6. Tests
 
-- Every diagnostic code has a deck that triggers it and the expected output, text and JSON, kept as files next to each other. A change in wording shows up as a diff in review.
-- The schema has its own suite in `tests/schema/`: valid decks that must pass with no errors, and invalid ones with the exact problems the schema must find, each a place and a kind (`missing`, `unknown`, `value`...). An invalid case passes only if the schema finds exactly those problems, no fewer and no more.
+- Every diagnostic code has a deck that triggers it and the diagnostics expected for it, kept as files. A change in wording shows up as a diff in review.
+- The schema has its suite in `tests/schema/`: valid decks that must pass with no errors, and invalid ones. Each invalid case holds a deck, the exact problems the schema must find in it, each a place and a kind (`missing`, `unknown`, `value`...), and the exact diagnostics `check` must give: code, where, message and hint. A case passes only if both are exactly as listed, no fewer and no more.
+- `check` is also run on thousands of decks damaged at random, and must never fail or leave a damaged deck without a diagnostic; and on a deck full of control characters, none of which may reach a message.
 - `build` is run twice on the example and the outputs must be identical.
 
 ## 7. The browser

@@ -13,5 +13,14 @@
       "at": "/slides/0/id",
       "kind": "pattern"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1",
+      "path": "/slides/0/id",
+      "message": "\"Intro\" cannot be an id",
+      "hint": "Did you mean \"intro\"? An id starts with a lowercase letter and has only lowercase letters, digits and \"-\", 64 characters at most."
+    }
   ]
 }

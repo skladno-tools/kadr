@@ -15,5 +15,14 @@
       "at": "/slides/0/background/type",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "slide 1, background",
+      "path": "/slides/0/background",
+      "message": "missing field \"type\"",
+      "hint": "Add \"type\": \"color\", \"gradient\", \"image\" or \"live\"."
+    }
   ]
 }

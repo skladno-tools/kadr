@@ -19,5 +19,14 @@
       "at": "/slides/0/slots/title/type",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "slide 1, slot \"title\"",
+      "path": "/slides/0/slots/title/type",
+      "message": "unknown field \"type\"",
+      "hint": "The layout decides what a slot is. Remove \"type\"."
+    }
   ]
 }

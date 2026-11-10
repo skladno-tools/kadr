@@ -8,5 +8,14 @@
       "at": "/slides",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "deck",
+      "path": "",
+      "message": "missing field \"slides\"",
+      "hint": "A deck needs \"slides\": a list with at least one slide."
+    }
   ]
 }

@@ -20,5 +20,14 @@
       "at": "/slides/0/elements/0/type",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0",
+      "message": "missing field \"type\"",
+      "hint": "Add \"type\": \"text\", \"image\", \"shape\" or \"code\"."
+    }
   ]
 }

@@ -75,5 +75,41 @@
       "at": "/slides/0/elements/4/radius",
       "kind": "range"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/radius",
+      "message": "\"radius\" does not apply: an ellipse has no corners",
+      "hint": "Remove \"radius\"."
+    },
+    {
+      "code": "unknown-field",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/radius",
+      "message": "\"radius\" does not apply: a line has no corners",
+      "hint": "Remove \"radius\"."
+    },
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/shape",
+      "message": "\"shape\" cannot be \"circle\"",
+      "hint": "Use \"rect\", \"ellipse\" or \"line\"."
+    },
+    {
+      "code": "unknown-field",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/radius",
+      "message": "\"radius\" does not apply: an ellipse has no corners",
+      "hint": "Remove \"radius\"."
+    },
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4/radius",
+      "message": "\"radius\" must be at least 0, not -1"
+    }
   ]
 }

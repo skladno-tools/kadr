@@ -16,5 +16,14 @@
       "at": "/theme/colors/accent",
       "kind": "pattern"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-color",
+      "where": "theme",
+      "path": "/theme/colors/accent",
+      "message": "\"muted\" is not a hex color",
+      "hint": "Theme colors are written in hex, such as \"#1b1440\"."
+    }
   ]
 }

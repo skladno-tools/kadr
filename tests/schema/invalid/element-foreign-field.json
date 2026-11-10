@@ -22,5 +22,14 @@
       "at": "/slides/0/elements/0/fill",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/fill",
+      "message": "unknown field \"fill\"",
+      "hint": "\"fill\" is a field of shape elements, not of text elements."
+    }
   ]
 }

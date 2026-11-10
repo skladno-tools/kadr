@@ -14,5 +14,14 @@
       "at": "/meta/lang",
       "kind": "pattern"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "meta",
+      "path": "/meta/lang",
+      "message": "\"english\" is not a language tag",
+      "hint": "Use a tag such as \"en\", \"ru\" or \"pt-BR\"."
+    }
   ]
 }

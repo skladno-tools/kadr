@@ -34,5 +34,20 @@
       "at": "/slides/0/elements/1/step",
       "kind": "range"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/step",
+      "message": "\"step\" must be a whole number, not 1.5",
+      "hint": "Use a whole number, such as 2."
+    },
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/step",
+      "message": "\"step\" must be from 0 to 99, not -1"
+    }
   ]
 }

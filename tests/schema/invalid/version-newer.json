@@ -11,5 +11,14 @@
       "at": "/kadr",
       "kind": "value"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "version-newer",
+      "where": "deck",
+      "path": "/kadr",
+      "message": "the deck is in the format \"0.2\", which is newer than this Kadr",
+      "hint": "This Kadr knows the format \"0.1\". Update Kadr to read this deck."
+    }
   ]
 }

@@ -44,5 +44,25 @@
       "at": "/slides/0/elements/2/h",
       "kind": "missing"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0",
+      "message": "missing field \"h\""
+    },
+    {
+      "code": "missing-field",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1",
+      "message": "missing field \"h\""
+    },
+    {
+      "code": "missing-field",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2",
+      "message": "missing field \"h\""
+    }
   ]
 }

@@ -17,5 +17,14 @@
       "at": "/slides/0/background/preset",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "slide 1, background",
+      "path": "/slides/0/background/preset",
+      "message": "unknown field \"preset\"",
+      "hint": "The fields here are \"type\", \"src\", \"dim\", \"blur\" and \"focus\"."
+    }
   ]
 }

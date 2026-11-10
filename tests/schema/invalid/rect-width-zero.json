@@ -22,5 +22,13 @@
       "at": "/slides/0/elements/0/w",
       "kind": "range"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/w",
+      "message": "\"w\" must be greater than 0, not 0"
+    }
   ]
 }

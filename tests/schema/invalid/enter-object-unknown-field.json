@@ -25,5 +25,14 @@
       "at": "/slides/0/elements/0/enter/durration",
       "kind": "unknown"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "unknown-field",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/enter/durration",
+      "message": "unknown field \"durration\" in \"enter\"",
+      "hint": "Did you mean \"duration\"?"
+    }
   ]
 }

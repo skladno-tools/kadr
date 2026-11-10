@@ -9,5 +9,14 @@
       "at": "/slides",
       "kind": "size"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "bad-value",
+      "where": "deck",
+      "path": "/slides",
+      "message": "a deck needs at least one slide",
+      "hint": "Add a slide: {} is an empty one."
+    }
   ]
 }

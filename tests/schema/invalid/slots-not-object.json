@@ -22,5 +22,19 @@
       "at": "/slides/1/slots",
       "kind": "type"
     }
+  ],
+  "diagnostics": [
+    {
+      "code": "wrong-type",
+      "where": "slide 1",
+      "path": "/slides/0/slots",
+      "message": "\"slots\" must be an object, not a string"
+    },
+    {
+      "code": "wrong-type",
+      "where": "slide 2",
+      "path": "/slides/1/slots",
+      "message": "\"slots\" must be an object, not a list"
+    }
   ]
 }
