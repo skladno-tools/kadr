@@ -1,0 +1,104 @@
+{
+  "description": "two things on a slide cannot share an id; a slot gives its element the id of its name",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "logo"
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "logo"
+          }
+        ]
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "title": "Title",
+          "body": "Body"
+        },
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "title"
+          }
+        ]
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "title": {
+            "content": "Title",
+            "id": "head"
+          },
+          "body": {
+            "content": "Body",
+            "id": "head"
+          }
+        }
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "title": {
+            "content": "Title",
+            "id": "head"
+          }
+        },
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "title"
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "duplicate-id",
+      "where": "slide 1, element \"logo\"",
+      "path": "/slides/0/elements/1/id",
+      "message": "the id \"logo\" is used twice on this slide",
+      "hint": "An id is unique on its slide. Give one of the two another id."
+    },
+    {
+      "severity": "error",
+      "code": "duplicate-id",
+      "where": "slide 2, element \"title\"",
+      "path": "/slides/1/elements/0/id",
+      "message": "the id \"title\" is used twice on this slide",
+      "hint": "The slot \"title\" gives its element that id. Give this one another id."
+    },
+    {
+      "severity": "error",
+      "code": "duplicate-id",
+      "where": "slide 3, slot \"body\"",
+      "path": "/slides/2/slots/body/id",
+      "message": "the id \"head\" is used twice on this slide",
+      "hint": "An id is unique on its slide. Give one of the two another id."
+    }
+  ]
+}

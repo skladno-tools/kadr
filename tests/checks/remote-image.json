@@ -1,0 +1,132 @@
+{
+  "description": "an https image needs the network; its format is judged from its path, leaving out the query",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://example.com/a.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://example.com/a.png?size=large#top",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://example.com/a.psd?as=x.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://images.example.com/photo/12345",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://example.com",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "data:image/png;base64,iVBORw0KGgo=",
+            "alt": "An image"
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/src",
+      "message": "\"https://example.com/a.png\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    },
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/src",
+      "message": "\"https://example.com/a.png?size=large#top\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/src",
+      "message": "\"https://example.com/a.psd?as=x.png\" is not in a format Kadr shows",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/src",
+      "message": "\"https://example.com/a.psd?as=x.png\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    },
+    {
+      "severity": "warning",
+      "code": "image-format-unknown",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/src",
+      "message": "the format of \"https://images.example.com/photo/12345\" cannot be told from its address",
+      "hint": "Kadr shows PNG, JPEG, WebP, AVIF, GIF or SVG; make sure the address gives one of them."
+    },
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/src",
+      "message": "\"https://images.example.com/photo/12345\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    },
+    {
+      "severity": "warning",
+      "code": "image-format-unknown",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4/src",
+      "message": "the format of \"https://example.com\" cannot be told from its address",
+      "hint": "Kadr shows PNG, JPEG, WebP, AVIF, GIF or SVG; make sure the address gives one of them."
+    },
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4/src",
+      "message": "\"https://example.com\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    }
+  ]
+}

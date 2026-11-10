@@ -1,0 +1,57 @@
+{
+  "description": "a hidden slide does not exist while presenting: the slides around it are checked as neighbours",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "mark"
+          }
+        ]
+      },
+      {
+        "hidden": true,
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "mark"
+          }
+        ]
+      },
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "mark"
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "morph-type-mismatch",
+      "where": "slide 3, element \"mark\"",
+      "path": "/slides/2/elements/0",
+      "message": "\"mark\" is a text here and a shape on slide 1",
+      "hint": "Elements with one id on slides shown one after the other flow into each other, so they must be of one type. Give one of them another id."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "description": "two slides cannot share an id",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "id": "intro"
+      },
+      {
+        "id": "end"
+      },
+      {
+        "id": "intro"
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "duplicate-slide-id",
+      "where": "slide 3 \"intro\"",
+      "path": "/slides/2/id",
+      "message": "the id \"intro\" is used by two slides",
+      "hint": "Slide 1 has it too. Give one of them another id."
+    }
+  ]
+}

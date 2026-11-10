@@ -1,0 +1,126 @@
+{
+  "description": "things with one id on slides shown one after the other must be of one type",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "hero"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "note"
+          }
+        ]
+      },
+      {
+        "elements": [
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "a.png",
+            "alt": "An image",
+            "id": "hero"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "note"
+          }
+        ]
+      },
+      {
+        "hidden": true,
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "mark"
+          }
+        ]
+      },
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "mark"
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "image"
+          }
+        ]
+      },
+      {
+        "layout": "image",
+        "slots": {
+          "image": {
+            "src": "a.png",
+            "alt": "An image"
+          }
+        }
+      },
+      {
+        "transition": "fade",
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "id": "image"
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "morph-type-mismatch",
+      "where": "slide 2, element \"hero\"",
+      "path": "/slides/1/elements/0",
+      "message": "\"hero\" is an image here and a shape on slide 1",
+      "hint": "Elements with one id on slides shown one after the other flow into each other, so they must be of one type. Give one of them another id."
+    },
+    {
+      "severity": "error",
+      "code": "morph-type-mismatch",
+      "where": "slide 5, slot \"image\"",
+      "path": "/slides/4/slots/image",
+      "message": "\"image\" is an image here and a shape on slide 4",
+      "hint": "Elements with one id on slides shown one after the other flow into each other, so they must be of one type. Give one of them another id."
+    }
+  ]
+}

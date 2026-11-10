@@ -1,0 +1,38 @@
+{
+  "description": "a line needs a length",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 100,
+            "y": 100,
+            "w": 0,
+            "h": 0
+          },
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 100,
+            "y": 100,
+            "w": 0,
+            "h": 10
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "line-zero-length",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0",
+      "message": "the line has no length: \"w\" and \"h\" are both 0",
+      "hint": "A line runs from (\"x\", \"y\") to (\"x\" + \"w\", \"y\" + \"h\"). Give it a \"w\" or an \"h\"."
+    }
+  ]
+}

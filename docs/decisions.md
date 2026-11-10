@@ -54,7 +54,7 @@ Why Kadr is the way it is. Add an entry when a decision is made; change an entry
 
 ## Next
 
-1. **Finish `check`** as designed in `docs/cli.md`. Done in `src/format/`: the JSON reader with positions, version handling, schema validation, and diagnostics with codes, places in words and hints (`check.js`). Next: the checks beyond the schema in `docs/format.md` section 15 that need neither themes nor layout geometry (ids, morph pairs, images, lines, lists), then the command itself. The checks on fonts, text sizes and slot positions wait for steps 2 and 3.
+1. **Finish `check`** as designed in `docs/cli.md`. Done in `src/format/`: the JSON reader with positions, version handling, schema validation, diagnostics with codes, places in words and hints, the markup parser, and the checks beyond the schema that need neither themes nor layout geometry. Next: the command itself (`src/cli/`): arguments, text and JSON output, exit codes. The checks on fonts, on sizes given as roles and on slots outside the canvas wait for steps 2 and 3.
 2. **Design the four themes** (`aurora`, `paper`, `ink`, `studio`): colors, font pairs, text sizes per role.
 3. **Layout geometry:** where each layout puts its slots on the canvas.
 4. **The player:** rendering, steps, transitions, morphing and presenter view.

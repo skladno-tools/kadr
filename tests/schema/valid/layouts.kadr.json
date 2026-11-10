@@ -13,7 +13,7 @@
       "layout": "content",
       "slots": {
         "title": "Content",
-        "body": { "content": "- one\n- two\n  - nested\n1. numbered", "reveal": "items", "step": 1 }
+        "body": { "content": "- one\n- two\n  - nested\n1. numbered\n2. numbered too", "reveal": "items", "step": 1 }
       }
     },
     {

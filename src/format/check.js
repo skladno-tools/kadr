@@ -3,13 +3,15 @@
 // validates against the schema of that version, and returns diagnostics with
 // the place of each one in the text.
 //
-// The checks beyond the schema (docs/format.md section 15) are not here yet.
+// A deck that is valid by the schema then goes through the checks beyond the
+// schema (docs/format.md section 15, checks.js).
 // Uses no Node and no DOM APIs: the CLI and the browser editor share it.
 
 import { parseJson } from './json.js';
 import { versions, newest, schemaOf, validate } from './schema.js';
 import { problems } from './problems.js';
 import { diagnose } from './diagnose.js';
+import { beyondSchema } from './checks.js';
 import { describe } from './where.js';
 import { show, kindOf, list } from './show.js';
 
@@ -45,9 +47,10 @@ const newer = (a, b) => {
 /**
  * Checks the text of a deck.
  * @param {string} text
+ * @param {import('./checks.js').Options} [options]
  * @returns {CheckResult}
  */
-export function check(text) {
+export function check(text, options = {}) {
   const read = parseJson(text);
   const deck = read.value;
   /** @type {Diagnostic[]} */
@@ -124,8 +127,11 @@ export function check(text) {
   }
 
   const schema = schemaOf(named);
-  for (const finding of diagnose(problems(validate(named, deck), schema), deck, schema)) {
-    add(finding.path, finding.at, finding);
+  const found = diagnose(problems(validate(named, deck), schema), deck, schema);
+  for (const finding of found) add(finding.path, finding.at, finding);
+  // The checks beyond the schema rely on the shapes the schema guarantees.
+  if (found.length === 0) {
+    for (const finding of beyondSchema(/** @type {Record<string, any>} */ (deck), options)) add(finding.path, finding.at, finding);
   }
   return done(named);
 }

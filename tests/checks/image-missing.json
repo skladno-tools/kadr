@@ -1,0 +1,89 @@
+{
+  "description": "an image file that is not there, when the files can be looked at",
+  "deck": {
+    "kadr": "0.1",
+    "background": {
+      "type": "image",
+      "src": "assets/bg.jpg"
+    },
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "assets/here.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "assets/gone.png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "https://example.com/a.png",
+            "alt": "An image"
+          }
+        ]
+      },
+      {
+        "layout": "split",
+        "slots": {
+          "image": {
+            "src": "Assets/here.png",
+            "alt": "An image"
+          }
+        }
+      }
+    ]
+  },
+  "files": [
+    "assets/here.png"
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "image-missing",
+      "where": "background",
+      "path": "/background/src",
+      "message": "the image \"assets/bg.jpg\" does not exist",
+      "hint": "The path is relative to the deck file. Check the name and the folder."
+    },
+    {
+      "severity": "error",
+      "code": "image-missing",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/src",
+      "message": "the image \"assets/gone.png\" does not exist",
+      "hint": "The path is relative to the deck file. Check the name and the folder."
+    },
+    {
+      "severity": "warning",
+      "code": "remote-image",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/src",
+      "message": "\"https://example.com/a.png\" is loaded from the network",
+      "hint": "A built deck will need the network to show it. Keep the image next to the deck to present offline."
+    },
+    {
+      "severity": "error",
+      "code": "image-missing",
+      "where": "slide 2, slot \"image\"",
+      "path": "/slides/1/slots/image/src",
+      "message": "the image \"Assets/here.png\" does not exist",
+      "hint": "The path is relative to the deck file. Check the name and the folder."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "description": "text below 24 px on a 1080 px tall canvas is hard to read; roles are always large enough",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": 18
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": 24
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": "caption"
+          },
+          {
+            "type": "code",
+            "x": 0,
+            "y": 0,
+            "w": 400,
+            "h": 200,
+            "code": "x = 1",
+            "size": 14
+          }
+        ]
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "body": {
+            "content": "Small print",
+            "size": 12
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "text-too-small",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/size",
+      "message": "text is 18 px, hard to read from a distance",
+      "hint": "Use at least 24 px on a 1080 px tall canvas, or the role \"caption\"."
+    },
+    {
+      "severity": "warning",
+      "code": "text-too-small",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/size",
+      "message": "code is 14 px, hard to read from a distance",
+      "hint": "Use at least 24 px on a 1080 px tall canvas."
+    },
+    {
+      "severity": "warning",
+      "code": "text-too-small",
+      "where": "slide 2, slot \"body\"",
+      "path": "/slides/1/slots/body/size",
+      "message": "text is 12 px, hard to read from a distance",
+      "hint": "Use at least 24 px on a 1080 px tall canvas, or the role \"caption\"."
+    }
+  ]
+}

@@ -219,7 +219,7 @@ Each slide has steps. Pressing "next" shows the next step; when there are no mor
 - An element with `step: N` appears on the N-th press.
 - Text with `reveal: "items"` shows top-level list items one by one: the first at `step`, the next at `step + 1`, and so on.
 
-`enter` sets the entrance effect: `none`, `fade`, `rise`, `drop`, `zoom`, `blur`, `type` (typed letter by letter, text only). Full form: `{ "effect": "rise", "duration": 500, "delay": 100 }`. Default: `defaults.enter` of the deck, or `fade`.
+`enter` sets the entrance effect: `none`, `fade`, `rise`, `drop`, `zoom`, `blur`, `type` (typed letter by letter, text only). Full form: `{ "effect": "rise", "duration": 500, "delay": 100 }`. Default: `defaults.enter` of the deck, or `fade`. As the default of a deck, `type` applies to text and everything else fades in; on an element that is not text, `type` is an error.
 
 Going back to the previous slide shows it in its final state, with all steps revealed.
 
@@ -272,7 +272,7 @@ Display and handwriting families are meant for headings and large numbers, not b
 
 ## 15. Checks beyond the schema
 
-The schema catches typos and invalid values. The CLI `check` command also reports:
+The schema catches typos and invalid values. A deck that passes the schema then goes through checks the schema cannot express, which report:
 
 - **errors:** duplicate `id`s on a slide (slot names included); two slides with the same `id`; a morph pair of different element types, in presenting order; the `type` effect on a non-text element; a missing image file; an image file in a format other than those in section 2;
 - **warnings:** text that overflows its box; an element entirely outside the canvas; a line of zero length; text too small to read on a screen; a display or handwriting family used for long body text; italic text in a family without italics; a weight the family does not have; a numbered list of one item, which is usually a sentence that starts with a number; an `https://` image, which a built deck can show only online; an `https://` image whose format cannot be told from its address; `valign` on text without a height; `reveal: "items"` on text without a list.

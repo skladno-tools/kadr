@@ -1,0 +1,63 @@
+{
+  "description": "revealing items one by one needs a list",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "reveal": "items"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "- one\n- two",
+            "reveal": "items"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "reveal": "all"
+          }
+        ]
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "body": {
+            "content": "No list here",
+            "reveal": "items"
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "reveal-without-list",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/reveal",
+      "message": "\"reveal\": \"items\" on text without a list",
+      "hint": "The whole text will appear at once. Write the items as lines that start with \"- \", or remove \"reveal\"."
+    },
+    {
+      "severity": "warning",
+      "code": "reveal-without-list",
+      "where": "slide 2, slot \"body\"",
+      "path": "/slides/1/slots/body/reveal",
+      "message": "\"reveal\": \"items\" on text without a list",
+      "hint": "The whole text will appear at once. Write the items as lines that start with \"- \", or remove \"reveal\"."
+    }
+  ]
+}

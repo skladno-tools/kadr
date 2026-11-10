@@ -1,0 +1,39 @@
+{
+  "description": "valign needs a height to align in",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "valign": "middle"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "valign": "middle",
+            "h": 300
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "valign-without-height",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/valign",
+      "message": "\"valign\" has no effect without \"h\"",
+      "hint": "A box that fits its text has nothing to align in. Give the text an \"h\", or remove \"valign\"."
+    }
+  ]
+}

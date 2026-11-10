@@ -2,13 +2,18 @@
 // Tests of check (src/format/check.js): from the text of a deck to
 // diagnostics with codes, places in words and positions in the text.
 //
-// The wording of every schema diagnostic is pinned in tests/schema/invalid:
-// each case lists, next to the problems the schema must find, the
-// "diagnostics" check must give for them. A change of wording shows there.
+// The wording of every diagnostic is pinned in case files, so a change of
+// wording shows in review:
+//
+//   tests/schema/invalid/*.json  next to the problems the schema must find,
+//                                the "diagnostics" check must give for them
+//   tests/checks/*.json          a deck that passes the schema, and the exact
+//                                diagnostics of the checks beyond the schema;
+//                                "files" lists the image files that exist
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { check } from '../src/format/check.js';
@@ -24,8 +29,10 @@ const slim = ({ code, where, path, message, hint }) => ({ code, where, path, mes
 
 for (const path of [...filesIn(join(casesDir, 'valid'), '.kadr.json'), ...filesIn(join(root, 'examples'), '.kadr.json')]) {
   test(`valid: ${path.slice(root.length + 1)}`, () => {
+    // Valid by the schema: no errors. Warnings, such as one for an image
+    // loaded from the network, are pinned in tests/checks.
     const result = check(readFileSync(path, 'utf8'));
-    assert.deepEqual(result.diagnostics, []);
+    assert.deepEqual(result.diagnostics.filter((d) => d.severity === 'error'), []);
     assert.equal(result.ok, true);
     assert.equal(result.version, '0.1');
   });
@@ -40,6 +47,32 @@ for (const path of filesIn(join(casesDir, 'invalid'), '.json')) {
     assert.ok(result.diagnostics.every((d) => d.severity === 'error' && d.line >= 1 && d.column >= 1));
   });
 }
+
+for (const path of filesIn(join(root, 'tests', 'checks'), '.json')) {
+  const { description, deck, files, diagnostics } = JSON.parse(readFileSync(path, 'utf8'));
+  test(`checks: ${path.slice(root.length + 14, -5)}: ${description}`, () => {
+    /** @type {import('../src/format/checks.js').Options} */
+    const options = files ? { exists: (/** @type {string} */ p) => files.includes(p) } : {};
+    const result = check(JSON.stringify(deck, null, 2), options);
+    assert.deepEqual(result.diagnostics.map((d) => ({ severity: d.severity, ...slim(d) })), diagnostics);
+    assert.equal(result.ok, !diagnostics.some((/** @type {{ severity: string }} */ d) => d.severity === 'error'));
+  });
+}
+
+test('the example deck gets no diagnostics at all, and its images exist', () => {
+  const text = readFileSync(join(root, 'examples', 'hello.kadr.json'), 'utf8');
+  const result = check(text, { exists: (p) => existsSync(join(root, 'examples', p)) });
+  assert.deepEqual(result.diagnostics, []);
+});
+
+test('the checks beyond the schema wait until the deck passes the schema', () => {
+  // Two elements share an id, but one of them also has an unknown field.
+  const result = check(JSON.stringify({ kadr: '0.1', slides: [{ elements: [
+    { type: 'text', id: 'a', x: 0, y: 0, w: 100, content: 'One', aling: 'left' },
+    { type: 'text', id: 'a', x: 0, y: 0, w: 100, content: 'Two' },
+  ] }] }));
+  assert.deepEqual(result.diagnostics.map((d) => d.code), ['unknown-field']);
+});
 
 test('each diagnostic points at the place to edit', () => {
   const text = [
@@ -209,7 +242,7 @@ test('check never fails, whatever the text', () => {
     let text = JSON.stringify(deck);
     if (rnd() < 0.1) text = text.slice(0, Math.floor(rnd() * text.length));
     const result = check(text);
-    assert.equal(result.ok, result.diagnostics.length === 0, text);
+    assert.equal(result.ok, !result.diagnostics.some((d) => d.severity === 'error'), text);
     for (const d of result.diagnostics) {
       assert.ok(d.code && d.message && d.where && d.line >= 1 && d.column >= 1, `${JSON.stringify(d)}\n${text}`);
     }

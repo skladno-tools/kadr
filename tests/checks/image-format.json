@@ -1,0 +1,141 @@
+{
+  "description": "an image must be in a format a browser shows; an https address with no extension cannot be judged",
+  "deck": {
+    "kadr": "0.1",
+    "background": {
+      "type": "image",
+      "src": "bg.bmp"
+    },
+    "slides": [
+      {
+        "background": {
+          "type": "image",
+          "src": "scan.tiff"
+        },
+        "elements": [
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "photo.PNG",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "archive.tar.jpeg",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "assets/photo",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "notes.txt",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": ".png",
+            "alt": "An image"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "folder.png/readme",
+            "alt": "An image"
+          }
+        ]
+      },
+      {
+        "layout": "image",
+        "slots": {
+          "image": {
+            "src": "chart.pdf",
+            "alt": "A chart"
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "background",
+      "path": "/background/src",
+      "message": "\"bg.bmp\" is not in a format Kadr shows",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, background",
+      "path": "/slides/0/background/src",
+      "message": "\"scan.tiff\" is not in a format Kadr shows",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/src",
+      "message": "\"assets/photo\" has no extension, so its format is unknown",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/src",
+      "message": "\"notes.txt\" is not in a format Kadr shows",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4/src",
+      "message": "\".png\" has no extension, so its format is unknown",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 1, element 6",
+      "path": "/slides/0/elements/5/src",
+      "message": "\"folder.png/readme\" has no extension, so its format is unknown",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    },
+    {
+      "severity": "error",
+      "code": "image-format",
+      "where": "slide 2, slot \"image\"",
+      "path": "/slides/1/slots/image/src",
+      "message": "\"chart.pdf\" is not in a format Kadr shows",
+      "hint": "Use PNG, JPEG, WebP, AVIF, GIF or SVG."
+    }
+  ]
+}

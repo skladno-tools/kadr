@@ -167,15 +167,15 @@ With any of the four version codes, the schema is not run: which schema would ap
 |---|---|---|
 | `duplicate-id` | error | Two elements on one slide share an `id`, slot names included. |
 | `duplicate-slide-id` | error | Two slides share an `id`. |
-| `morph-type-mismatch` | error | Elements with one `id` on consecutive slides have different types. Hidden slides are skipped, as when presenting. |
+| `morph-type-mismatch` | error | Elements with one `id` on consecutive slides have different types, and the later slide's transition is `morph`. Hidden slides are skipped, as when presenting. |
 | `type-effect-not-text` | error | The `type` entrance on an element that is not text. |
-| `image-missing` | error | An image file that does not exist. |
+| `image-missing` | error | An image file that does not exist. Only where the files can be looked at: the CLI, not a deck from standard input without `--base`. |
 | `image-format` | error | An image file whose extension is not that of PNG, JPEG, WebP, AVIF, GIF or SVG. For an `https://` address, the extension of its path, leaving out `?...` and `#...`. |
 | `image-format-unknown` | warning | An `https://` address with no extension, so its format cannot be checked. |
-| `off-canvas` | warning | An element lies entirely outside the canvas. |
+| `off-canvas` | warning | An element lies entirely outside the canvas, and does not flow in or out by morphing with a neighbouring slide. |
 | `line-zero-length` | warning | A line with both `w` and `h` equal to 0. |
 | `list-one-number` | warning | A numbered list of one item: usually a sentence that starts with a number. The hint shows the escape: `2024\.`, written `2024\\.` in JSON. |
-| `text-too-small` | warning | Text below 24 px for a 1080 px tall canvas (scaled for other sizes). |
+| `text-too-small` | warning | Text or code below 24 px for a 1080 px tall canvas (scaled for other sizes). |
 | `display-font-body-text` | warning | A display or handwriting family on long body text. |
 | `font-no-italic` | warning | Italic text (`*...*`) in a family without italics: it is shown upright. The hint names families of the same kind that have italics. |
 | `font-weight-missing` | warning | A weight the family does not have, from `weight` or from `**bold**`: the nearest weight it has is used. The hint lists its weights. |

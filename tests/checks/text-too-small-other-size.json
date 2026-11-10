@@ -1,0 +1,42 @@
+{
+  "description": "the smallest readable size scales with the height of the canvas",
+  "deck": {
+    "kadr": "0.1",
+    "canvas": {
+      "width": 3840,
+      "height": 2160
+    },
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": 40
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "size": 48
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "text-too-small",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/size",
+      "message": "text is 40 px, hard to read from a distance",
+      "hint": "Use at least 48 px on a 2160 px tall canvas, or the role \"caption\"."
+    }
+  ]
+}

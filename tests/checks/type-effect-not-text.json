@@ -1,0 +1,94 @@
+{
+  "description": "the \"type\" entrance is for text; as the default of a deck it simply does not apply to the rest",
+  "deck": {
+    "kadr": "0.1",
+    "defaults": {
+      "enter": "type"
+    },
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Text",
+            "enter": "type"
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "a.png",
+            "alt": "An image",
+            "enter": "type"
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "enter": {
+              "effect": "type",
+              "duration": 300
+            }
+          },
+          {
+            "type": "image",
+            "x": 100,
+            "y": 100,
+            "w": 400,
+            "h": 300,
+            "src": "a.png",
+            "alt": "An image"
+          }
+        ]
+      },
+      {
+        "layout": "image",
+        "slots": {
+          "image": {
+            "src": "a.png",
+            "alt": "An image",
+            "enter": "type"
+          },
+          "caption": {
+            "content": "Caption",
+            "enter": "type"
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "type-effect-not-text",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1/enter",
+      "message": "the \"type\" entrance works only on text, and this is an image",
+      "hint": "Use another effect, such as \"fade\"."
+    },
+    {
+      "severity": "error",
+      "code": "type-effect-not-text",
+      "where": "slide 1, element 3",
+      "path": "/slides/0/elements/2/enter",
+      "message": "the \"type\" entrance works only on text, and this is a shape",
+      "hint": "Use another effect, such as \"fade\"."
+    },
+    {
+      "severity": "error",
+      "code": "type-effect-not-text",
+      "where": "slide 2, slot \"image\"",
+      "path": "/slides/1/slots/image/enter",
+      "message": "the \"type\" entrance works only on text, and this is an image",
+      "hint": "Use another effect, such as \"fade\"."
+    }
+  ]
+}

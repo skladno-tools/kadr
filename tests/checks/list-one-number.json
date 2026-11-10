@@ -1,0 +1,91 @@
+{
+  "description": "a single numbered item is usually a sentence that starts with a number",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "elements": [
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "2024. A good year for us"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "2024\\. A good year for us"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "1. First\n2. Second"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 100,
+            "w": 800,
+            "content": "Our plan:\n\n3. Ship it"
+          }
+        ]
+      },
+      {
+        "layout": "content",
+        "slots": {
+          "title": "1. Introduction",
+          "body": {
+            "content": "- one\n- two"
+          }
+        }
+      },
+      {
+        "layout": "quote",
+        "slots": {
+          "quote": {
+            "content": "42. The answer"
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "list-one-number",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0/content",
+      "message": "the line that starts with \"2024. \" is a numbered list of one item",
+      "hint": "If it is a sentence that starts with a number, escape the dot: \"2024\\.\" (written \"2024\\\\.\" in JSON)."
+    },
+    {
+      "severity": "warning",
+      "code": "list-one-number",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3/content",
+      "message": "the line that starts with \"3. \" is a numbered list of one item",
+      "hint": "If it is a sentence that starts with a number, escape the dot: \"3\\.\" (written \"3\\\\.\" in JSON)."
+    },
+    {
+      "severity": "warning",
+      "code": "list-one-number",
+      "where": "slide 2, slot \"title\"",
+      "path": "/slides/1/slots/title",
+      "message": "the line that starts with \"1. \" is a numbered list of one item",
+      "hint": "If it is a sentence that starts with a number, escape the dot: \"1\\.\" (written \"1\\\\.\" in JSON)."
+    },
+    {
+      "severity": "warning",
+      "code": "list-one-number",
+      "where": "slide 3, slot \"quote\"",
+      "path": "/slides/2/slots/quote/content",
+      "message": "the line that starts with \"42. \" is a numbered list of one item",
+      "hint": "If it is a sentence that starts with a number, escape the dot: \"42\\.\" (written \"42\\\\.\" in JSON)."
+    }
+  ]
+}

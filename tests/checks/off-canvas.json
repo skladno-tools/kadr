@@ -1,0 +1,167 @@
+{
+  "description": "an element entirely outside the canvas is not seen, unless it flows in or out by morphing",
+  "deck": {
+    "kadr": "0.1",
+    "slides": [
+      {
+        "transition": "none",
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 2000,
+            "y": 100,
+            "w": 200,
+            "h": 200
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": -200,
+            "y": 100,
+            "w": 200,
+            "h": 200
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": -199,
+            "y": 100,
+            "w": 200,
+            "h": 200
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 100,
+            "y": 1080,
+            "w": 200,
+            "h": 200
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": 1200,
+            "w": 800,
+            "content": "Text"
+          },
+          {
+            "type": "text",
+            "x": -800,
+            "y": 100,
+            "w": 800,
+            "content": "Text"
+          },
+          {
+            "type": "text",
+            "x": 100,
+            "y": -500,
+            "w": 800,
+            "content": "Text"
+          },
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 0
+          },
+          {
+            "type": "shape",
+            "shape": "line",
+            "x": 2100,
+            "y": 0,
+            "w": -100,
+            "h": 500
+          },
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 2000,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "rotate": 45
+          }
+        ]
+      },
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": -400,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "flies-in"
+          }
+        ]
+      },
+      {
+        "elements": [
+          {
+            "type": "shape",
+            "shape": "rect",
+            "x": 400,
+            "y": 100,
+            "w": 200,
+            "h": 200,
+            "id": "flies-in"
+          }
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 1",
+      "path": "/slides/0/elements/0",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    },
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 2",
+      "path": "/slides/0/elements/1",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    },
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 4",
+      "path": "/slides/0/elements/3",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    },
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 5",
+      "path": "/slides/0/elements/4",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    },
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 6",
+      "path": "/slides/0/elements/5",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    },
+    {
+      "severity": "warning",
+      "code": "off-canvas",
+      "where": "slide 1, element 9",
+      "path": "/slides/0/elements/8",
+      "message": "the element lies entirely outside the 1920x1080 canvas",
+      "hint": "Nothing of it will be seen. Check \"x\" and \"y\"."
+    }
+  ]
+}
